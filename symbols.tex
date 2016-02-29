@@ -1,0 +1,97 @@
+\def\apj{ApJ}
+\def\aaps{A\&AS}
+\def\aap{A\&A}
+\def\apjl{ApJ}
+\def\aj{AJ}
+\def\araa{ARA\&A}
+\def\pasp{PASP}
+\def\mnras{MNRAS}
+\def\nat{Nature}
+\def\apjs{ApJS}
+\def\aapr{A\&A~Rev.}
+
+
+\definecolor{Blue}{rgb}{0.,0.,1.0}
+\definecolor{Red}{rgb}{1.,0.,.0}
+
+\makeatletter
+\newcommand{\rom}[1]{\romannumeral #1}
+\newcommand{\Rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+\newcommand{\ion}[2]{[#1$\;${\scriptsize\Rom{#2}}]}
+\newcommand{\ionl}[3]{[#1$\;${\scriptsize\Rom{#2}}]\relax$\lambda$#3}
+\newcommand{\ionr}[2]{\rm[#1\;{\scriptsize\Rom{#2}}]}
+\newcommand{\ionm}[2]{[#1\;{\scriptsize\Rom{#2}}]}
+
+\newcommand\arcsec{\mbox{$^{\prime\prime}$}}%
+\def \arcsecond#1#2{$#1\arcsec\!\!.#2$}
+\newcommand\farcs{\mbox{$.\!\!^{\prime\prime}$}}%
+
+%%%%%%%%%% command for URL-like text
+\newcommand{\link}[1]{{\color{Blue}\uline{#1}}}
+
+
+%%% section titles
+\newcommand{\header}[1]{{\noindent\textsc{\textbf{\textsc{\large#1}}}}}
+\newcommand{\topic}[1]{
+  \raggedright
+  \noindent\rule[-8mm]{16cm}{0.2mm}\\
+  \noindent\rule{16cm}{0.2mm}\\
+  \header{#1}
+}
+
+%%% item commands
+\newcommand{\quadrupleitem}[4]{
+  \begin{tabularx}{\textwidth}{Xr}
+  {\bf #1}            & #2\\
+   #3            & #4\\
+  \end{tabularx}
+}
+\newcommand{\tripleitem}[3]{
+  \raggedleft
+  \begin{tabularx}{\textwidth}{Xr}
+  {\it #1}            & #2\\
+  #3 & \\
+  \end{tabularx}
+}
+\newcommand{\doubleitem}[2]{
+  \raggedleft
+  \begin{tabularx}{\textwidth}{Xr}
+  {\bf #1}            & #2\\
+  \end{tabularx}
+}
+\newcommand{\doubleitemnobold}[2]{
+  \raggedleft
+  \begin{tabularx}{\textwidth}{Xr}
+  #1 & #2\\
+  \end{tabularx}
+}
+
+
+
+% above: a mixture of original and Jason's
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sharon's customized
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\def\etal{~et~al.~}
+%\def\mps{m~s$^{-1}$}
+\def\mps{m/s}
+\def\msini{M\sin{i}}
+\def\mjup{M_{\rm Jup}}
+\def\msol{M_{\odot}}
+\def\mearth{M_{\oplus}}
+\def\rearth{R_{\oplus}}
+\def\degree{^{\circ}}
+\def\leq{\leqslant}
+\def\geq{\geqslant}
+\def\kepler{{\it Kepler}}
+\def\spitzer{{\it Spitzer}}
+\def\minerva{MINERVA}
+\def\hrs{HET/HRS}
+\def\keck{Keck/HIRES}
+\def\epds{WIYN/EPDS}
+\def\harps{HARPS-N}

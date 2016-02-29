@@ -1,0 +1,95 @@
+\documentclass[11pt]{psuthesis}
+\usepackage{amsmath,amssymb,marvosym,wasysym}
+\usepackage{natbib}
+\usepackage{psfig,graphics,graphicx} 
+\usepackage{deluxetable}
+\usepackage{longtable}		% FOR DISPLAYING MULTI-PAGE TABLES
+\usepackage{lscape}
+\usepackage{color}
+\usepackage{url}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{subfig}
+\usepackage{morefloats}
+\usepackage{ulem}
+\usepackage{tabularx}
+
+\bibpunct{(}{)}{;}{a}{}{,}
+\include{symbols}
+
+
+
+\begin{document}
+
+\title{On Detecting New Worlds: \\
+  The Art of Precise Doppler Spectroscopy \\
+  Using Iodine Cells}
+\author{Sharon Xuesong Wang}
+\dept{The Department of Astronomy and Astrophysics}
+\degreedate{May 2016}
+\copyrightyear{2016}
+
+
+\begin{singlespace}
+
+\numberofreaders{5}
+\advisor[Dissertation Advisor, Chair of Committee]
+        {Jason T.\ Wright}
+        {Associate Professor of Astronomy}
+
+\readerone{Suvrath Mahadevan}
+          {Assistant Professor of Astronomy}
+
+\readertwo{Lawrence Ramsey}
+          {Professor of Astronomy}
+
+\readerthree{Eric Ford}
+            {Professor of Astronomy}
+
+\readerfour{James Kasting}
+           {Professor of Geosciences}
+
+\readerfive{Donald Schneider}
+           {Department Head}
+
+\begin{frontmatter}
+
+
+\begin{doublespace}
+
+\frontmatter
+\psutitlepage
+\psucommitteepage
+\thesisabstract{abstract}
+\thesistableofcontents
+\thesislistoffigures
+\thesislistoftables
+\end{doublespace}
+
+
+\clearpage
+\thesisacknowledgments{acknowledgements}
+\end{frontmatter}
+
+\thesismainmatter
+\allowdisplaybreaks{
+\include{introduction}
+\include{doppler}
+\include{het}
+\include{keck}
+\include{planets}
+\include{conclusion}
+
+}
+
+%%%%%%%%%%%%%%%%%
+
+\backmatter
+
+\bibliographystyle{apj}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{references}
+\pagebreak
+\vita{resume}
+\end{singlespace}
+\end{document}

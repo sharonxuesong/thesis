@@ -1,0 +1,665 @@
+\chapter{Emission Line Observations of Quasar Host Galaxies}
+
+\section{Introduction}
+\label{sec:quasar-intro}
+
+Studies of mature, inactive galaxies as well as numerical simulations suggest that AGN activity and star formation coincide, making quasar hosts the likely places for the assembly of the stellar populations seen in large elliptical galaxies.  In this work, which is also presented in \cite{Young2}, I use calibrated narrow-band emission line (H$\beta$ and Pa$\alpha$) WFPC2 and NICMOS images as maps for total star formation rate.  The main challenge in imaging quasar host galaxies is the separation of the quasar light from the galaxy light, especially in the case of z $\approx$ 0.1 quasars in WFPC2 images where the PSF radius closely matches the expected host galaxy scale radius.  To this end, I present a novel technique for image decomposition and subtraction of quasar light, which I have validated through extensive simulations using artificial quasar+galaxy images.  The other significant challenge in mapping and measuring star-forming regions is correcting for extinction, which I address using extinction maps created from the Pa$\alpha$/H$\beta$  ratio.  To determine the source of excitation, I utilize H$\beta$ along with \ionl{O}{3}{5007} and \ionl{O}{2}{3727} images in diagnostic emission line ratio diagrams.
+
+\section{Sample Selection and Observing Strategy}
+\label{sec:selection}
+
+My collaborators, with Dr. Eracleous as Principle Investigator, made the observations described herein before I joined the project.  For the sake of completeness, I shall describe the methodology behind the observations, and then proceed to describe the analysis I developed to utilize the data they collected.
+
+Aiming to select quasars that were likely to be hosted by galaxies with large, easily observable star-forming regions, we drew our target quasars from the Spitzer IRS sample of \cite{Schweitzer} based on PAH emission, a suspected star-formation indicator (see Chapter \ref{ch:kiss} for details). Additionally, it was required that our targets have redshifts such that the Pa$\alpha$ line fell within one of the narrow-band NICMOS filters. Among the objects that meet these criteria, the eight nearest (z $<$ 0.15) and brightest (V $<$ 16.5) quasars are the targets for this project.  These are listed in Table \ref{tab:base} along with their basic properties.
+
+As discussed above, the galaxy to quasar contrast is likely to be highest in narrow-band images centered on emission lines. Our work focused on narrow-band images centered on Pa$\alpha$, H$\beta$, and \ionl{O}{3}{5007}, and \ionl{O}{2}{3727} lines. By selection, the Pa$\alpha$ lines of our targets fell within one of the NICMOS narrow-band filters, listed in Table \ref{tbl:filters}. To observe our targets in the optical bands, we used the WFPC2 camera. By using the ramp filters, we were able to select narrow-bands centered at the observed wavelengths of the desired emission lines. The ramp filters chosen are also listed in Table \ref{tbl:filters}. Since the wavelength range of a ramp filter is set by the position of the object on the detector, most of our observations had to be made with one of the WF detectors rather than the PC detector. In several cases, one of the emission lines serendipitously fell within the FQUVN filter; this filter was used in these cases. In two cases our quasar had previously been observed for a similar project \citep{Bennert}. For these objects, \pg{0026+129} and \pg{1307+085}, we used archival \ionl{O}{3}{5007} images. %These images were taken through the FR533N18 and FR533N33, respectively, and fell on the PC and WF3 detectors, also respectively.
+
+Observing both the Pa$\alpha$ and H$\beta$ lines gives this project two fairly direct measures of star-formation rates, and allows me to correct for reddening. Also, relative intensities of the \ionl{O}{3}{5007}, \ionl{O}{2}{3727}, and H$\beta$ lines allows me to distinguish between line emission stimulated by star-forming activity and line emission stimulated by the ultraviolet radiation of the quasars themselves using the line ratio-diagnostic methods described in \cite{BPT}, and discussed further in Section \ref{sec:lineratios}.
+
+Additionally, we observed the quasars in medium-band filters, giving us continuum images of the host galaxies. To obtain the infrared continuum images, we observed each quasar in a medium band filter centered on a wavelength near the Pa$\alpha$ line. Specifically, we used the NICMOS2 F237M and NICMOS3 F222M filters. Due to the failure of the NICMOS instrument, \pg{1626+554} was not observed in the near-infrared. To obtain the optical continuum images of these quasar host galaxies, we observed each quasar in the F467M filter. This filter covers a line-free continuum between the \ionl{O}{2}{3727} and H$\beta$ lines and provides suitable continuum for both lines. Additionally, the \cite{Bennert} observations of \pg{0026+129} and \pg{1307+085} provided us with narrow-band (F588N) continuum images which capture the continuum near the \ionl{O}{3}{5007} and H$\beta$ lines.
+
+Because our targets are located at redshifts $\approx 0.1$, the plate scales of our images are typically 2 kpc $\approx 1\arcsec$.  At this scale, these quasar host galaxies are generously contained within the fields of view of the PC, WF2-4, NICMOS2, and NICMOS3 detectors (36\arcsec$\times$36\arcsec, 80\arcsec$\times$80\arcsec, \arcsecond{19}{2}$\times$\arcsecond{19}{2}, and \arcsecond{51}{2}$\times$\arcsecond{51}{2}, respectively).
+
+
+%Because quasar hosts are relatively compact, typically less than 4\arcsec\quad\citep{Bennert,McLeod,Bahcall}, they are generously contained within the fields of view of the PC, WF2-4, NICMOS2, and NICMOS3 detectors (36\arcsec$\times$36\arcsec, 80\arcsec$\times$80\arcsec, \arcsecond{19}{2}$\times$\arcsecond{19}{2}, and \arcsecond{51}{2}$\times$\arcsecond{51}{2}, respectively).
+
+%NIC2 =  0.0756
+%NIC3 =  0.202845
+%PC =  0.0455
+%WF =   0.0995
+Additionally, we observed the star GS 60200264 as a PSF template in a number of the filters. Due to the large number of filters used in this project, we could not observe the PSF star in each of the filters in which we observed the quasars; in some cases the PSF star was only observed in a filter close to the wavelength range used for a quasar.
+
+The PC, WF, NICMOS2, and NICMOS3 detectors have plate scales of \arcsecond{0}{0455}, \arcsecond{0}{0995}, \arcsecond{0}{0756}, and \arcsecond{0}{202845}, respectively, leaving the PSF of the HST undersampled in all of our images. Sub-pixel dithering allows the recovering of some of this lost angular resolution using the method described in \citep{FruchterDrizzle,KoekemoerMultidrizzle}. We broke up each of our observations, both of the quasars and of the PSF star, into subexposures dithered by sub-pixel amounts using the default WFPC2-BOX pattern. This is a standard dither pattern with half-pixel sampling in both directions in the PC and WF detectors, and with dithers that are large enough to optimize hot pixel and bad column rejection while minimizing the field of view loss. In all cases the subexposures were combined using the MultiDrizzle software package described in Section \ref{sec:drizzling} and \citep{FruchterDrizzle,KoekemoerMultidrizzle}.
+
+
+\section{Reduction of Images}
+\label{sec:reduction}
+
+
+In addition to providing the raw data, STScI also processes WFPC2 data through a standard calibration pipeline \citep{WFPC2}. For this project, I chose to use the data products calibrated by this pipeline, after verifying that the reduction steps were suitable for my purposes. In most cases, this pipeline performs bias subtraction, dark subtraction, shutter correction, and writes photometric keywords to the image headers. The ramp filter images are an exception to this; prior to 2009, ramp filter images were not flat fielded by the standard pipeline. Following the instructions given by the instrument team \footnotemark[8], I multiplied my ramp filter images by a flat field image taken in a nearby narrow- or medium-band filter. In practice, the narrow- or medium-band filters with wavelengths closest to those used by our ramp filter observations were the FQUVN and F467M filters.
+ 
+
+%\footnotetext[8]{Hubble Space Telescope Calibration of Linear Ramp Filter Data: http://www.stsci.edu/hst/wfpc2/analysis/lrf{\textunderscore}calibration.html}
+\footnotetext[8]{HST Calibration of LRF Data: http://www.stsci.edu/hst/wfpc2/analysis/lrf{\textunderscore}calibration.html}
+
+
+The STScI pipeline is not, however, able to correct for charge transfer inefficiency in the WFPC2 instrument.  The visible effect is that bright sources have a comet-like streak in the direction of charge transfer; this direction is different for different detectors, but remains the same between exposures. This phenomenon is well documented \citep{Whitmore1997,Whitmore1999}, but cannot be corrected in images.  Instead, I note with an arrow the orientation of the streak in all of my images to avoid confusion with morphological features. Additionally, all of the image processing steps described in Sections \ref{sec:psf}, \ref{sec:analysis}, and \ref{sec:uncertainties} were designed to exclude pixels near the streak.
+
+STScI provides an analogous pipeline for NICMOS data \citep{NICMOS}; I chose to use post calibrated NICMOS data as well. This pipeline performed the bias subtraction, dark subtraction, and flat fielding, computed the noise and data quality images, and added photometric keywords to the image header. The only additional calibration step that I preformed was removing time variable quadrant bias or pedestal effect from my images, which I did using the pedsky software \citep{NICMOS} provided by STScI. This effect is constant within a quadrant but varies from one readout to the next in an unpredictable way; it can be effectively removed using pedsky.
+
+With the images reduced, the only processing step that remained before PSF subtraction was combining of the dithered subexposures, which I describe below.
+
+
+\subsection{MultiDrizzling}
+\label{sec:drizzling}
+
+As noted above, to improve the sampling rate of the final images, the observations were dithered by subpixel increments, and the calibrated data products were combined using the MultiDrizzle software provided by STScI \citep{FruchterDrizzle,KoekemoerMultidrizzle}. MultiDrizzle regains the sampling of the HST PSF lost because of the large pixels of WFPC2. Optimally, MultiDrizzle combines subexposures at a sampling rate of twice their intrinsic pixel scale. For example, the PC detector has a pixel scale of 0\farcs0455 per pixel. MultiDrizzling PC images taken with the correct drizzling pattern would allow one to create images with a pixel scale of approximately 0\farcs02 per pixel.
+
+Our WFPC2 data include images taken with the PC detector as well as all three of the WF detectors (0\farcs0995 per pixel); our NICMOS data were taken with NICMOS2 (0\farcs0756 per pixel) and NICMOS3 (0\farcs202845 per pixel). Each set of subexposures was drizzled more than once at different sampling rates (i.e. pixel scales) to produce different drizzle products that I use at different stages of the analysis. Experimentation with PSF subtraction (see Section \ref{sec:psf}) suggested that the most accurate PSF estimation was achieved with each image drizzled to its intrinsic resolution.  For instance, NICMOS images drizzled to the resolution of the PC detector are oversampled by a factor of 2-4, yielding spurious brightness gradients and miscalculated PSF scale factors.  With the PSF scale factors calculated using images drizzled to their native resolutions, each image was then redrizzled to the resolution of the PC detector for systematic comparison (see Section \ref{sec:analysis}).
+
+With the multidrizzling complete, my image processing steps were concluded, allowing the subtraction of the PSF of the quasars from the combined images.
+
+
+\section{PSF Subtraction}
+\label{sec:psf}
+
+One of the most crucial parts of this work was the PSF scale factor determination. Because the light profile of a typical galaxy at z $\approx$ 0.15 is only slightly broader than the HST PSF, it is essential that the subexposures be aligned with extreme precision. Any misalignment will result in artificial broadening of the quasar PSF. To achieve this end, I ran MultiDrizzle iteratively every time I produced a drizzle product. In each iteration the subexposures were drizzled, the centroids of the quasars in the separately drizzled images were checked, corrections were made to the astrometry, and the images were drizzled again. This cycle was repeated until all the centroids fell within $10^{-3}$ pixels of their target coordinates. Experimentation showed that the PSF subtraction was far more effective using these drizzle products than using products drizzled only once. Below I describe in detail the procedures I devised to determine the PSF scale factor and remove the unresolved quasar image from the image of the host galaxy.
+
+
+%\subsection{Review of Earlier Methods}
+
+Historically, different methods have been used to correctly map the normalized HST PSF. \cite{Bahcall} and \cite{McLeod} observed a field star and used that as a PSF template. \cite{Bennert} did the same, but also used continuum images of the quasars themselves as the PSF template in some cases. This approach was motivated by the realization that the quasar-to-galaxy contrast is so high in the continuum that rescaling the \cite{Bahcall} continuum images to the shorter exposure times and the narrow-band filters used in \cite{Bennert} left essentially quasar-PSF-only images with very little light from the host galaxy. Both of these methods have the significant advantage that they exactly map the HST PSF at the same epoch and detector position of the quasar observations, rather than relying on theoretical PSF models. For this reason, my team also observed a PSF star in many of the ramp and narrow-band filters in which we made quasar observations, and we observed each quasar in a continuum filter in the optical and near-infrared.
+
+Earlier works \citep[e.g.][]{Bahcall} iteratively align and scale the PSF images in a three parameter fit: an x-axis alignment, a y-axis alignment, and a PSF intensity scale factor. As described above, my iterative drizzling ensures that the PSF image as well as the quasar images are aligned with the image centers. This leaves the PSF scale factor as the only undetermined parameter.
+
+The decomposition of the observed light profile is represented in the upper half of Figure \ref{fig:profile} with a diagrammatic quasar PSF, host galaxy, and combined (observed) light profile. The goal of this processing step is to find a scale factor value that rescales the model (star) PSF to match the height of the quasar PSF component of the observed quasar image.  The primary challenges are that the relative contributions of the quasar PSF and the galaxy light profile are not known a priori, and that the width of the WFPC2 PSF is only slightly sharper than the expected typical galaxy profile at z$\approx$0.15.
+
+Determining the scale factor with absolute certainty without prior knowledge of the galaxy light profile is impossible. Instead, the best solution is to make as few assumptions about the galaxy light profile as possible, and use those assumptions to place a lower limit on the galaxy luminosity. Utilizing the fact that the central black holes that power quasars are found in the nuclei of galaxies, \cite{Bennert} assume that the galaxy light profile must decrease monotonically in the central few pixels around the quasar PSF; their residual light profiles may not have a central inflecture. 
+
+The limiting case imposed by this assumption is a flat-topped profile. To achieve this limiting case, \cite{Bennert} adopt a scale factor which makes the central pixel in the residual image have the same value as the average of the surrounding pixels. \cite{McLeod} make the same basic assumption, that the galaxy's light profile must decrease monotonically, and they construct a model of a PSF plus host galaxy, which they fit to the data. In these cases the residual (galaxy) image after PSF removal is a lower limit on the galaxy flux; if the PSF scale factor were increased, it would violate the monotonicity condition.
+
+In this work I present a PSF subtraction method which is also a lower limit on the galaxy flux, but which comes closer to the true galaxy light profile than the methods present in \cite{Bennert} and \cite{McLeod}. I assume that the galaxy light profile is cuspy; that is, as one moves away from the center of the light profile the post-subtraction residual descends no more rapidly than it did in more central pixels. The PSF scale factor is used for each of the quasar images is the value which just guarantees that this constraint of cuspyness is enforced. This method is graphically represented in the lower half of Figure \ref{fig:profile}, which shows the observed and galaxy-only light profiles seen in the top half of Figure \ref{fig:profile}, along with residual light profiles estimated using this method and the method presented in \cite{Bennert}.  Note that these diagrams are visual aids only; for actually light profiles, see Figure \ref{fig:radial_plots}.
+
+% This constraint is only applied to the central pixels, where the nucleus of the host galaxy is located; structure, such as spiral arms, would not, therefore, influence the accuracy of this method.
+
+ Mathematically, this amounts to a positive second radial derivative of the surface brightness with a negative radial first derivative. Because computing derivatives from discretely sampled data is numerically unstable, I avoided relying heavily on a small number of pixels by considering multiple radial directions from the center of the image and computing a scale factor for each direction.  Then, I characterize this population of potential scale factors with a median and a standard deviation around the median.  I adopt the median minus the standard deviation as my chosen scale factor; this choice is justified in that this type of scale factor represents a hard lower limit on the flux of the galaxy, so the lowest reasonable scale factor is the one most likely to be accurate.  I then adopt the standard deviation around the median as the uncertainty in the scale factor.
+
+This is graphically demonstrated in Figure \ref{fig:radial_plots}, a gallery of azimuthally averaged light profiles of observed quasars prior to PSF subtraction, their corresponding PSF stars, and the residual light profiles.  The light profiles of the quasars before PSF subtraction are only slightly broader than the profiles of the PSF stars.  The key element of our technique is visible in lack of inflection points in the residual light profiles; that is, they do not flatten near the center.
+
+Of course, star-forming clumps, spiral arms, or any other lumpiness in the light profile would cause a galaxy to violate this condition. For this reason I only demand that this condition be satisfied in the central few pixels.
+
+Having observed both PSF stars and continuum quasar images, I experimented with both types of PSF templates. My experiments showed that the PSF star images consistently produced superior results. In particular, while the subtracted images produced with these two different templates were qualitatively similar, the use of the quasar continuum image as a PSF template is more prone to obvious over subtractions, which were clearly discernible by large areas of negative pixels. Negative pixel values are the first and most readily visible diagnostic of a failed PSF subtraction as they are completely non-physical. With this simple test, I easily determined that using stars as PSF templates is a superior technique. This result is not surprising given that I am able to detect the host galaxies in the continuum images (see Section \ref{sec:discussion} and Tables \ref{tbl:light90} and \ref{tbl:light95} for details of the detections), indicating that the continuum-image light profiles are broader than, and thus poor analogs for, quasar PSFs themselves.
+
+ PSF-subtracted images of each of my quasar host galaxies in each of the filters used are shown in Figure \ref{fig:gallery}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% BREAK %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Artificial Galaxy Simulations}
+\label{sec:simulation}
+
+As seen in Figure \ref{fig:gallery}, the PSF subtraction technique described above produces visually plausible residual galaxy images.  Nevertheless, visual inspection is, by itself, an insufficient diagnostic.  Because the quasar is so much brighter than the galaxy \citep{Bahcall,McLeod,Bennert}, especially in the central pixels of the optical images, there is typically a wide range of PSF scale values that produce visually and physically plausible residuals. An additional test is needed to confirm that this method, while theoretically sound, works in practice. Indeed, the numerical and methodological uncertainties in any PSF subtraction technique warrant rigorous diagnostics.
+
+To this end, I repeated the PSF subtraction procedure with 1000 simulated galaxies in each of the continuum filters, and then verified my technique by recovering their original profiles.  In each simulation I constructed an image with a quasar component and a galaxy component, varying the quasar and galaxy brightness and galaxy morphology over the range of physically plausible values to ensure that my technique is general enough.
+
+The primary component of my simulated data is the light profiles of the quasars themselves. For this I used an image of the PSF star in the WFPC2 and NICMOS filters rescaled to the appropriate magnitude. The magnitude was chosen randomly from the range of actual magnitudes of my quasars in Johnson filters similar to the filters used for my continuum observations.  My quasars range from magnitude 14.5 to 16.5 in the B filter, so I adopted that as the range for my simulated quasars in the F467M filter.  Similarly, my quasars range from magnitude 14 to 15.5 in the K filter, so I adopted that range for my simulated quasars in the F237M and F222M filters.
+
+I used the IRAF task ``mkobjects'' to generate artificial galaxy light profiles. The ``mkobjects'' task allows the user to vary the functional form of the light profile, as well as a range of light profile parameters, such as scale radius, ellipticity, and position angle, and overall brightness. To ensure that this technique is effective for all reasonable galaxy profiles, I varied the profile parameter values over ranges large enough to encompass all likely possibilities.
+
+For this work I created galaxies with both exponential disk and De Vaucouleurs profiles superimposed on each other to simulate the bulges and the disks of host galaxies. I varied the intensities of the bulge and disk components, ranging from bulge-only galaxies (ellipticals, the most likely quasar host morphology) to bulge-disk galaxies.
+
+I varied the scale radius for the bulge of each galaxy over the range that is physically plausible. For my most distant quasar, \pg{1307+085}, 7 pixels on the PC detector is 0.9 kpc; for my nearest quasar, \pg{1244+026}, 250 pixels on the PC detector is 10.3 kpc. Therefore, I chose 7 to 250 pixels as the range for the scale radii of the bulges of my simulated galaxies. The disk component was assigned a scale radius randomly in the range from one half to twice the scale radius of the bulge. The axis ratio of the bulge was chosen randomly between 0.6 and 1, and for the disk between 0.3 and 1. The position angle of the bulge and the disk were chosen randomly but were always equal (i.e., they were always aligned).
+
+While there are many sources of noise in astronomical images, my analysis presented in Section \ref{sec:uncertainties} indicates that the dominant source of noise in my data is photon/counting noise rather than sky or read noise. To emulate this, ``mkojects'' employs a stochastic algorithm which ensures that the images are not just perfectly smooth light profiles. Additionally, I seeded the random number generator with the machine system time, ensuring the uniqueness of the noise of each simulated object.
+
+The bulge magnitude of each simulated galaxy was set based on its simulated quasar's magnitude. To relate the quasar magnitude to the bulge magnitude I invoke several established relationships. First, I assume that the central black holes are accreting at the Eddington Limit, the theoretical maximum physical accretion rate of a black hole found by balancing the outward radiation pressure to the inward gravitational pressure.  Actual central black hole accretion rates span a wide range, but, as the theoretical upper limit on accretion, the Eddington Limit represents a worst-case-scenario for the PSF subtraction because it results in the lowest galaxy-to-quasar contrast.  By verifying the PSF subtraction method in the worst-case-scenario, I prove its applicability to the real quasars presented in this work.  Next, I connect the black hole mass to spheroid magnitude using known central black hole mass to host spheroid magnitude relations \citep{Bettoni} and the ``standard'' quasar S.E.D. \citep{Elvis}. Then, a random number from -1 to 1, based on the rms scatter in the \cite{Bettoni} relationship,  was added to the bulge magnitude to simulate actual scatter in the relation between quasar magnitude and bulge magnitude. Finally, the disk magnitude was set to be the bulge magnitude plus a random number from -1 to 1. Thus, my simulated galaxies range from bulge-dominated to disk-dominated systems, in keeping with the observed properties of quasar host galaxies \citep{Guyon,McLeod}.
+
+To verify my results, I then repeated the PSF subtraction procedure, described above in Section \ref{sec:psf}, on my simulated galaxies. In this analysis the quantity of merit is the ratio of the PSF scale factor, computed using the method in Section \ref{sec:psf}, to the true scale factor, seeded into the simulated image.  In Figure \ref{fig:histogram} I plot histograms of this ratio for the three continuum filters used (F467M, F222M, and F237M).  These histograms peak strongly around a value of unity, indicating that in most of the 1000 simulations this procedure comes very close to recovering the true PSF scale factors.
+
+More importantly, the histograms in Figure \ref{fig:histogram} are asymmetric in that, to the extent that the scale factor is miscalculated, it is far more likely to be slightly over estimated than underestimated. As discussed in Section \ref{sec:psf}, an overestimated scale factor results in an unrealistically faint residual (galaxy) image, while an underestimated scale factor results in an unrealistically bright residual (galaxy) image.  Because my simulations report only small occurrences of scale factor underestimation, the galaxy detections reported in this work are confident.  Specifically, when I take the median value of the underestimated scale factors for the simulated F222M, F237M, and F467M images I get 0.99, 0.99, and 0.98, respectively. These values represent the confidence in the simulated quasar host galaxy detections. When I take the median value of the overestimated scale factors for the simulated F222M, F237M, and F467M images I get 1.006, 1.03, and 1.1, respectively. These values represent the photometric uncertainties in the simulated quasar host galaxies. I stress here that these are worst-case-scenario estimates for the uncertainties, as I have assumed Eddington Limit accretion rates and continuum galaxy-to-quasar contrast ratios, which are lower than the emission line contrast ratios in \cite{Bennert} and \cite{Bahcall}. Given that, the PSF subtraction uncertainty for each real image presented here is computed based on image statistics, described in Section \ref{sec:psf}.
+
+
+
+\section{Analysis of Host Galaxies After PSF Subtraction}
+\label{sec:analysis}
+
+\subsection{Continuum Subtraction}
+\label{sec:continuum}
+The analysis in the following sections utilizes emission line strengths and line-ratios. For these reasons, it is necessary to remove any stellar continuum contribution in my galaxy-only images. The medium-band NICMOS filters used to make the near-infrared continuum observations were chosen to be adjacent to the Pa$\alpha$ emission line. Because the calibrated Pa$\alpha$ images are in units of flux (erg s$^{-1}$ cm$^{-2}$) and the near-infrared continuum images are in units of flux density (erg s$^{-1}$ cm$^{-2}$ \AA$^{-1}$), to remove the continuum contribution to the Pa$\alpha$ images I simply subtracted the continuum images multiplied by the Pa$\alpha$ filter width. Because this method relies straightforwardly on the well measured properties of the NICMOS filters, the uncertainties in the continuum-subtracted Pa$\alpha$ images rely only on the uncertainties in the Pa$\alpha$ images and the near-infrared continuum images.
+
+For the optical emission line images, the optical continuum images only provide an intensity map for the optical continuum at the wavelength of the emission line, so the continuum scale factor could not be determined a priori.  Instead, I derived the continuum scale factors by imposing the constraint that there be no negative residuals after continuum subtraction.  Specifically, my algorithm considered parts of the galaxies that were above the noise (as determined by the standard deviation of the background) in both the emission line and continuum images, and computed a scale factor such that the faintest parts of the emission line image would be exactly zero after continuum subtraction. This simple yet robust condition proved to be enough to tightly constrain the continuum subtraction scale factor since, in most cases, the removal of the quasar PSF left relatively little flux in at least some areas of each of the host galaxies.  In practice, the continuum contribution was very small in the emission line optical images, less than 0.1\% on average.
+
+As with the subtraction of the quasar PSF (see discussion in Section \ref{sec:psf}), the optical emission line only images represent lower limits. I estimate the uncertainty in this continuum-subtraction scale factor from the background noise in the images, since the noise represents the limit to which I can demand non-negative pixel values.
+
+In this manner I constructed galaxy-only, emission line only images, and all references to host galaxy images hereafter refer to these continuum subtracted images.
+
+
+\subsection{Extinction Correction}
+\label{sec:extinction}
+
+As discussed in Sections \ref{sec:quasar-intro} and \ref{sec:selection}, I determine in Section \ref{sec:lineratios} the nature of emission line regions in the quasar host galaxies using emission line ratio diagnostics.  Extinction due to interstellar dust poses a significant difficulty in the line-ratio diagnostic analysis because it affects bluer wavelengths of light more severely than red wavelengths \citep{Osterbrock}.  Without proper extinction correction, the emission line ratios used in this analysis would take on non-physical or, worse, physical but misleading values.
+
+To correct for dust extinction, I employed maps of the ratio of H$\beta$ to Pa$\alpha$ in my galaxy-only images. For each pixel that was above the background noise in both the H$\beta$ and Pa$\alpha$ images I computed the H$\beta$ to Pa$\alpha$ ratio. The background noise was computed as the standard deviation of the background of the image.  Background statistics were computed using parts of the image more than 50 pixels from the center (beyond even the most extended of the targets) and not occupied by known image defects (such as the NICMOS chip boundary).
+
+The values were then binned and averaged, rejecting pixels where either H$\beta$ or Pa$\alpha$ were below the noise in their corresponding images, or where the measured line ratio exceeded the intrinsic T=10,000 K line ratio of $\ratio = 2.146$ \citep{Osterbrock}. The bins were sized on a case-by-case basis to be just large enough to include at least one legal pixel value; they were set to $1\times1$ initially, and then expanded iteratively as square top-hats until at last one usable pixel fell within the bin.  Although this strategy degrades the angular resolution of the H$\beta$ / Pa$\alpha$ map, it is absolutely necessary because the emission line images, and thereby every measured quantity in the sections that follow, depend heavily on the extinction correction, especially near the severely extinguished galactic centers.
+
+I used the line ratio maps in tandem with the average extinction law that \cite{CCM} derive in terms of $A_\lambda/A_V$.  Taking the $A_\lambda/A_V$ values they tabulate for the case of ${R_V = A_V/\rm E(B-V) = 3.1}$, I compare my H$\beta$ to Pa$\alpha$ values to the intrinsic value  $\IO{\HB}/\IO{\Pa} = 2.146$ to find $A_V$ for each pixel as follows:
+
+\begin{eqnarray}
+\label{eq:Av}
+A_{\HB} = A_V\A{\HB} = -2.5\;\LOG{\frac{\I{\HB}}{\IO{\HB}}}\\
+A_{\Pa} = A_V\A{\Pa} = -2.5\;\LOG{\frac{\I{\Pa}}{\IO{\Pa}}}\\
+%A_V = \frac{-2.5\LOG{\frac{\I{\Pa}}{\I{\HB}}\ratio}}{\A{\Pa}-\A{\HB}}
+A_V = \frac{-2.5\;\LOG{\frac{\I{\Pa}}{\I{\HB}}\frac{\IO{\HB}}{\IO{\Pa}}}}{\A{\Pa}-\A{\HB}}
+\end{eqnarray}
+where $\I{\lambda}$ is the observed flux at a chosen wavelength and $\IO{\lambda}$ is the intrinsic (un-extinguished) flux. With these $A_V$ values, I created maps of A$_{\rm V}$ for each of my quasar host galaxies, shown in Figure \ref{reddening}.  Using these maps, I corrected each image of each quasar for extinction:
+
+\begin{equation}
+\label{eq:extinction}
+{\rm log}\IO{\lambda} = {\rm log}\I{\lambda} + \frac{A_V}{2.5}\A{\lambda}
+\end{equation}
+where $A_\lambda/A_V$ was obtained from the \cite{CCM} extinction law.
+
+In this way an extinction corrected version of each image was created for all the PSF-subtracted, galaxy-only, emission line images, which are hereafter referred to as extinction-corrected images.
+
+
+
+\section{Analysis of Uncertainties}
+\label{sec:uncertainties}
+
+Understanding uncertainties is important in any observation, but particularly important in observations such as this where the target's signal is overwhelmed by a much a stronger signal; in this case, the signal of a quasar.  This situation is complicated by the large number of steps and large  number of images, described in Section \ref{sec:analysis}, used to produce an emission line image of a quasar host galaxy. The uncertainty map in each final science image depends on the uncertainty maps of as many as ten drizzled images, each propagated through all the processing steps needed to produce the final science images, namely  quasar PSF subtraction, continuum subtraction, and reddening correction.  For example, the uncertainty map for a final \ionl{O}{2}{3727} science image utilizes the uncertainty map of the drizzled \ionl{O}{2}{3727} image, the optical continuum image for continuum subtraction, the H$\beta$ and Pa$\alpha$ image for reddening correction, the infrared continuum image for continuum subtraction of the Pa$\alpha$ image, and the corresponding PSF star image for each of the quasar images.
+
+Prior to any of these processing steps, the typical photometric uncertainties associated with counting statistics are the primary source of uncertainty in the raw images.  My narrow-band space-based observations are relatively background free, making background noise and uncertainties from background subtraction a small component of my net uncertainties.  Unfortunately, the process of drizzling the raw images creates correlated noise, making simple Poissonian estimators of uncertainties inapplicable.  Because the effective exposure time of a pixel in a drizzled image depends on the relative alignments of the undrizzled images, the change in plate scale from before and after drizzling, and the choice of drizzle kernel used, MultiDrizzle produces a weight map image which is essentially an exposure time map of the drizzled image \citep{FruchterDrizzle,KoekemoerMultidrizzle}. Formally, the uncertainty for an image that is in units of counts is the square root of each pixel value; since this project's images are in counts-per-second, I assign to each pixel in the uncertainty map the square root of the ratio of that pixel in counts-per-second to the value of the corresponding pixel in the exposure time map as the value in an uncertainty map image. For quasar-image pixels which are negative due to noise or bias subtraction, I take the absolute value.
+
+The first step, the removal of the quasar PSF to produce galaxy-only images, draws its uncertainties from three sources: the uncertainty map for the drizzled quasar+galaxy image, the uncertainty map for the corresponding PSF star image, and the uncertainty in the scale factor used to rescale the PSF star image to match the PSF of the quasar (see Section \ref{sec:psf} for a complete discussion of the meaning and calculation of this scale factor). For each pixel in the galaxy-only image I write the equation:
+\begin{equation}
+ \I{galaxy} = \I{drizzled} - S_{PSF}\;\I{PSF}
+\end{equation}
+where $\I{galaxy}$ is the intensity of the galaxy at the pixel, $S_{PSF}$ is the PSF subtraction scale factor, and $\I{PSF}$ is the intensity of the PSF image at the same pixel location.%  Note that the majority of my images are narrow-band images centered on emission lines, for which $I$ represents flux and not flux density; analgous equations exist using flux density for the continuum images.
+
+Propagating these three uncertainties through, I arrive at the equation used to generate the uncertainty maps for the galaxy-only images:
+\begin{equation}
+\left[\delta\I{galaxy}\right]^2 = \left[\delta\I{drizzled}\right]^2 + \left(\delta S_{PSF}\right)^2\left[\I{PSF}\right]^2  + {S_{PSF}}^2\;\left[\delta\I{PSF}\right]^2
+\end{equation}
+where $\delta S_{PSF}$ is the uncertainty in the PSF scale factor and $\delta\I{galaxy}$, $\delta\I{drizzled}$, and $\delta\I{PSF}$ are the uncertainties in the galaxy-only images, the drizzled quasar+galaxy images, and the PSF star images, respectively.
+
+%where $\delta\I{}$ and $\delta S$ are the uncertainties in the images and the PSF scale factors, respectively.
+
+The second step, the removal of the continuum contribution to each galaxy-only image, is discussed in detail in Section \ref{sec:continuum}. Because the continuum subtraction of the Pa$\alpha$ images relies only on the ratio of the filter widths of the NICMOS filters used for the Pa$\alpha$ and infrared continuum observations, the emission line only Pa$\alpha$ uncertainty maps rely solely on the galaxy-only Pa$\alpha$ and infrared continuum uncertainty maps.  The optical emission line images have the additional uncertainty from the computation of the continuum-subtraction scale factor, discussed in Section \ref{sec:continuum}.  As with the quasar PSF subtraction, I propagate the uncertainties in this process through:
+
+\begin{equation}
+\I{line} = \I{galaxy} - S_{cont}\; \I{continuum}
+\end{equation}
+\begin{equation}
+\left[\delta \I{line}\right]^2 = \left[\delta\I{galaxy}\right]^2 + \left(\delta S_{cont}\right)^2\left[\I{continuum}\right]^2  + {S_{cont}}^2\left[\delta\I{PSF}\right]^2
+\end{equation}
+where $\I{line}$ is the intensity of the emission line only image, $\I{cont}$ is the intensity of the continuum only image, and $S_{cont}$ is the continuum scale factor (determined using the method described in Section \ref{sec:continuum}). As before, $\delta I$ and $\delta S$ represent uncertainties.  The final processing step, extinction correction, is discussed thoroughly in Section \ref{sec:extinction}. In addition to the uncertainty maps for the emission line only images, the uncertainties in the H$\beta$ to Pa$\alpha$ line ratio maps also contribute to the uncertainty maps for the extinction-corrected images.  The uncertainty in each bin in the H$\beta$ to Pa$\alpha$ line ratio maps is the uncertainty in the average of all the pixels contributing to that bin. This uncertainty, propagated through Equation \ref{eq:Av}, determines the uncertainty in the extinction:
+
+\begin{equation}
+\delta A_V = \frac{2.5}{\left[\A{\Pa}-\A{\HB}\right]{\rm log}_e10}\sqrt{\dI{\HB}^2+\dI{\Pa}^2}
+\end{equation}
+
+I then combine this uncertainty with the uncertainty computed in the uncertainty map of the emission line only image, propagating the uncertainties through Equation \ref{eq:extinction} to create an uncertainty map of the extinction-corrected image:
+
+\begin{equation}
+\dIO{line}^2 = \dI{line}^2 + {\left(\delta A_V\right)}^2\left[\frac{{\rm log}10}{2.5}\A{\lambda}\right]^2
+\end{equation}
+
+where $\delta\IO{line}$ denotes the uncertainty for each pixel in the extinction-corrected emission line only host galaxy images. With the extinction correction complete, the original photometric errors are thus propagated through to uncertainty maps of the final science images; all emission line luminosities and emission line luminosity dependent quantities quoted hereafter, such as the line ratios described in Section \ref{sec:lineratios}, draw their uncertainties from the uncertainty maps of the science images.
+
+Typical uncertainty maps are shown in Figure \ref{fig:uncertaintymap}. In each case the object is visible because the higher count rate results in greater absolute uncertainty, albeit with a higher signal-to-noise ratio (S/N).  In all cases, the two main contributions to the uncertainty are the removal of the quasar PSF, which primarily affects pixels near the center of the image, and the extinction correction, whose uncertainty is greatest near the edge of the object where the H$\beta$ S/N ratio drops off.  Typically, the removal of the quasar PSF causes the net S/N to fall by a factor of two, usually ending up in the low tens, while the correction for extinction decreases the signal-to-noise by anywhere from ten percent to factors of a few, typically giving a final S/N of a few.
+
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Line Ratios}
+\label{sec:lineratios}
+
+
+Using the images of the quasar hosts after continuum subtraction and extinction correction, I characterize the power source of line emission in the host galaxies on a region-by-region basis through the use of emission line ratio diagnostics. Specifically, I determine whether the line emission in a region is powered by the hard ultraviolet and X-ray flux from the central quasar or the softer ultraviolet flux from young stellar populations \citep{BPT,Netzer2004,Osterbrock} by placing emission from that region in a \ion{O}{3} to H$\beta$ versus \ion{O}{2} to \ion{O}{3} plot in Figure \ref{fig:bpt}, a variant of the diagnostic line-ratio diagram in \cite{BPT}. Because the relative strengths of the emission lines reflect the ionization states of the species involved, line-ratio diagrams distinguish between hard and soft ionizing power sources \citep{KewleyBPT,KauffmannBPT}. The particular diagram that I use is taken from Figure 1 of \cite{BPT}, where the authors observe that star-forming complexes fall near the curved track seen in Figure \ref{fig:bpt}, while AGN narrow-line regions, favoring \ion{O}{3} with their harder ionizing flux, fall above the track, and shocks fall to the side of the track near \ion{O}{3}/\ion{O}{2}$ \approx -1$.
+
+By comparing the location of the line emission in my diagnostic diagrams to line-ratio delineation curves, I identify the power source of the line emission; specifically, a region with elevated \ion{O}{2}/\ion{O}{3} or depressed \ion{O}{3}/H$\beta$ is characteristic of gas irradiated by hot stars, while a region with high \ion{O}{3}/H$\beta$ is more characteristic of an AGN narrow-line region. These line-ratio diagrams are shown in Figure \ref{fig:bpt}.
+
+The background of each line-ratio diagram is shaded with a color corresponding to the different sources of line emission; red for AGN narrow-line regions, blue for star forming regions, and green for shocks. To identify intermediate or ambiguous cases, the colors fade smoothly from one to another. Shown along side the line-ratio diagrams in Figure \ref{fig:bpt} is a line-ratio map of the host galaxy.  These maps were created by multiplying a greyscale H$\beta$ image of the host galaxy by the color vector from each pixel's location in the diagnostic diagram. In this manner, I map out the emission line morphology of each host galaxy.
+
+I plot, in the upper left corner of each diagnostic diagram, average error bars for all the pixels included on the plot.  While the uncertainty on each pixel is significant, typically around a few tenths in log-log space, the physical significance of pixels with similar line ratios that are adjacent in the host galaxy is much greater.  For example, in every diagnostic diagram presented there is a cloud of pixels around the star-formation track.  The thickness of the cloud is dominated by measurement error, but, as it is highly unlikely that random chance would conspire to move all the pixels in a particular direction, the centering of the cloud on the star-formation track is highly indicative. Considering statistical significance in this fashion is effectively the same as binning the pixels, except that it every pixel in the images can be easily identified in the diagnostic diagrams.
+
+In Section \ref{sec:uncertainties}, I noted that the extinction correction adds significantly to the uncertainty of each emission line image.  In the line-ratio diagnostic diagrams, this contribution is not as severe as both quantities in each ratio are affected, albeit not equally.  The y-axis, \ion{O}{3}/H$\beta$, is particularly robust against errors from extinction-correction because the wavelengths of the \ion{O}{3} and H$\beta$ lines are fairly close.  The x-axis, \ion{O}{3}/\ion{O}{2}, is more vulnerable. In each diagram in Figure \ref{fig:bpt} I have plotted an extinction track of two magnitudes in A$_{\rm V}$, pointing to  the lower left.  Fortunately, this track is nearly parallel to the lower left portion of the star-formation track, making the results of \pg{1626+554}, the object for which I do not have extinction values, robust.
+
+As noted above, there is a cloud of pixels around the star-formation track (blue) in each of the diagnostic diagrams.  For several objects, \pg{0026+129}, \pg{1244+026}, \pg{1448+273}, and \pg{2214+139}, there is a tail of pixels in the shock region of the diagram (green) which are also adjacent and near the object center in the shaded galaxy image.  For one object, \pg{0026+129}, there are a number of pixels in the AGN region (red) which are also adjacent and near the object center in the shaded galaxy image. These and other findings will be discussed in greater depth in Section \ref{sec:discussion}.
+
+Additionally, I also plot azimuthally averaged (averaged within concentric annuli) line-ratios as a function of radius from the galactic center for each of my objects in Figure \ref{fig:azimuthallineratios}.  The azimuthal average has the merit of greater signal-to-noise than a direct line-ratio map as in Figure \ref{fig:bpt}, yet still bears out any trend in harder ionizing radiation toward the nucleus, as one might expect if a narrow-line region is present in the middle of a star-forming galaxy.
+
+\subsection{Emission Line Region Sizes}
+
+Spatially resolved host galaxy images enable this study to address narrow-line region size vs. luminosity issues from earlier works. By comparing the sizes of their quasar host galaxies to each other and to the sizes of narrow-line regions in Seyfert Galaxies, \cite{Bennert} find a narrow-line region size vs. luminosity relationship that spans almost three orders of magnitude in luminosity. Meanwhile, \cite{Netzer2004} argue that the emission line luminosity is most likely powered by star formation at large distances from the quasar on the grounds that extrapolating this relationship to large quasar luminosities yields narrow-line regions larger than many galaxies. In Section \ref{sec:discussion},  I use the line-ratio diagnostics from Section \ref{sec:lineratios} to address the power source of line emission; here I describe the procedure used to determine galaxy sizes.
+
+I report the 90\% and 95\% light radii in Tables \ref{tbl:light90} and \ref{tbl:light95}, respectively.  The values were determined by taking successively larger apertures around the quasar host galaxies and finding the asymptotic flux rate, and then repeating that procedure to find a fraction of that flux (in this case 90\% and 95\%).
+
+The sizes quoted range from several tenths to several kpc, and are generally very similar for 90\% and 95\% light radii, indicating that these estimates of size are convergent and represent reasonable metrics for the sizes of the emission line regions.  In each of the emission line images I see the object centered on the location of the quasar; with the exception of small features, there are no displaced concentrations of star formation.
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+
+
+I report at least some galaxy light in each filter for each quasar.  The host galaxies are, typically, bright and easily seen in the infrared images, and faintest in the optical continuum images. With a few exceptions, I see little evidence of structure other than smooth, azimuthally symmetric light profiles. The charge transfer inefficiency streak is visible in many of the WFPC2 images, even after removal of the quasar PSF, especially in cases where the telescope roll angle was not the same for the PSF and quasar images.  Near the center of the majority of the images there is noise from the PSF subtraction, visible as mottled dark and light pixels. Even with a correctly aligned PSF (described in Section \ref{sec:reduction}) and a correctly computed PSF scale factor (described in Section \ref{sec:psf}, verified in Section \ref{sec:simulation}), counting noise in the PSF image as well as minute variations in the telescope optics \citep{NICMOS} still unavoidably cause some differences between the quasar and model PSF, resulting in imperfectly subtracted pixels.
+
+I find that the continuum does not significantly contribute to the optical narrow-band images. I expected relative faintness of the galaxies in the optical continuum because the galaxy flux density is much higher in the emission lines. The flux density of the infrared continuum is much higher compared to the Pa$\alpha$ emission line than the optical continuum is compared to the optical emission lines, making it a larger contamination, though still small contribution to the Pa$\alpha$ emission line flux.
+
+The morphological character of the galaxies (best seen in the infrared continuum images) is typically unaffected by extinction correction. Even though the computed luminosities are larger after extinction correction, the signal-to-noise is lower due to the large uncertainty in the extinction correction (as described in Section \ref{sec:uncertainties}). The background noise in the images takes on a cobbled appearance, partly due to the larger NICMOS pixels in the Pa$\alpha$ images, and partly due to the need to bin the line-ratio maps (as described in Section \ref{sec:extinction}).
+
+Morphologically, these objects are nearly featureless, consistent with the expectation \citep{McLeod_Rieke,Taylor} and the observation \citep{McLeod} that the majority of quasars are hosted either in ellipticals or in galaxies which are evolving toward ellipticals.  I detect one edge-on spiral, \pg{0838+770}; this dramatic example of late-type galaxy morphology was not specifically known until these observations, although \cite{McLeod} find two spirals in their sample of quasar host galaxies.  It also consistent with \cite{Guyon}, who find roughly one third of their 32 quasar hosts galaxies to be late-type.  The disk structure of \pg{0838+770} is clearly visible in the Pa$\alpha$ and the infrared continuum image, and the Pa$\alpha$ brightness indicates star-forming activity along the disk as well as in the nucleus.
+
+Additionally, a galaxy near \pg{1613+658} reported by \cite{Yee1987} is easily visible in the Pa$\alpha$ and infrared continuum images. Without redshift  information neither I nor \cite{Yee1987} can confirm an association between these objects. However, a number of indirect indicators suggest that the two galaxies are related: The separation is quite close (1 arcsecond), the angular size is comparable (0.5 vs. 0.8 arcseconds), and the companion is also Pa$\alpha$ bright (suggesting rapid star formation), implying that these objects have suffered a recent interaction. This is in line with theoretical works  \citep[e.g.][]{Springel,DiMatteo,HopkinsQuenching}, which indicate that quasar and star-formation activity can be triggered by interactions. Additionally, \cite{Yee1987} report that \pg{1613+658} is coincident with a poor cluster of galaxies at the same redshift, providing a pool of potential interaction partners, and that there is a tidal tail to the East of \pg{1613+658}, suggesting recent interaction.
+
+
+As described in Section \ref{sec:lineratios}, I use emission line diagnostics, shown in Figure \ref{fig:bpt}, to determine at each point in the host galaxy the power source of the line emission. As a caveat, the images in Figure \ref{fig:bpt} have noise from each of the images used to create them; any individual pixel is not significant on its own, but contiguous regions of similar pixels are. I find that the majority of the line emission from my quasar host galaxies has a line-ratio signature consistent with star formation. Moreover, only a few small sections near the nuclei of several of the objects have \ion{O}{3}/H$\beta$ ratios greater than 10, which is the only unambiguous signature of AGN narrow-line regions.  In particular, I see high \ion{O}{3} to H$\beta$ ratios near the nucleus of \pg{0026+129}, my most luminous quasar (see below for further discussion).
+
+This result comes down decidedly in favor of the interpretation of quasar host galaxy line emission discussed in \cite{Netzer2004}, and suggests that the narrow-line region size to luminosity relation put forth in \cite{Bennert} does not extend into the high luminosity regime of quasars. I do see sizes and luminosities consistent with the relations reported in \cite{Bennert}, plotted in Figure \ref{fig:sizelum}, but I conclude that only small portions of these emission line regions are quasar narrow-line regions. As a confirmation, the azimuthally averaged line ratios shown in Figure \ref{fig:azimuthallineratios}, which have a much higher signal-to-noise than the line-ratio diagnostic diagrams and maps in Figure \ref{fig:bpt}, also indicate \ion{O}{3}/H$\beta$ ratios too low for narrow-line regions, except near the very centers of several objects, and have overall line-ratios more consistent with star-formation.
+
+
+Taking the line emission as an indicator of star formation, I use the prescription in \cite{Kennicutt} to compute star-formation rates. I list these, along with luminosities in each band, in Table \ref{tbl:lum}. I find typical rates of a few M$_\odot$/yr, but ranging from less than one to over twenty M$_\odot$/yr, a result which is broadly consistent with theoretical works, such as \cite{DiMatteo} and \cite{Springel}, which predict that rapid star formation coincides with quasar activity.  These star-formation rates are on the low end, though, of those predicted by \cite{DiMatteo} and \cite{Springel}, and are, oddly enough, in line with the observations of \cite{Ho}, who note that quasars often have relatively weak \ion{O}{2} lines, and thus probably do not have enormously high star-formation rates. \cite{Ho} proceeds to conclude that quasar activity does not coincide with starburst activity; as discussed above, the line-ratios indicate that star formation is powering the line emission, albeit at a somewhat lower rate than expected for starburst galaxies. The one exception in this sample is \pg{1626+554}, which I measure to have a star-formation rate of around 25 M$_\odot$/yr. This is particularly true when I plot star-formation rates against quasar luminosities in Figure \figref{fig:sfr}{a}; I see that the least luminous quasar, \pg{1244+026}, also has the lowest star-formation rate.
+
+The picture that is painted by my sample of eight quasar host galaxies appears intermediate between the paradigm of quasar hosts as starburst galaxies and the post-starburst E+A host galaxies described in \cite{Cales}.  It is possible that the majority of my objects are simply passed their peak star-formation rates. Supporting this hypothesis, the brightest quasar, \pg{0026+129}, does not have a particularly high star-formation rate for this data set, suggesting that it may have passed its peak of star formation.
+
+%; this hypothesis is consisent with the predictions of \cite{Springel} and \cite{DiMatteo}, who suggest a lag between the end of star formation and the end of quasar activity.
+
+In Figure \figref{fig:sfr}{b} I plot star-formation rate against host galaxy stellar mass, determined from the infrared continuum luminosities using established mass-to-light ratios \citep{Bell}. I find that, in addition to having the lowest star-formation rate, \pg{1244+026} also has the lowest stellar mass, suggesting that it is a overall small object. Meanwhile, six of the host galaxies show a trend of increasing star-formation rate with increasing stellar mass, the exception being \pg{0026+129}, whose star-formation rate is similar to the next most massive galaxy, \pg{1448+273}, even though it is over thirty times as massive.
+
+To quantify this trend, I performed a Spearson Rank-Order correlation test \citep{NumericalRecipes} on the SFR vs. galaxy mass data; the rank-order coefficient is 0.54 with confidence is 0.78, indicating that the two parameters are highly likely to be correlated for these seven objects.  This is consistent with the models presented in \cite{DiMatteo} and \cite{Springel}, which indicate that accretion rate and star-formation rate evolve with time and, in the cases of mergers, depend on the collision geometry.
+
+The potential significance of these considerations becomes even more apparent in Figure \ref{fig:sfredd}, where I plot star-formation rate per galaxy stellar mass vs. the Eddington Ratio for the central black holes. Here, the Eddington Ratios are derived from the quasar optical continuum luminosities computed during PSF removal and the central black hole masses listed in Table \ref{tab:base}.  This plot essentially compares how fast each galaxy is growing, for its size, versus how fast its respective black hole is growing, for its size.  The trend is less strong but still present, with a Spearson-Rank Order confidence of -0.43 with a confidence of 0.66. While I cannot draw more precise conclusions from such a small sample, the different mass-specific star-formation rates indicate that these objects are not simply scaled versions of each other.
+
+I see that the objects with the highest Eddington Ratios have the lowest mass-specific star-formation rates.  It is possible that these particularly active quasars are more efficiently quenching the star formation within their host galaxies.  Or, perhaps the trend in Figure \figref{fig:sfr}{b} is driven by a lag between the peak of quasar activity and the peak of star formation, as suggested by \cite{Hopkins2008}.  This hypothesis is supported by the fact that the quasars with the highest Eddington Ratios, \pg{0026+129}, \pg{1244+026}, and \pg{1448+273}, are also three of the four that are seen to harbor shocked gas in Figure \ref{fig:bpt}.  My observations here suggest a link between high black hole accretion rates, shocked gas, and diminished mass-specific star-formation rates.  
+
+\section{Future Directions}
+
+The results of this study represent a first look at the inner mechanisms of quasar host galaxies, but they do not tell the complete story.  For example, these results suggest that the peak of black hole accretion, as sampled by typical quasars, may not coincide with the peak for star formation.  While I speculate here that typical quasars are passed the peak of star formation, only a complete chronology will fully resolve this issue by allowing a direction comparison with models.  To this end, I suggest extending the line-ratio study presented here to analogous quasar host galaxies that are near the peak of star formation and prior to the peak of black hole accretion.  Logical candidates would be quasar hosts which show clear signs that they are in the early stages of merging, such as those exhibiting tidal tails and double nuclei in \cite{Bahcall}.  More ambitiously, many researchers are investigating signs of binary black holes in quasars.  If such an object is ever confirmed, it would warrant a line-ratio study as well since it would represent an intermediate phase in the chronology where the galaxies have fully merged but the black holes have not.
+
+While the space-based emission line study presented here has the advantages of the high angular-resolution and multi-wavelength coverage needed to make line-ratio diagnostics possible, it lacks the depth to return much morphology information about the galaxies detected.  With the exception of the edge-on disk in \pg{0838+770} and several knots in the \ion{O}{3} images, the galaxies I detect are featureless and symmetric.  Yet, as seen in Figure \ref{fig:sfr}, their masses are consistent with the KISS galaxies. This study lacks the depth needed to detect the low surface-brightness extended portions of the galaxies, leaving ambiguous whether these are the cores of spiral galaxies, such as \pg{0838+770}, or the centers of nascent elliptical galaxies. While deeper HST imaging would certainly be ideal, expected developments in laser guide star adaptive optics at ground-based observatories, such as Gemini, may provide PSFs stable enough to permit detection of quasar host galaxies.  Additionally, the contamination of the PSF is less severe near the edges of the galaxies where the deeper imaging is badly needed.  Observations with eight-meter class telescopes and adaptive optics could quickly achieve the depth needed to detect low surface brightnesses features.
+
+Even deep observations in the optical and near-infrared do not directly address heavily obscured star formation.  While the work presented here puts great emphasis on correctly accounting for dust extinction, complementary far-infrared observations address this issue directly by recapturing the ultraviolet energy lost to extinction. However, without line-ratio maps, such as those presented here, maps of far-infrared emission in quasar host galaxies remain ambiguous; the warm dust could be heated by the central AGN or by star-formation.  I propose to make far-infrared observations of the quasar host galaxies studied here using instruments such as ALMA or Herschel and, using far-infrared luminosity images, map out heavily obscured star formation.  Observations such as these will fill in the missing gaps in our understanding of the dynamics of active galaxies.
+
+Finally, I intend to run my own line-ratio simulations with CLOUDY and expand upon the results presented here in a forthcoming paper.  While the line-ratio diagnostic diagram I borrow from \cite{BPT} is sufficient to distinguish between regions whose line emission is powered by star formation, shocked gas, or AGN irradiation, I wish to explore the details further. For instance, it will be possible to remove in a precise way the AGN and shocked gas contribution to intermediate points. Also, a point's location on the star-formation track in the line-diagnostic diagram is driven by metallicity; with my own line-ratio diagram I can use the line-ratios to estimate the metallicities of regions within the quasar host galaxies, thereby constructing a metallicity map for the star-forming portions of these galaxies just as I constructed reddening maps. A modern, up-to-date line-ratio diagram will resolve the fine details in these issues and allow a complete analysis of these objects.
+
+Ambitiously, if the signal-to-noise in the metallicity maps is high enough, I may be able to track metallicity gradients through the galaxies.  Comparing the metallicity distribution with the locations of the shock features or the near-infrared morphology, possibly in deeper images, could give the community some idea of how metals are distributed through quasar host galaxies.  This information could, in principle, be an asset to theorists modeling the evolution of these galaxies; in this way my observations could have a significant impact on our understanding of the evolution of quasar host galaxies.
+
+%Metal enrichment has ramafications ranging from reddening to star and planet formation, 
+
+
+\section{Conclusions}
+
+The eight quasar host galaxies presented in this work have emission line ratios primarily consistent with star formation.  Additionally, I see several objects, \pg{0026+129}, \pg{1244+026}, \pg{1448+273}, and \pg{2214+139}, which show line-ratios consistent with shocked gas, and one object, \pg{0026+129}, which shows evidence of a narrow-line region near its center.  However, even in this case, the narrow-line region is less than a kpc in size, indicating that the size-luminosity relationship presented in \cite{Bennert} breaks down at quasar-level luminosities.
+
+I see star-formation rates of less than 10 M$_\odot$/yr for all objects except \pg{1626+554}, whose star-formation rate is over 25 M$_\odot$/yr.  \pg{1244+026} has the lowest star-formation rate, 0.2 M$_\odot$/yr; I believe that this is a very small galaxy, around $10^{10}$ M$_\odot$.  The remaining six quasar hosts are most likely passed their peak star-formation rates. If so, this fact will help constrain models of quasar+galaxy evolution as well as hydrodynamic models of AGN outflows. It could also guide early universe studies by putting observations of high redshift quasars in context.
+
+I also see evidence that these objects are heterogeneous in character and not simply scaled versions of each other.  I find a trend that quasars with higher Eddington Ratios are more likely to have low mass-specific star-formation rates; the presence of shocked gas in extreme examples suggests that the central black holes are in the process of quenching star-forming activity.
+
+In a forthcoming paper I intend to run our own line-ratio simulations with CLOUDY, and confirm these results with our our line-diagnostic diagrams.  I also wish to use far-infrared observations, potentially with ALMA, to explore obscured star formation in these objects.
+\clearpage  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Properties of Target Quasars
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{deluxetable}{lrrrrrrrr}
+%\tabletypesize{\scriptsize}
+%\tabletypesize{\small}
+\tablecaption{Target Quasars and Their Basic Properties \label{tab:base}}
+\tablewidth{0pt}
+\tablehead{
+\colhead{} &
+\colhead{} &
+\colhead{$m_{\rm V}$} &
+\colhead{$M_{\rm V}$} &
+\colhead{$L_{\rm PAH\, 7.7\mu m}$\tablenotemark{a}} &
+\colhead{$L_{\rm [Ne\,II]\, 12.8\mu m}$\tablenotemark{a}} &
+\colhead{$L_{\rm FIR}$\tablenotemark{b}} &
+\colhead{M$_{\rm BH}$} \\
+\colhead{Quasar} &
+\colhead{$z$} &
+\colhead{(mag)} &
+\colhead{(mag)} &
+\colhead{(erg s$^{-1}$)} &
+\colhead{(erg s$^{-1}$)} &
+\colhead{(erg s$^{-1}$)} &
+\colhead{(${\rm log}\frac{{\rm M}}{{\rm M}_\odot}$)} 
+}
+\startdata
+\pg{0026+129} & 0.1420 & 14.78 & --24.18 & $<4.28\times 10^{42}$ & $1.13\times 10^{41}$ & $3.17\times 10^{44}$  & 7.4$\pm$0.07\tablenotemark{c} \\
+\pg{0838+770} & 0.1310 & 15.70 & --23.08 & $ 4.38\times 10^{42}$ & $1.73\times 10^{41}$ & $5.73\times 10^{44}$  & 8.2$\pm$0.08\tablenotemark{d} \\
+\pg{1244+026} & 0.0482 & 16.20 & --20.37 & $ 3.18\times 10^{41}$ & $4.97\times 10^{40}$ & $1.37\times 10^{44}$  & 6.5$\pm$0.08\tablenotemark{d} \\
+\pg{1307+085} & 0.1550 & 15.32 & --23.84 & $<1.28\times 10^{42}$ & $2.45\times 10^{41}$ & $9.72\times 10^{44}$  & 8.5$\pm$0.1\tablenotemark{c} \\
+\pg{1448+273} & 0.0650 & 15.01 & --22.22 & $ 1.49\times 10^{42}$ & $4.86\times 10^{40}$ & $8.28\times 10^{43}$  & 7.0$\pm$0.08\tablenotemark{d} \\
+\pg{1613+658} & 0.1290 & 15.49 & --23.26 & $ 1.56\times 10^{43}$ & $1.57\times 10^{40}$ & $2.15\times 10^{45}$  & 7.4$\pm$0.2\tablenotemark{c} \\
+\pg{1626+554} & 0.1330 & 16.17 & --22.64 & $ 3.08\times 10^{42}$ & $3.00\times 10^{40}$ & $2.28\times 10^{44}$  & 8.5$\pm$0.08\tablenotemark{d} \\
+\pg{2214+139} & 0.0658 & 14.66 & --22.59 & $ 1.21\times 10^{42}$ & $2.11\times 10^{40}$ & $2.32\times 10^{44}$  & 8.6$\pm$0.09\tablenotemark{d} \\
+\enddata
+\tablenotetext{a}{PAH and \ion{Ne}{2}$\,12.8\,\mu$m luminosities from the Spitzer spectra of \cite{Schweitzer}.}
+\tablenotetext{b}{ 8-1000$\mu$m FIR luminosity based on ISO fluxes \citep[from][]{Ho}.}
+\tablenotetext{c}{ black hole masses from \cite{Kaspi}}
+\tablenotetext{d}{ black hole masses from \cite{Vestergaard}}
+\end{deluxetable}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Filters and exposure times
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{landscape}
+\begin{deluxetable}{lrrrrrrrr}
+%\tabletypesize{\scriptsize}
+\tabletypesize{\tiny}
+%\tablecaption{Filters \& Exposure Times\tablenotemark{a}\label{tbl:filters}}
+\tablecaption{Filters \& Exposure Times in Seconds\label{tbl:filters}}
+\tablewidth{0pt}
+\tablehead{
+\hline\hline\\
+& & & & WFPC2 & & & NICMOS \\ 
+\cline{2-6} \cline{8-9}
+& & & &       & & & \\
+& Optical & & & & [OIII] & & \\
+Object & Cont. & H$\beta$ & [OII] & [OIII] & Cont. && Pa$\alpha$ & Cont.\\
+\hline\\
+}
+\startdata
+ 
+\pg{0026+129} & F467M &   FR533N & FR418N   &  FR533N18\tablenotemark{b} & F588N\tablenotemark{b} && F215N & F237M \\
+              & 184   &     3000 &  4620    &      2400                  &   240                  &&  2112 &   144 \\
+\noalign{\vskip 6pt}
+\pg{0838+770} & F467M & FR533N18 & FR418N   &  FR533N18                  &                  \dots && F212N & F237M \\
+              &   80  &      800 &   3400   &       800                  &                  \dots &&  2112 &   336 \\
+\noalign{\vskip 6pt}
+\pg{1244+026} & F467M & FR533N   & FQUVN    &    FR533N                  &                  \dots && F196N & F222M \\
+              &   240 &      920 &  2240    &      1200                  &                  \dots &&  1984 &   288 \\
+\noalign{\vskip 6pt}
+\pg{1307+085} & F467M & FR533N18 & FR418N   &  FR533N33\tablenotemark{b} & F588N\tablenotemark{b} && F216N & F237M \\
+              &   400 &     820  &   1840   &      1500                  &                    240 &&  2048 &   224 \\
+\noalign{\vskip 6pt}
+\pg{1448+273} & F467M & FR533P15 & FQUVN    &  FR533P15                  &                  \dots && F200N & F222M \\
+              &   320 &     3600 &  3800    &      1760                  &                  \dots &&  2048 &   240 \\
+\noalign{\vskip 6pt}
+\pg{1613+658} & F467M & FR533N18 & FR418P15 &  FR533N18                  &                  \dots && F212N & F237M \\
+              &   240 &      440 &     1380 &       440                  &                  \dots &&  2112 &   288 \\
+\noalign{\vskip 6pt}
+\pg{1626+554} & F467M & FR533N18 & FR418N   &  FR533N33                  &                  \dots && \dots & \dots \\
+              &   320 &     1660 &   6100   &      1800                  &                  \dots && \dots & \dots \\
+\noalign{\vskip 6pt}
+\pg{2214+139} & F467M & FR533P15 & FQUVN    &  FR533P15                  &                  \dots && F200N & F222M \\
+              &   320 &     2840 &  1800    &      1300                  &                  \dots &&  1824 &   192 \\
+\enddata
+\tablenotetext{a}{The exposure time is given below each filter in seconds.} 
+\tablenotetext{b}{These data provided by \cite{Bennert}.}
+\end{deluxetable}
+%\end{landscape}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Sizes of host galaxies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{deluxetable}{lcccccc}
+\tablecolumns{7}
+\tablewidth{0pt}
+\tablecaption{90\% Light Radii [kpc]\label{tbl:light90}}
+\tablehead{
+\colhead{Object}
+&\colhead{Opt.}
+&\colhead{\ion{O}{2}}
+&\colhead{H$\beta$}
+&\colhead{\ion{O}{3}}
+&\colhead{Pa$\alpha$}
+&\colhead{IR}
+}
+\startdata
+PG 0026+129&1.6 $\pm$ 0.1&4.4 $\pm$ 0.1&3.7 $\pm$ 0.2&4.7 $\pm$ 0.2&0.9 $\pm$ 0.2&4.3 $\pm$ 0.1 \\
+PG 0838+770&0.5 $\pm$ 0.1&4.6 $\pm$ 0.1&0.6 $\pm$ 0.1&3.2 $\pm$ 0.1&0.9 $\pm$ 0.3&3.65 $\pm$ 0.09 \\
+PG 1244+026&1.24 $\pm$ 0.04&0.28 $\pm$ 0.06&0.6 $\pm$ 0.3&0.5 $\pm$ 0.1&1.0 $\pm$ 0.2&0.5 $\pm$ 0.2 \\
+PG 1307+085&5.1 $\pm$ 0.2&1.4 $\pm$ 0.7&3.3 $\pm$ 0.2&0.7 $\pm$ 0.1&1.0 $\pm$ 0.2&5.0 $\pm$ 0.1 \\
+PG 1448+273&0.4 $\pm$ 0.5&0.3 $\pm$ 0.1&1.8 $\pm$ 0.1&0.9 $\pm$ 0.1&1.3 $\pm$ 0.7&1 $\pm$ 1 \\
+PG 1613+658&2.9 $\pm$ 0.1&1.2 $\pm$ 0.6&5.4 $\pm$ 0.2&3.2 $\pm$ 0.1&1.4 $\pm$ 0.5&1.2 $\pm$ 0.5 \\
+PG 1626+554&1.1 $\pm$ 0.7&0.6 $\pm$ 0.1&0.6 $\pm$ 0.1&0.9 $\pm$ 0.7& ... & ...  \\
+PG 2214+139&1.5 $\pm$ 0.1&2.8 $\pm$ 0.1&1.5 $\pm$ 0.1&0.5 $\pm$ 0.3&1.2 $\pm$ 0.5&0.9 $\pm$ 0.2 \\
+\enddata
+\end{deluxetable}
+
+
+\begin{deluxetable}{lcccccc}
+\tablecolumns{7}
+\tablewidth{0pt}
+\tablecaption{95\% Light Radii [kpc]\label{tbl:light95}}
+\tablehead{
+\colhead{Object}
+&\colhead{Opt.}
+&\colhead{\ion{O}{2}}
+&\colhead{H$\beta$}
+&\colhead{\ion{O}{3}}
+&\colhead{Pa$\alpha$}
+&\colhead{IR}
+}
+\startdata
+PG 0026+129&1.6 $\pm$ 0.1&4.4 $\pm$ 0.1&3.7 $\pm$ 0.2&4.7 $\pm$ 0.2&0.9 $\pm$ 0.2&4.3 $\pm$ 0.1 \\
+PG 0838+770&0.5 $\pm$ 0.1&4.6 $\pm$ 0.1&0.6 $\pm$ 0.1&3.2 $\pm$ 0.1&0.9 $\pm$ 0.3&3.65 $\pm$ 0.09 \\
+PG 1244+026&1.24 $\pm$ 0.04&0.28 $\pm$ 0.06&0.6 $\pm$ 0.3&0.5 $\pm$ 0.1&1.0 $\pm$ 0.2&0.5 $\pm$ 0.2 \\
+PG 1307+085&5.1 $\pm$ 0.2&1.4 $\pm$ 0.7&3.3 $\pm$ 0.2&0.7 $\pm$ 0.1&1.0 $\pm$ 0.2&5.0 $\pm$ 0.1 \\
+PG 1448+273&0.4 $\pm$ 0.5&0.3 $\pm$ 0.1&1.8 $\pm$ 0.1&0.9 $\pm$ 0.1&1.3 $\pm$ 0.7&1 $\pm$ 1 \\
+PG 1613+658&2.9 $\pm$ 0.1&1.2 $\pm$ 0.6&5.4 $\pm$ 0.2&3.2 $\pm$ 0.1&1.4 $\pm$ 0.5&1.2 $\pm$ 0.5 \\
+PG 1626+554&1.1 $\pm$ 0.7&0.6 $\pm$ 0.1&0.6 $\pm$ 0.1&0.9 $\pm$ 0.7& ... & ...  \\
+PG 2214+139&1.5 $\pm$ 0.1&2.8 $\pm$ 0.1&1.5 $\pm$ 0.1&0.5 $\pm$ 0.3&1.2 $\pm$ 0.5&0.9 $\pm$ 0.2 \\
+\enddata
+\end{deluxetable}
+
+
+\begin{deluxetable}{lcccccc}
+\tablecolumns{7}
+\tablewidth{0pt}
+\tablecaption{Integrated Emission Line Luminosities, SFRs, and Masses\label{tbl:lum}}
+
+\tablehead{
+\colhead{Object}
+&\colhead{\ion{O}{2}}
+&\colhead{H$\beta$}
+&\colhead{\ion{O}{3}}
+&\colhead{Pa$\alpha$}
+&\colhead{SFR}\tablenotemark{a}
+&\colhead{Masses}\tablenotemark{b} \\
+&
+10$^{40}$erg s$^{-1}$ 
+&10$^{40}$erg s$^{-1}$ 
+&10$^{40}$erg s$^{-1}$ 
+&10$^{40}$erg s$^{-1}$ 
+&M$_\odot$yr$^{-1}$
+&M$_\odot$ \\
+}
+
+\startdata
+\hline\\
+PG 0026+129&220 $\pm$ 10&138 $\pm$ 4&262 $\pm$ 7&56.1 $\pm$ 0.5&21.64 $\pm$ 0.07&11.2 $\pm$ 0.2 \\
+PG 0838+770&160 $\pm$ 10&70 $\pm$ 5&40 $\pm$ 3&21.0 $\pm$ 0.3&17.03 $\pm$ 0.08&10.7 $\pm$ 0.2 \\
+PG 1244+026&15 $\pm$ 1&7.3 $\pm$ 0.4&6.2 $\pm$ 0.3&2.95 $\pm$ 0.02&2.519 $\pm$ 0.009&10.2 $\pm$ 0.2 \\
+PG 1307+085&450 $\pm$ 40&126 $\pm$ 9&62 $\pm$ 3&57.0 $\pm$ 0.6&37.1 $\pm$ 0.1&11.2 $\pm$ 0.2 \\
+PG 1448+273&200 $\pm$ 10&130 $\pm$ 5&102 $\pm$ 2&19.7 $\pm$ 0.1&22.53 $\pm$ 0.05&11.0 $\pm$ 0.2 \\
+PG 1613+658&760 $\pm$ 50&220 $\pm$ 10&220 $\pm$ 10&91.1 $\pm$ 0.7&71.9 $\pm$ 0.2&11.3 $\pm$ 0.2 \\
+PG 1626+554&127 $\pm$ 3&119 $\pm$ 2&50 $\pm$ 2& ... &21.90 $\pm$ 0.03&10.9 $\pm$ 0.2 \\
+PG 2214+139&300 $\pm$ 60&97 $\pm$ 6&85 $\pm$ 5&31.6 $\pm$ 0.2&27.64 $\pm$ 0.06&11.1 $\pm$ 0.2 \\
+\enddata
+\tablenotetext{a}{Derived from an average of H$\beta$ and Pa$\alpha$ luminosities}.
+\tablenotetext{a}{Derived from infrared continuum luminosities.}
+\end{deluxetable}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%% azimuthally averaged plots %%%%%%%%%%%%%%%%%
+
+ 
+
+\begin{figure}
+\begin{center}
+  \includegraphics[width=15cm]{QuasarPlots/quasar-psf-galaxy.png}
+  \includegraphics[width=15cm]{QuasarPlots/raw-young-bennert.png}
+  \caption{A diagram of the light profiles discussed in Section \ref{sec:psf}.  {\bf Above:} The observed radial light profile of a quasar + host galaxy is compared to its two components, the quasar PSF and the underlying galaxy light profile.  The galaxy light profile is broader, making possible the PSF removal method described in Section \ref{sec:psf}. {\bf Below:} The galaxy light profile from the top figure is compared to its best estimate using two different PSF subtraction methods, the method described in this work, and the method described in \cite{Bennert}.  Note that the curves presented in this figure are visual aids only, and do not represent actual data. In reality, the quasar PSF profiles are up to 10$\times$ higher than the galaxy light profiles.}
+  \label{fig:profile}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \subfloat[]{\includegraphics[width=15cm]{QuasarFigures/PG-0026+129_radial.png}}
+  \caption{Azimuthally averaged light profiles of the \pg{0026+129} host galaxy in each wavelength of interest, the corresponding quasar PSF (the light profile of a PSF star properly rescaled), and the residual galaxy after subtraction.\label{fig:radial_plots}}
+\end{center}
+\end{figure}
+
+\def\azimuth#1{
+\begin{figure}%[T!]
+\ContinuedFloat
+\begin{center}
+  \subfloat[]{\includegraphics[width=15cm]{QuasarFigures/PG-#1_radial.png}}                
+  \caption{Same as Figure \ref{fig:radial_plots}{\bf(a)}, but for \pg{#1}.}
+  \label{radial_plots}
+\end{center}
+\end{figure}
+}
+
+\azimuth{0838+770}
+\azimuth{1244+026}
+\azimuth{1307+085}
+\azimuth{1448+273}
+\azimuth{1613+658}
+\begin{figure}%[T!]
+\ContinuedFloat
+\begin{center}
+  \subfloat[]{\includegraphics[width=15cm]{QuasarFigures/PG-1626+554_radial.png}}                
+  \caption{Same as Figure \ref{fig:radial_plots}{\bf(a)}, but for \pg{1626+554}. Note the infrared images are missing due to the failure of the NICMOS instrument.}
+\end{center}
+\end{figure}
+\azimuth{2214+139}
+
+
+%%%%%%%%%%%%%%%%% gallery of PSF subtracted images %%%%%%%%%%%%%%%%%
+\begin{figure}%[T!]
+\begin{center}
+  \subfloat[]{\includegraphics[width=13cm]{QuasarFigures/PG-0026+129_galaxy.png}}                
+  \caption{PSF-subtracted images of \pg{0026+129} in each of the filters used.  The red circle is 1 kpc at the distance of the quasar. Each tile is \arcsecond{7}{5}$\times$\arcsecond{7}{5}. The red line indicates the direction of the WFPC2 streak in the quasar images. The WFPC2 streak in the PSF images often aligns with the streak in the quasar images; when otherwise, it is indicated by a green line.\label{fig:gallery}}
+\end{center}
+\end{figure}
+
+\def\mosaic#1{
+\begin{figure}%[T!]
+\ContinuedFloat
+\begin{center}
+  \subfloat[]{\includegraphics[width=13cm]{QuasarFigures/PG-#1_galaxy.png}}                
+  \caption{Same as Figure \ref{fig:gallery}{\bf(a)}, but for \pg{#1}.}
+  \label{Gallery}
+\end{center}
+\end{figure}
+}
+ 
+\mosaic{0838+770}
+\mosaic{1244+026}
+\mosaic{1307+085}
+\mosaic{1448+273}
+\mosaic{1613+658}
+
+\begin{figure}%[T!]
+\ContinuedFloat
+\begin{center}
+  \subfloat[]{\includegraphics[width=13cm]{QuasarFigures/PG-1626+554_galaxy.png}}
+  \caption{Same as Figure \ref{fig:gallery}{\bf(a)}, but for \pg{1626+554}. Note the infrared images are missing due to the failure of the NICMOS instrument.}
+  \label{Gallery}
+\end{center}
+\end{figure}
+\mosaic{2214+139}
+
+
+
+\begin{figure}%[T!]
+\begin{center}
+   \includegraphics[width=9cm]{QuasarFigures/histograms.png}
+ \caption{For each of the medium-band filters used to sample the quasar host galaxy stellar continuum, a distribution of ratios of computed to true PSF scale factors for 1000 artificial quasar+galaxy pairs using the observed and synthetic (TinyTim) PSF stars. A value of unity indicates the PSF-subtraction algorithm correctly determined, based on image characteristics alone, the intensity of the quasar PSF.  In each case the dashed line is the cumulative distribution. Note that the distributions in all three filters peak around unity, indicating that the algorithm is likely to converge on an accurate value. For scale factors ratios less than unity, the median values are 0.99, 0.99, and 0.98 for the F222M, F237M, and F476M filters, respectively, indicating high confidence in host galaxy detections.  For scale factor ratios greater than unity, the median values were 1.006, 1.03, and 1.1 for the same filters, indicating photometric uncertainties of 10\% or less for worst-case-scenarios; see Section \ref{sec:simulation} for details.}
+\label{fig:histogram}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}%[T!]
+\begin{center}
+   \includegraphics[width=11cm,angle=0]{QuasarFigures/extinction.png}
+ \caption{Maps of A$_{\rm V}$ for the seven quasars of the eight for which I possess both H$\beta$ and Pa$\alpha$ images; the green circle marks 1 kpc radius.}
+\label{reddening}
+\end{center}
+\end{figure}
+
+
+\begin{figure}%[T!]
+\begin{center}
+ \includegraphics[width=15cm,angle=0]{QuasarFigures/uncertaintymap.png}
+  \caption{
+    Typical uncertainty maps, (left) \pg{0026+129} infrared continuum, and (right) \pg{0838+770} \ion{O}{2}. The objects remain visible because the higher count rates result in larger counting uncertainties. Note the cobbled appearance in both images, especially away from the center.  This is correlated noise introduced while correcting for extinction.  It is produced partly by drizzling the larger NICMOS pixels onto the smaller PC plate scale, and partly produced by the binning of the H$\beta$ and Pa$\alpha$ images in the line-ratio map.
+  }
+\label{fig:uncertaintymap}
+\end{center}
+\end{figure}
+
+
+\begin{figure}%[T!]
+\begin{center}
+\subfloat{\includegraphics[width=11cm,angle=0]{QuasarFigures/figure_a.png}}
+ \caption{Diagnostic Line-Ratio diagrams and maps for the quasar host galaxies.  The background of each line-ratio diagram is shaded based on line-emission source: red for AGN, blue for star formation, green for shocks, and intermediate colors for intermediate or ambiguous cases.  The line-ratio maps are greyscale H$\beta$ images of the host galaxies with each pixel multiplied by the color vector from its location in the line-ratio diagnostic diagram.  At the bottom of each line-ratio map a red line is drawn to indicate 1 arcsecond, and a green line is drawn to indicate 1 kpc at the distance of the quasar.  A black dot is placed at the center of each map to indicate the region where uncertainties in PSF subtraction dominate. A reddening track of two magnitudes in A$_{\rm V}$ is plotted near the lower right in each diagnostic diagram; the track points to the lower left.}
+\label{fig:bpt}
+\end{center}
+\end{figure}
+
+\begin{figure}%[T!]
+\begin{center}
+\ContinuedFloat
+\subfloat{\includegraphics[width=11cm,angle=0]{QuasarFigures/figure_b.png}}
+ \caption{Same as Figure 6a, but for the next four objects.}
+\label{fig:bpt}
+\end{center}
+\end{figure}
+
+
+\begin{figure}%[T!]
+\begin{center}
+   \includegraphics[width=13cm,angle=0]{QuasarFigures/radialratios.png}
+   \caption{Azimuthally averaged line ratios plotted as a function of radius from the galactic center.  The black, solid line is the \ion{O}{3} / \ion{O}{2} ratio, while the red dashed line is the \ion{O}{3} / H$\beta$ ratio. As in Figure \figref{fig:bpt}{a}, ${\rm log\ionm{O}{3}/\ionm{O}{2}\gtrsim 1}$ ratio near the nucleus indicates the presence of a narrow-line region for reasons discussed in Section \ref{sec:lineratios} and \cite{BPT}.}
+\label{fig:azimuthallineratios}
+\end{center}
+\end{figure}
+% \caption{Azimuthally averaged line-ratios plotted as a function of radius from the galactic center.  The black, solid line is the \ion{O}{3} / \ion{O}{2} ratio, while the red dashed line is the \ion{O}{3} / H$\beta$ ratio. As in Figure \ref{fig:bpt}{a}, ${\rm{log}\ion{O}{3}/\ion{O}{2}$ $\gtrsim 1$ ratio near the nucleus indicates the presence of a narrow-line region.}
+
+\begin{figure}%[T!]
+\begin{center}
+ \includegraphics[width=15cm,angle=0]{QuasarFigures/size_lum.png}
+  \caption{
+    H$\beta$ emission line region 90\% light radii vs. quasar H$\beta$ luminosities. The quasar luminosities were the portion of the light removed from the H$\beta$ images by the PSF subtraction process.}
+\label{fig:sizelum}
+\end{center}
+\end{figure}
+
+\begin{figure}%[T!]
+\begin{center}
+ \includegraphics[width=14cm,angle=0]{QuasarFigures/sfr_quasar.png}
+ \includegraphics[width=14cm,angle=0]{QuasarFigures/sfr_mass.png}
+  \caption{Plots of star-formation rates vs. quasar optical continuum luminosity (top) and galaxy stellar mass (bottom).  The quasar optical continuum luminosities were the portion of the light removed from the optical continuum images of the quasars by the PSF subtraction.  The galaxy stellar masses are infrared continuum luminosities rescaled using mass-to-light ratios.}
+\label{fig:sfr}
+\end{center}
+\end{figure}
+
+\begin{figure}%[T!]
+\begin{center}
+ \includegraphics[width=14cm,angle=0]{QuasarFigures/sfr_mass_redd.png}
+  \caption{Plot of star-formation rate per stellar mass vs. quasar Eddington Ratio.  The Eddington Ratios were derived from the black hole masses in Table \ref{tab:base} and optical continuum luminosities from the portion of the light removed from the optical continuum images of the quasars by the PSF subtraction.  The galaxy stellar masses are infrared continuum luminosities rescaled using mass-to-light ratios.}
+\label{fig:sfredd}
+\end{center}
+\end{figure}
+
