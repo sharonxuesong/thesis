@@ -1,0 +1,180 @@
+\chapter{Characterization of Exoplanet Systems Using Radial
+  Velocities}
+
+% boottran and TERMS and Katherina's long-period planet paper.
+
+%---------------------------------------------------------------------------
+\section{BOOTTRAN: Uncertainties for Orbital Parameters Estimated
+  Using Radial Velocities}\label{boottran:sec:boottran}
+
+The uncertainties listed for the orbital parameter
+estimates\footnote{Through out the paper and sometimes in this
+  Appendix, we refer to the ``{\it estimates} of the parameters'' (as
+  distinguished from the ``true parameters'', which are not known and
+  can only be estimated) simply as the ``parameters''.} and transit
+mid-time $T_c$ are calculated via bootstrapping
+\citep{1981,davison1997bootstrap} using the package BOOTTRAN, which we
+have made publicly available (see \S~\ref{sec:fit}). It is designed to
+calculate error bars for transit ephemerides and the Keplerian
+orbital fit parameters output by the RVLIN
+package\citep{2009ApJS..182..205W}, but can also be a stand-alone
+package. Thanks to the simple concept of bootstrapping, it is
+computationally very time-efficient and easy to use.
+
+The basic idea of bootstrap is to resample based on original data
+to create bootstrap samples (multiple data replicates); then for
+each bootstrap sample, derive orbital parameters or transit parameters
+through orbital fitting and calculation. The ensemble of parameters
+obtained in this way yields the approximate sampling distribution for
+each estimated parameter. The standard deviation of this sampling
+distribution is the standard error for the estimate.
+
+We caution the readers here that there are regimes in which the
+``approximate sampling distribution" (a frequentist's concept) is not
+an estimate of the posterior probability distribution (a Bayesian
+concept), and there are regimes (e.g., when limited sampling affects
+the shape of the $\chi^2$ surface) where there are qualitative
+differences and the bootstrap method dramatically underestimates
+uncertainties \citep[e.g., long-period planets when the observations
+  are not yet sufficient to pin down the orbital
+  period;][]{Ford2005,Bender2012}. In situations with sufficient RV
+data, good phase coverage, a sufficient time span of observations and
+a good orbital fit, bootstrap often gives a useful estimate of the
+parameter uncertainties. For the data considered in this paper, it
+was not obvious that the bootstrap uncertainty estimate would be
+accurate, as the time span of observations is only slightly longer than
+the orbital period of planet $c$. Nevertheless, we find good agreement
+between the uncertainty estimates derived from bootstrap and MCMC
+calculations.
+
+The radial velocity data are denoted as $\lbrace \vec{t},\ \vec{v},\ \vec{\sigma}
+\rbrace$, where each $t_i$, $v_i$, $\sigma_i$ represents radial
+velocity $v_i$ observed at time (BJD) $t_i$ with velocity uncertainty
+$\sigma_i$. Extreme outliers should be rejected in order to preserve the
+validity of our bootstrap algorithm. We first derive our estimates for
+the true orbital parameters from the original RV data via orbital fitting,
+using the RVLIN package \citep{2009ApJS..182..205W}: \beq \vec{\beta}
+= \mu(\vec{t},\ \vec{v},\ \vec{\sigma}), \eeq where $\vec{\beta}$ is
+the best fitted orbital parameters\footnote{As described in \S
+  \ref{sec:fit}, this includes the $P$, $T_p$, $K$, $e$, and $\omega$
+  for each planet, as well as $\gamma$, $\mbox{d}v/\mbox{d}t$ (if
+  applicable), and velocity offsets between instruments/telescopes (if
+  applicable) for the system.}. From $\vec{\beta}$, we derive $\lbrace
+\vec{t},\ \vec{v}_{best}(\vec{\beta}) \rbrace$, the best-fit model
+(here $\vec{t}$ are treated as predictors and thus fixed). Then we can
+begin resampling to create bootstrap samples.
+
+Our resampling plan is model-based resampling, where we draw from the
+residuals against the best-fit model. For data that come from the
+same instrument or telescope, in which case no instrumental offset
+needs to be taken into account, we simply draw from all residuals,
+$\lbrace \vec{v}-\vec{v}_{best} \rbrace$, with equal probability for
+each $(v_i - v_{best,i})$. This new ensemble of residuals, denoted as
+${\vec{r^*}}$, is then added to the best-fit model $\vec{v}_{best}$ to
+create one bootstrap sample, $\vec{v^*}$ \footnote{We simply use the
+  raw residual instead of any form of modified residual, because the
+  RV data for any single instrument or telescope are usually close
+  enough to homoscedasticity.}. Associated with ${\vec{r^*}}$, the
+uncertainties $\vec{\sigma}$ are also re-assigned to $\vec{v^*}$ --
+that is, if $v_j - v_{best,j}$ is drawn as $r_k$ and added to $v_k$ to
+generate $v^*_k$, then the uncertainty for $v^*_k$ is set to be
+$\sigma_j$.
+
+For data that come from multiple instruments or multiple
+telescopes, we incorporate our model-based resampling plan to include
+stratified sampling. In this case, although data from each instrument
+or telescope are close to homoscedastic, the entire set of data are
+usually highly heteroscedastic due to stratification in
+instrument/telescope radial velocity precision. Therefore, the
+resampling process is done by breaking down the data into different
+groups, $\lbrace \vec{v_1},\ \vec{v_2},\ \ldots \rbrace$, according to
+instrument and/or telescope, and then resample within each
+subgroup of data with the algorithm described in last paragraph. The bootstrap
+sample is then $\vec{v^*} = \lbrace \vec{v^*}_1,\ \vec{v^*}_2,\ \ldots
+\rbrace$.
+
+To construct the approximate sampling distribution of the orbital
+parameter estimates $\vec{\beta}$, we compute \beq \vec{\beta^*} =
+\mu(\vec{t},\ \vec{v^*},\ \vec{\sigma^*}) \eeq for each bootstrap
+sample, $\lbrace \vec{t},\ \vec{v^*},\ \vec{\sigma^*} \rbrace$. The
+sampling distribution for each orbital parameter estimate $\beta_i$
+can be constructed from the multiple sets of $\vec{\beta^*}$
+calculated from multiple bootstrap samples
+($\vec{\beta^*}^{(1)},\ \vec{\beta^*}^{(2)},\ \ldots$ from
+$\vec{v^*}^{(1)},\ \vec{v^*}^{(2)},\ \ldots$). The standard errors for
+$\vec{\beta}$ are simply the standard deviations of the sampling
+distributions\footnote{The standard deviation of a sampling
+  distribution is estimated in a robust way using the IDL function
+  {\it robust\_sigma}, which is written by H. Fruedenreich based on
+  the principles of robust estimation outlined in \cite{1983ured.book.....H}.}.
+
+The sampling distribution of the estimated transit mid-time, $T_c$, is
+calculated likewise. Here $T_c$ is the transit time for a certain
+planet of interest in the system, and is usually specified to be the first
+transit after a designated time $T$.  However, the situation is
+complicated by the periodic nature of $T_c$. Our approach is to first
+calculate, based on the original RV data, $T_{c0}$, the estimated
+mid-time of the first transit after time $T_0$ (an arbitrary time
+within the RV observation time window of $[\min(\vec{t}),\ \max(\vec{t})]$; $T_{c0}$ 
+is also within this window).
+Then
+\beq
+T_c = N\cdot P + T_{c0},
+\eeq
+where $P$ is the best-estimated period for this planet of interest,
+and $N$ is the smallest integer that is larger than $(T - T_{c0})/P$.
+Next we compute $T_{c0}^*$ for each bootstrap sample $\lbrace
+\vec{t},\ \vec{v^*},\ \vec{\sigma^*} \rbrace$. Given that within the
+time window of radial velocity observations
+($[\min(\vec{t}),\ \max(\vec{t})]$), the phase of the planet should be
+known well enough, it is fair to assume that $T_{c0}$ is an unbiased
+estimator of the true transit mid-time. Therefore we assert that
+$T_{c0}^*$ has to be well constrained and within the range of
+$[T_{c0}-P^*/2,\ T_{c0}+P^*/2]$, where $P^*$ is the period estimated from
+this bootstrap sample. If not, then we subtract or add multiple
+$P^*$'s until $T_{c0}^*$ falls within the range. Then naturally
+\beq
+T_c^* = N\cdot P^* + T_{c0}^*.
+\eeq
+The ensemble of $T_c^*$'s gives the sampling distribution of $T_c$
+and its standard error. Note that $T_c^*$ is not necessarily within
+the rage of $[T_{c}-P/2,\ T_{c}+P/2]$.
+
+Provided with the stellar mass $M_\star$ and its uncertainty, we
+calculate, for each planet in the system, the standard errors for the
+semi-major axis $a$ and the {\it minimum mass} of the planet $M_{\rm
+  p,min}$ (denoted as $\msini$ in the main text as commonly seen in
+literature, but this is a somewhat imprecise notation). As the first
+step, the mass function is calculated for the best-fit $\vec{\beta}$
+and each bootstrap sample $\vec{\beta^*}$,
+\beq
+f(P,K,e) = \frac{P K^3
+  (1-e)^{3/2}}{2\pi G} = \frac{(M_p\cdot \sin i)^3}{(M_\star+M_p)^2}.
+\eeq
+The sampling distribution of $f(P,K,e)$ then gives the standard error
+of the mass function. The minimum mass of the planet $M_{\rm p,min}$ 
+is then calculated by assuming $\sin{i}=1$ and solving for $M_p$.
+Standard error of $M_{\rm p,min}$ is derived through simple
+propagation of error, as the covariance between $M_\star$ and
+$f(P,K,e)$ is probably negligible.
+
+For the semi-major axis $a$,
+\beq
+a^3 = \frac{P^2 G
+  (M_\star+M_p)}{4\pi^2} \approx \frac{P^2 G (M_\star + M_{\rm p,min})}{4\pi^2}.
+\eeq
+The standard error of $P^2$ is calculated from its bootstrap sampling
+distribution, and via simple propagation of error we obtain the
+standard error of $a$ (neglecting covariance between $P^2$, $M_{\rm
+  p,min}$, and $M_\star$).
+
+
+%---------------------------------------------------------------------------
+\section{Characterization of Planetary Systems Using BOOTTRAN}
+
+Who cited our paper?
+
+Mostly, TERMS. What is TERMS. What are the published systems with me
+as coauthor doing this type of work.
+
+What did I do for Ketherina's paper?

@@ -8,7 +8,7 @@ DVIPDF = dvipdf
 
 all: $(FILE).dvi $(FILE).pdf
 
-$(FILE).dvi : $(FILE).tex abstract.tex acknowledgements.tex makefile $(REF).bib resume.tex psuthesis.cls planets.tex symbols.tex
+$(FILE).dvi : $(FILE).tex abstract.tex acknowledgements.tex makefile $(REF).bib resume.tex psuthesis.cls planets.tex symbols.tex boottran.tex
 	$(TEX) $(FILE)
 	$(BIBTEX) $(FILE)
 	$(TEX) $(FILE)
