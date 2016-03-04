@@ -4,8 +4,78 @@
 % boottran and TERMS and Katherina's long-period planet paper.
 
 %---------------------------------------------------------------------------
+\section{Introduction and Background}
+
+Extracting exoplanet signals from RV data is hard in many ways. First,
+it can be hard to distinguish stellar activity signals from planetary
+signals, and one of the examples is the famous case of the GJ 581
+system ZZZ cite Mayor, Vogt, Hatze, Robertson ZZZ. Second, even with
+the definitive knowledge that the RV signal is dominated by planets,
+it can still be challenging if the planetary system is dynamically
+active, e.g., for the case of the 55 Cnc system ZZZ cite Ben's paper
+ZZZ, and characterizing planetary orbits is a numerically and
+computationally challenging problem ZZZ cite Ben's RUNDMC
+paper. Third, even if the star is RV quiet and the planetary system is
+dynamically quiet, and all orbits can be described by simple Keplerian
+orbits, several challenges remain for this ``parameter fitting" or
+optimization problem with complicated model selection scenarios: the
+number of planets in the system can be hard to pin down ZZZ cite the
+APF/HARPS 6 planet system ZZZ; some orbits may not be well constrained
+and thus raise ambiguities (e.g., circular orbits or eccentric; ZZZ
+cite eccentric hot jupiter papers); it can be computationally
+demanding (especially if Bayesian frame is employed).
+
+In 2012, there was very few published codes on performing simple
+Keplerian fit using RV data under the context of exoplanet detection
+(i.e., handling multi-planets, data from multiple telescopes, etc.;
+ZZZ cite Greg Laughlin's systemic ZZZ who else?), especially ones that
+were easy to use. The {\tt RVLIN} package by \cite{rvlin} addresses
+the problem of simple Keplerian orbital fitting using least-$\chi^2$
+algorithm and exploiting the linear parameters (ZZZ which ones) to
+speed up the convergence. It handles multi-planet systems and RV data
+from multiple telescopes, is very easy to use (simple input
+requirements and easy commands; written in IDL), and its typical time
+for convergence is within seconds. It is fairly popular and has a
+large user group beyond the exoplanet community (ZZZ citations for
+RVLIN package).
+
+However, {\tt RVLIN} does not provide estimates for uncertainties on
+the best-fit parameters. This becomes a much desirable feature
+especially for the Transit Ephemeris Refinement and Monitoring Survey
+(TERMS) project \citep{Kane2009}. TERMS follows up RV detected
+exoplanets with moderate separation from their bright, nearby host
+stars (semi-major axis $>$ few hundreths of an AU) to search for
+transiting ``warm" planets (as opposed to the Hot Jupiters), which are
+unique and important targets for atmospheric characterization. TERMS
+uses {\tt RVLIN} for orbital parameter estimates, but only having the
+best-fit Keplerian parameters will not suffice for transit prediction
+and transit observation planning. A transit search can only be
+feasible if the transit window is well constrained by the RV
+data. Otherwise, more RVs need to be collected. As many of the TERMS
+targets were reported in the literature a while ago, the predicted
+transit ephemerides might have ``drifted" from the true ones as the
+predictive power of old RV data faded as time went by. Therefore,
+estimating uncertainties on transit ephemerides becomes crucial for
+the project.
+
+With the purpose of estimating transit ephemerides and their
+uncertainties for TERMS, and also to make {\tt RVLIN} a more useful
+package, I constructed the \boottran\ package, which uses
+bootstrapping to calculate uncertainties for the Keplerian parameters
+estimated by \rvlin. The statistical justification and algorithm of
+\boottran\ is described in the next section.
+
+
+
+%---------------------------------------------------------------------------
 \section{BOOTTRAN: Uncertainties for Orbital Parameters Estimated
   Using Radial Velocities}\label{boottran:sec:boottran}
+
+{\it
+  The following texts are originally published in the appendix of
+  \cite{wang2012} in {\it ApJ}, and copy right belongs to IOP
+  Publishing. They are used in this thesis with permission.
+}
 
 The uncertainties listed for the orbital parameter
 estimates\footnote{Through out the paper and sometimes in this
