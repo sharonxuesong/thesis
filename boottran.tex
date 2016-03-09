@@ -29,7 +29,7 @@ In 2012, there was very few published codes on performing simple
 Keplerian fit using RV data under the context of exoplanet detection
 (i.e., handling multi-planets, data from multiple telescopes, etc.;
 ZZZ cite Greg Laughlin's systemic ZZZ who else?), especially ones that
-were easy to use. The {\tt RVLIN} package by \cite{rvlin} addresses
+were easy to use. The \rvlin\ package by \cite{rvlin} addresses
 the problem of simple Keplerian orbital fitting using least-$\chi^2$
 algorithm and exploiting the linear parameters (ZZZ which ones) to
 speed up the convergence. It handles multi-planet systems and RV data
@@ -39,7 +39,7 @@ for convergence is within seconds. It is fairly popular and has a
 large user group beyond the exoplanet community (ZZZ citations for
 RVLIN package).
 
-However, {\tt RVLIN} does not provide estimates for uncertainties on
+However, \rvlin\ does not provide estimates for uncertainties on
 the best-fit parameters. This becomes a much desirable feature
 especially for the Transit Ephemeris Refinement and Monitoring Survey
 (TERMS) project \citep{Kane2009}. TERMS follows up RV detected
@@ -47,7 +47,7 @@ exoplanets with moderate separation from their bright, nearby host
 stars (semi-major axis $>$ few hundreths of an AU) to search for
 transiting ``warm" planets (as opposed to the Hot Jupiters), which are
 unique and important targets for atmospheric characterization. TERMS
-uses {\tt RVLIN} for orbital parameter estimates, but only having the
+uses \rvlin\ for orbital parameter estimates, but only having the
 best-fit Keplerian parameters will not suffice for transit prediction
 and transit observation planning. A transit search can only be
 feasible if the transit window is well constrained by the RV
@@ -58,12 +58,18 @@ predictive power of old RV data faded as time went by. Therefore,
 estimating uncertainties on transit ephemerides becomes crucial for
 the project.
 
-With the purpose of estimating transit ephemerides and their
-uncertainties for TERMS, and also to make {\tt RVLIN} a more useful
-package, I constructed the \boottran\ package, which uses
-bootstrapping to calculate uncertainties for the Keplerian parameters
-estimated by \rvlin. The statistical justification and algorithm of
-\boottran\ is described in the next section.
+With the purpose of calculating transit ephemerides and their
+uncertainties for TERMS, and also to supplement \rvlin\ with a
+tool to estimate uncertainties, I constructed the \boottran\ package,
+which uses bootstrapping to calculate uncertainties for the Keplerian
+parameters estimated by \rvlin. The statistical justification and
+algorithm of \boottran\ is described in the next section. The final
+section of this chapter describes my contributing work on
+characterizing exoplanetary systems using \boottran\ in several
+publications, mostly as the outcome of the TERMS project. The next
+chapter, Chapter~\ref{chap:planets}, descirbes the planetary system
+around the star HD~37605, which is another example of application of
+\rvlin\ and \boottran.
 
 
 
@@ -74,22 +80,24 @@ estimated by \rvlin. The statistical justification and algorithm of
 {\it
   The following texts are originally published in the appendix of
   \cite{wang2012} in {\it ApJ}, and copy right belongs to IOP
-  Publishing. They are used in this thesis with permission.
+  Publishing. They are used in this thesis with permission (with
+  minor modification to fit in this chapter). 
 }
 
-The uncertainties listed for the orbital parameter
-estimates\footnote{Through out the paper and sometimes in this
-  Appendix, we refer to the ``{\it estimates} of the parameters'' (as
+We have constructed a package, \boottran, to calculate uncertainties
+for Keplerian orbital parameter estimates\footnote{Through out this
+  thesis, we refer to the ``{\it estimates} of the parameters'' (as
   distinguished from the ``true parameters'', which are not known and
   can only be estimated) simply as the ``parameters''.} and transit
-mid-time $T_c$ are calculated via bootstrapping
-\citep{1981,davison1997bootstrap} using the package BOOTTRAN, which we
-have made publicly available (see \S~\ref{sec:fit}). It is designed to
-calculate error bars for transit ephemerides and the Keplerian
-orbital fit parameters output by the RVLIN
-package\citep{2009ApJS..182..205W}, but can also be a stand-alone
-package. Thanks to the simple concept of bootstrapping, it is
-computationally very time-efficient and easy to use.
+mid-time $T_c$ via bootstrapping
+\citep{1981,davison1997bootstrap}. \boottran\ is designed to calculate
+error bars for transit ephemerides and the Keplerian orbital fit
+parameters output by the RVLIN package\citep{rvlin}, but can also be a
+stand-alone package. The two packages, \rvlin\ and \boottran, are
+publicly available at http://exoplanets.org/code/ and the
+Astrophysical Source Code Library (ASCL.net). Thanks to the simple
+concept of bootstrapping, it is computationally very time-efficient
+and easy to use.
 
 The basic idea of bootstrap is to resample based on original data
 to create bootstrap samples (multiple data replicates); then for
@@ -110,12 +118,13 @@ uncertainties \citep[e.g., long-period planets when the observations
   period;][]{Ford2005,Bender2012}. In situations with sufficient RV
 data, good phase coverage, a sufficient time span of observations and
 a good orbital fit, bootstrap often gives a useful estimate of the
-parameter uncertainties. For the data considered in this paper, it
-was not obvious that the bootstrap uncertainty estimate would be
-accurate, as the time span of observations is only slightly longer than
-the orbital period of planet $c$. Nevertheless, we find good agreement
-between the uncertainty estimates derived from bootstrap and MCMC
-calculations.
+parameter uncertainties. For the data considered in
+Chapter~\ref{chap:planets} \citep{wang2012}, it was not obvious that
+the bootstrap uncertainty estimate would be accurate, as the time span
+of observations is only slightly longer than the orbital period of
+planet $c$. Nevertheless, we find good agreement between the
+uncertainty estimates derived from bootstrap and MCMC calculations in
+\cite{wang2012}.
 
 The radial velocity data are denoted as $\lbrace \vec{t},\ \vec{v},\ \vec{\sigma}
 \rbrace$, where each $t_i$, $v_i$, $\sigma_i$ represents radial
@@ -123,7 +132,7 @@ velocity $v_i$ observed at time (BJD) $t_i$ with velocity uncertainty
 $\sigma_i$. Extreme outliers should be rejected in order to preserve the
 validity of our bootstrap algorithm. We first derive our estimates for
 the true orbital parameters from the original RV data via orbital fitting,
-using the RVLIN package \citep{2009ApJS..182..205W}: \beq \vec{\beta}
+using the RVLIN package: \beq \vec{\beta}
 = \mu(\vec{t},\ \vec{v},\ \vec{\sigma}), \eeq where $\vec{\beta}$ is
 the best fitted orbital parameters\footnote{As described in \S
   \ref{sec:fit}, this includes the $P$, $T_p$, $K$, $e$, and $\omega$
@@ -224,9 +233,9 @@ f(P,K,e) = \frac{P K^3
 The sampling distribution of $f(P,K,e)$ then gives the standard error
 of the mass function. The minimum mass of the planet $M_{\rm p,min}$ 
 is then calculated by assuming $\sin{i}=1$ and solving for $M_p$.
-Standard error of $M_{\rm p,min}$ is derived through simple
+ZZZ Is this still true?! Standard error of $M_{\rm p,min}$ is derived through simple
 propagation of error, as the covariance between $M_\star$ and
-$f(P,K,e)$ is probably negligible.
+$f(P,K,e)$ is probably negligible. ZZZ
 
 For the semi-major axis $a$,
 \beq
