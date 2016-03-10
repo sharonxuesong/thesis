@@ -4,40 +4,46 @@
 % boottran and TERMS and Katherina's long-period planet paper.
 
 %---------------------------------------------------------------------------
-\section{Introduction and Background}
+\section{Introduction and Background}\label{boottran:sec:intro}
 
-Extracting exoplanet signals from RV data is hard in many ways. First,
-it can be hard to distinguish stellar activity signals from planetary
-signals, and one of the examples is the famous case of the GJ 581
-system ZZZ cite Mayor, Vogt, Hatze, Robertson ZZZ. Second, even with
-the definitive knowledge that the RV signal is dominated by planets,
-it can still be challenging if the planetary system is dynamically
-active, e.g., for the case of the 55 Cnc system ZZZ cite Ben's paper
-ZZZ, and characterizing planetary orbits is a numerically and
-computationally challenging problem ZZZ cite Ben's RUNDMC
-paper. Third, even if the star is RV quiet and the planetary system is
-dynamically quiet, and all orbits can be described by simple Keplerian
-orbits, several challenges remain for this ``parameter fitting" or
-optimization problem with complicated model selection scenarios: the
-number of planets in the system can be hard to pin down ZZZ cite the
-APF/HARPS 6 planet system ZZZ; some orbits may not be well constrained
-and thus raise ambiguities (e.g., circular orbits or eccentric; ZZZ
-cite eccentric hot jupiter papers); it can be computationally
-demanding (especially if Bayesian frame is employed).
+Extracting exoplanet signals from RV data is hard in many ways (see
+Section~4 of \citealt{eprv2015} for a summary of the status of this
+problem as of 2015). First, it can be hard to identify and quantify
+stellar activity signals from planetary signals, and one of the
+examples is the famous case of the GJ 581 system
+\citep{2009A&A...507..487M, 2010ApJ...723..954V, 2013AN....334..616H,
+  2014Sci...345..440R, 2015Sci...347.1080A,
+  2015Sci...347.1080R}. Second, even with the definitive knowledge
+that the RV signal is dominated by planets, it can still be
+challenging if the planetary system is dynamically active, e.g., for
+the case of the 55 Cnc system \citep{2014MNRAS.441..442N}, and
+characterizing planetary orbits is a numerically and computationally
+challenging problem \citep{2014ApJS..210...11N}. Third, even if the
+star is RV quiet and the planetary system is dynamically quiet, and
+all orbits can be described by simple Keplerian orbits, several
+challenges remain for this ``parameter fitting" or optimization
+problem with complicated model selection scenarios: the number of
+planets in the system can be hard to pin down
+\citep{2015ApJ...814...12V, 2015A&A...584A..72M, 2016arXiv160205200J};
+some orbits may not be well constrained and thus raise ambiguities
+(e.g., circular orbits or eccentric; e.g.,
+\citealt{2010ApJ...709..168A, 2013ApJS..208....2W,
+  2015A&A...577A.103K}); and it can be computationally demanding.
 
-In 2012, there was very few published codes on performing simple
+In 2012, there were very few published codes on performing simple
 Keplerian fit using RV data under the context of exoplanet detection
 (i.e., handling multi-planets, data from multiple telescopes, etc.;
-ZZZ cite Greg Laughlin's systemic ZZZ who else?), especially ones that
-were easy to use. The \rvlin\ package by \cite{rvlin} addresses
-the problem of simple Keplerian orbital fitting using least-$\chi^2$
-algorithm and exploiting the linear parameters (ZZZ which ones) to
-speed up the convergence. It handles multi-planet systems and RV data
-from multiple telescopes, is very easy to use (simple input
-requirements and easy commands; written in IDL), and its typical time
-for convergence is within seconds. It is fairly popular and has a
-large user group beyond the exoplanet community (ZZZ citations for
-RVLIN package).
+e.g., the systemic console, \citealt{2009PASP..121.1016M}), especially
+ones that were easy to use. The \rvlin\ package by \cite{rvlin}
+addresses the problem of simple Keplerian orbital fitting using
+least-$\chi^2$ algorithm and exploiting the linear parameters (i.e.,
+$K, \omega, \gamma$, and RV trend) to speed up the convergence. It
+handles multi-planet systems and RV data from multiple telescopes, is
+very easy to use (simple input requirements and easy commands; written
+in IDL), and its typical time for convergence is within seconds. It is
+fairly popular and has a large user group beyond the exoplanet
+community (e.g., for binary stars and systems characterized using
+astrometry, \citealt{2016AJ....151...57K}).
 
 However, \rvlin\ does not provide estimates for uncertainties on
 the best-fit parameters. This becomes a much desirable feature
@@ -233,9 +239,9 @@ f(P,K,e) = \frac{P K^3
 The sampling distribution of $f(P,K,e)$ then gives the standard error
 of the mass function. The minimum mass of the planet $M_{\rm p,min}$ 
 is then calculated by assuming $\sin{i}=1$ and solving for $M_p$.
-ZZZ Is this still true?! Standard error of $M_{\rm p,min}$ is derived through simple
+Standard error of $M_{\rm p,min}$ is derived through simple
 propagation of error, as the covariance between $M_\star$ and
-$f(P,K,e)$ is probably negligible. ZZZ
+$f(P,K,e)$ is probably negligible.
 
 For the semi-major axis $a$,
 \beq
@@ -249,11 +255,30 @@ standard error of $a$ (neglecting covariance between $P^2$, $M_{\rm
 
 
 %---------------------------------------------------------------------------
-\section{Characterization of Planetary Systems Using BOOTTRAN}
+\section{Other Works on Characterization of Planetary Systems}
 
-Who cited our paper?
+\boottran\ was heavily used in the TERMS project (see introduction in
+Section~\ref{boottran:sec:intro}; e.g., publications with me as a
+contributing author, \citealt{2013ApJ...768..155H,
+  2012ApJ...754...37D, 2011ApJ...737...58K, 2011ApJ...735L..41K}) and
+other works, including \cite{2015ApJ...800...22F} with me as an
+co-author. As of March 2016, \boottran\ and \cite{wang2012} have
+received $\sim$30 citations. This section highlights my contributing
+work in \cite{2015ApJ...800...22F} and \cite{2013ApJ...768..155H}, as
+selected examples of usage of \boottran, and also my other works on
+characterization of planetary systems.
 
-Mostly, TERMS. What is TERMS. What are the published systems with me
-as coauthor doing this type of work.
+\cite{2015ApJ...800...22F} reports updates or new detections on the
+planetary systems around eight stars using RV data (primarily taken by
+\keck), including: orbit updates for HD 24040, HD 183263, HD
+74156, HD 187123, and HD 217107; a newly detected linear trend in RV
+for the HD 66428 system; RV coverage for a complete orbit for GJ
+849$c$; detection of HD 145934$b$. The emphasis of the paper is on
+detecting and characterizing long-period planets, which can be
+challenging as some of the planets have orbital periods on a $\sim$10
+year time scale and thus have relatively poor RV
+coverage. In such cases, it is important to illustrate good
+constraints on orbital properties to confirm detection of the
+planets. 
 
-What did I do for Ketherina's paper?
+\cite{2013ApJ...768..155H}... Figure~2 and 3 and Section~3.4 are my work.
