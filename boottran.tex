@@ -65,18 +65,24 @@ estimating uncertainties on transit ephemerides becomes crucial for
 the project.
 
 With the purpose of calculating transit ephemerides and their
-uncertainties for TERMS, and also to supplement \rvlin\ with a
-tool to estimate uncertainties, I constructed the \boottran\ package,
-which uses bootstrapping to calculate uncertainties for the Keplerian
-parameters estimated by \rvlin. The statistical justification and
-algorithm of \boottran\ is described in the next section. The final
-section of this chapter describes my contributing work on
-characterizing exoplanetary systems using \boottran\ in several
-publications, mostly as the outcome of the TERMS project. The next
-chapter, Chapter~\ref{chap:planets}, descirbes the planetary system
-around the star HD~37605, which is another example of application of
-\rvlin\ and \boottran.
-
+uncertainties for TERMS, and also to supplement \rvlin\ with a tool to
+estimate uncertainties, I constructed the \boottran\ package, which
+uses bootstrapping to calculate uncertainties for the Keplerian
+parameters estimated by \rvlin. \boottran\ was heavily used in the
+TERMS project and others (e.g., some of my co-authored publications:
+\citealt{2013ApJ...768..155H, 2012ApJ...754...37D,
+  2011ApJ...737...58K, 2011ApJ...735L..41K}; and
+\citealt{2015ApJ...800...22F}). As of March 2016, \boottran\ and
+\cite{wang2012} have received $\sim$30 citations. The statistical
+justification and algorithm of \boottran\ is described in the next
+section. The final section of this chapter describes my contributing
+work on characterizing exoplanetary systems in in
+\cite{2015ApJ...800...22F} and \cite{2013ApJ...768..155H} using other
+tools besides \boottran. The next chapter, Chapter~\ref{chap:planets},
+descirbes the planetary system around the star HD~37605, which serves
+as an example of application of \rvlin\ and \boottran (similar with
+other TERMS publications citing \citealt{wang2012} such as
+\citealt{2012ApJ...754...37D}).
 
 
 %---------------------------------------------------------------------------
@@ -257,37 +263,56 @@ standard error of $a$ (neglecting covariance between $P^2$, $M_{\rm
 %---------------------------------------------------------------------------
 \section{Other Works on Characterization of Planetary Systems}
 
-\boottran\ was heavily used in the TERMS project (see introduction in
-Section~\ref{boottran:sec:intro}; e.g., publications with me as a
-contributing author, \citealt{2013ApJ...768..155H,
-  2012ApJ...754...37D, 2011ApJ...737...58K, 2011ApJ...735L..41K}) and
-other works, including \cite{2015ApJ...800...22F} with me as an
-co-author. As of March 2016, \boottran\ and \cite{wang2012} have
-received $\sim$30 citations. This section highlights my contributing
-work in \cite{2015ApJ...800...22F} and \cite{2013ApJ...768..155H}
-using other tools for characterization of planetary systems.
+This section highlights my contributing work in
+\cite{2015ApJ...800...22F} and \cite{2013ApJ...768..155H} using other
+tools instead of \boottran\ for characterization of planetary systems.
 
-\cite{2015ApJ...800...22F} reports updates or new detections on the
-planetary systems around eight stars using RV data (primarily taken by
-\keck), including: orbit updates for HD 24040, HD 183263, HD
-74156, HD 187123, and HD 217107; a newly detected linear trend in RV
-for the HD 66428 system; RV coverage for a complete orbit for GJ
-849$c$; detection of HD 145934$b$. The emphasis of the paper is on
+{\bf (1)} \cite{2015ApJ...800...22F} reports updates and/or new detections on
+the planetary systems around eight stars using RV data (primarily
+taken by \keck), including: orbit updates for HD 24040, HD 183263, HD
+74156, and HD 187123; a newly detected linear trend in RV for the HD
+66428 system; RV coverage for complete orbits for GJ 849$c$ and HD
+217107$c$; detection of HD 145934$b$. The emphasis of the paper is on
 detecting and characterizing long-period planets, which can be
-challenging as some of the planets have orbital periods on a $\sim$10
-year time scale and thus have relatively poor RV
-coverage. In such cases, it is important to illustrate good
-constraints on orbital properties to confirm detection of the
-planets. 
-
+challenging because some of the planets have orbital periods on a $\sim$10
+year time scale and thus have relatively poor RV coverage. In such
+cases, it is important to illustrate good constraints on orbital
+properties to confirm detection of the planets. A very useful tool is
+the ``Wright diagram" (as referred to by
+\citealt{2014ApJ...785..126K}; see, e.g.,
+\citealt{2009ApJ...699L..97W}). For example,
+Figure~\ref{boottran:mmperplot} is an Wright diagram for HD 217107$c$,
+which shows the $\chi^2$ surface ``marginalized" over $\msini$ and $P$
+(each $\chi^2$ value is for a set of optimized parameters with fixed
+$\msini$ and $P$; see Section~\ref{sec:fit} for more details). This
+demonstrates that the mass of HD 217107$c$ is well constrained to
+justify its planetary nature (nominally $<13\ \mjup$), and the period
+is decently constrained even though the RV data barely covers one
+orbital period for HD 217107$c$. Figure~11 in
+\cite{2015ApJ...800...22F} serves the same purpose but for GJ 849$c$.
 
 % see email from Stephen Kane on 1/18/2013 'TERMS HD28529 paper' for
 % my contribution
 % plots from ExoPlanet.../TERMS/38529/
-\cite{2013ApJ...768..155H}... Figure~2 and 3 and Section~3.4 are my
-work. The results of \cite{2010AJ....139.1844B} are utilized by the
-authors to speculate on evidence for a third planet in the
-system. Thus we also consider this possibility from our analysis since
+{\bf (2)} \cite{2013ApJ...768..155H} reports the host star properties
+and transit exclusion for the HD 38529 system. TERMS refined the
+orbital parameters for HD 38529$b$ and $c$ using new and archival RV
+data from \hrs, Lick/Hamilton, and \keck. See
+Figure~\ref{boottran:rvplot} for the RV plot for this system (orbital
+fitting and uncertainty estimates from \rvlin\ and \boottran). The RV
+data also enabled us to test the hypothesis of a third planet in the
+system speculated by \cite{2010AJ....139.1844B}, using Monte Carlo to
+estimate the significance of potential periodic signals in the RV
+residuals to the two-planet Keplerian solution.
+
+{\it The texts below are from Section~3.4 of
+  \cite{2013ApJ...768..155H} and were co-written by me and the second
+  author Stephen R.\ Kane (with minor revisions for consistency with
+  this chapter).}
+
+The results of \cite{2010AJ....139.1844B} are utilized by the authors
+to speculate on evidence for a third planet in the system of HD
+38529. Thus we also consider this possibility from our analysis since
 our RV data comprise a substantially larger dataset. As reported by
 \cite{2010AJ....139.1844B}, a coplanary orbital solution is only
 stable if the third planet has a period within the window of
@@ -345,11 +370,11 @@ $c$, after adding the third planet, are smaller than their error bars.
 % MMPER Plot
 \begin{figure}
 \includegraphics[scale=0.6]{boottran/feng2015-f9-217107.eps} 
-\caption{Best-fit 100$x$100 $\chi^2$ map for fixed values of $P_c$ and
+\caption{Best-fit 100$\times$100 $\chi^2$ map for fixed values of $P_c$ and
   $M_c\sin{i_c}$ for HD 217107$c$. This confirms that the period and
   mass are well-constrained.  We have illustrated the contours of the
   1$\sigma$, 2$\sigma$, and 3$\sigma$ (defined by $\chi^2 =
-  \chi^2_{\rm min} + {2.30, 6.17, 11.8}$) confidence levels, based on
+  \chi^2_{\rm min} + \{2.30, 6.17, 11.8\}$) confidence levels, based on
   for the number of degrees of freedom in the problem
   \citep{2002nrca.book.....P}. The center and 1$\sigma$ limits in both
   parameters are consistent with the bootstrapping uncertainties for
@@ -380,7 +405,8 @@ $c$, after adding the third planet, are smaller than their error bars.
   (data sets 5 and 6), and the green squares are for the HET data
   (data sets 1 and 2). The typical size of internal error bars for
   each telescope ($\pm$ median internal errors) are plotted on the
-  upper right of this panel.
+  upper right of this panel. This figure is published as Figure~2 in
+  \cite{2013ApJ...768..155H} and was made by me.
 \label{boottran:rvplot}}
 \end{figure}
 %----------------------------------------------------------------
