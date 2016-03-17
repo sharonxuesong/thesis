@@ -35,9 +35,29 @@ The model spectra include\footnote{It can also include a model
   Chapter~\ref{chap:keck} Section~\ref{keck:sec:telluric}), and so
   on.}: a model spectrum for the iodine absorption lines, $F_{\rm
   I_2}(\lambda)$ and a model spectrum for the star,
-$F_{*}(\lambda)$. Ideally, these spectra are the ``ground truth"
+$F_{*}(\lambda)$. The goal is to use the model the observed,
+extracted, and normalized 1-D spectrum, $F_{\rm obs}(x)$, at any given
+pixel position (and spectral order), $x$, using these model spectra
+and model parameters. The broadening effect of the spectrograph is
+described by the spectral response function, or the spectral point
+spread function, or the instrumental profile (IP), which we will refer
+to as the IP throughout this thesis and is denoted as
+$\curlyp(x)$. Hence,
+\beq
+F_{\rm obs}(x) = \left[ F_{\rm I_2}(\lambda(x)) \times
+F_{*}'(\lambda(x)) \right] \ast \curlyp(x),
+\eeq
+where $\lambda(x)$ is the wavelength solution for the 1-D spectrum,
+and $F_{*}'$ is the red-shifted stellar spectrum defined by
+$F_{*}'(\lambda) = F_{*}(\lambda\cdot(1+z))$. 
+
+
+
+
+Ideally, these spectra are the ``ground truth"
 spectra, i.e. the intrinsic spectra of the source without Doppler
 shift or being broadened by the spectrometer. 
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
