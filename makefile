@@ -28,4 +28,5 @@ clean :
 	\rm *.toc
 	\rm *.bbl
 	\rm *.blg
+	\rm *.out
 #	\cp $(FILE).pdf ~/Dropbox/Public/sharon_$(FILE).pdf
