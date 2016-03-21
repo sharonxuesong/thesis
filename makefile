@@ -4,7 +4,7 @@ TEX = latex
 BIBTEX = bibtex
 DVIPDF = dvipdf
 
-.PHONY: all clean
+.PHONY: all clean public
 
 all: $(FILE).dvi $(FILE).pdf
 
@@ -28,5 +28,7 @@ clean :
 	\rm *.toc
 	\rm *.bbl
 	\rm *.blg
-	\rm *.out
-#	\cp $(FILE).pdf ~/Dropbox/Public/sharon_$(FILE).pdf
+#	\rm *.out
+
+public:
+	\cp $(FILE).pdf ~/Dropbox/Public/sharon_$(FILE).pdf
