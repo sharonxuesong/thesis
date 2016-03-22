@@ -294,6 +294,16 @@ chunk). After the second pass, a third pass of {\tt crank.pro} is
 called with fixed wavelength dispersion $w_d$ and only floating $z$
 and $w_0$, in search for a deeper minimum or lower $\chi^2$.
 
-%
+% other layers inside crank.pro
+Within {\tt crank.pro}, the code calls for {\tt stargrind.pro} in a
+loop of all observations. {\tt stargrind.pro} does the model fitting
+for a single observation, and it loops through all spectral chunks,
+calling {\tt starsolve.pro}, which contains the LM fitter, for each
+chunk. Inside {\tt starsolve.pro}, the spectral model is computed
+using {\tt starham.pro}, which is really just a wrapper around {\tt
+  starsyn.pro}. The core algorithm for model construction is all in
+{\tt starsyn.pro}, which takes in the observed 1-D spectral chunk, the
+DSST, the iodine atlas, and the model parameters, and outputs a model
+spectrum for this chunk.
 
 % Vanking!
