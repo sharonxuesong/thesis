@@ -59,7 +59,7 @@ The stellar reference spectrum is empirically derived from iodine-free
 stellar observations taken on an epoch, say, $T_0$. As a result, all
 measured RVs for the star using a stellar template from $T_0$
 represent relative stellar velocities between epoch $T_0$ and epoch
-$T_{\rm obs}$ (i.e., $v_{*,T_{\rm obs}} - v_{*,T_0}$), instead of the
+$T_{\rm obs}$ (i.e., $v_{*,\ T_{\rm obs}} - v_{*,\ T_0}$), instead of the
 absolutely RVs of the star. The following subsection describes the
 origins of the stellar (and also the iodine) reference spectra.
 
@@ -240,7 +240,24 @@ Chapter~\ref{chap:het} Section~\ref{het:sec:ip} for more.
 
 This section documents the structure of the CPS Doppler code, with the
 main goal to help any reader who wishes to adopt this code for their
-own work.
+own work. Figure~\ref{doppler:fig:flowchart} illustrates the code's
+calling sequence. 
+
+
+%----------------------------------------------------------------
+% Figure: Code flowchart
+\begin{figure}
+%\epsscale{1.15}
+  \centering
+\includegraphics[scale=0.6]{doppler/flowchart.eps}
+\caption{Calling sequence and main functionality for core IDL
+  routines in the CPS Doppler code. \label{doppler:fig:flowchart}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+%-------------------------------------------------------------------------------
+\subsection{Extracting RVs from Stellar $+$ Iodine Observations}
 
 % dop_driver.pro and output files
 The most top-level routine for running Doppler reduction is the IDL
@@ -263,8 +280,8 @@ useful variable is the {\tt cf3} structure in the {\tt vst} file,
 which contains, for example, the Julian Date (JD) of the observation
 {\tt cf3.jd}, the BC {\tt cf3.bc}, the weighted RV {\tt cf3.mnvel},
 and its uncertainty {tt cf3.errvel}. The algorithm for {\tt
-  jjvank.pro}, or ``vanking", is described at the end of this
-section. In the end, {\tt dop\_driver.pro} will produce $N_{\rm obs}$
+  jjvank.pro}, or ``vanking", is described in the next
+subsection. In the end, {\tt dop\_driver.pro} will produce $N_{\rm obs}$
 {\tt vd} files and one {\tt vst} file for each star. If a new
 observation is taken, a new {\tt vd} file is created, and vanking
 re-evaluates the chunk and observation weights and outputs a new {\tt
@@ -304,6 +321,46 @@ using {\tt starham.pro}, which is really just a wrapper around {\tt
   starsyn.pro}. The core algorithm for model construction is all in
 {\tt starsyn.pro}, which takes in the observed 1-D spectral chunk, the
 DSST, the iodine atlas, and the model parameters, and outputs a model
-spectrum for this chunk.
+spectrum for this chunk. 
 
-% Vanking!
+
+
+%-------------------------------------------------------------------------------
+\subsection{Computing Weighted Average RVs for Each Observation}
+
+Now all observations and all chunks have their best-fit model parameters
+computed by {\tt crank.pro}, and all RVs are barycentric
+corrected. What's next?
+
+Two extremely important things need to happen at this point before we
+can have an RV time series in hand, and they are accomplished by {\tt
+  jjvank.pro} and most importantly, {\tt vdclean.pro} (see
+Figure~\ref{doppler:fig:flowchart} for the calling sequence).
+
+% need to adjust chunk zero point
+First, the chunk RVs need to be adjusted so that they have the same
+``zero point". As mentioned in the previous subsection, the measured
+RV for each chunk at a certain epoch $T_{\rm obs}$ is a relative RV
+against the DSST taken at epoch $T_0$, $v_{*,\T_{\rm obs}} -
+v_{*,T_0}$. This is because the stellar lines and their Doppler shift
+in each chunk are modeled by red-shifting the DSST: $F_{*}'(\lambda) =
+F_{*}(\lambda\cdot(1+z))$. The wavelength solution for the DSST
+implies its absolute RV $v_{*,\ T_0}$ at $T_0$. If the wavelength
+solution for all DSST chunks corresponds to the exact same value of
+$v_{*,\ T_0}$, then measured RVs for all chunks in the observed
+stellar iodine observation would have the same ``zero
+point". Consequently, any biases or relative errors in the DSST
+wavelength solution would result in a shifted zero point for that
+chunk with respect to other chunks. For example, one source of error
+comes from the fact that the wavelength solution for DSST is derived
+from neighboring B star $+$ iodine observations, which assumes that
+the wavelength solution for the orders and pixels remain the same
+between the B star and the DSST observations. Or, the wavelength
+solution derived from B star observations may be imperfect.
+
+zzz other sources for zero point shifts. The scatter in RV zero points will translate 
+
+% need to compute weights for each chunk and observation
+Second, 
+
+% the algorithm
