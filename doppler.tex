@@ -256,9 +256,6 @@ calling sequence.
 %----------------------------------------------------------------
 
 
-%-------------------------------------------------------------------------------
-\subsection{Extracting RVs from Stellar $+$ Iodine Observations}
-
 % dop_driver.pro and output files
 The most top-level routine for running Doppler reduction is the IDL
 procedure {\tt dop\_driver.pro}, which takes in the name of the star
@@ -281,7 +278,7 @@ which contains, for example, the Julian Date (JD) of the observation
 {\tt cf3.jd}, the BC {\tt cf3.bc}, the weighted RV {\tt cf3.mnvel},
 and its uncertainty {tt cf3.errvel}. The algorithm for {\tt
   jjvank.pro}, or ``vanking", is described in the next
-subsection. In the end, {\tt dop\_driver.pro} will produce $N_{\rm obs}$
+section. In the end, {\tt dop\_driver.pro} will produce $N_{\rm obs}$
 {\tt vd} files and one {\tt vst} file for each star. If a new
 observation is taken, a new {\tt vd} file is created, and vanking
 re-evaluates the chunk and observation weights and outputs a new {\tt
@@ -325,8 +322,8 @@ spectrum for this chunk.
 
 
 
-%-------------------------------------------------------------------------------
-\subsection{Computing Weighted Average RVs for Each Observation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adjusting Offsets and Computing Weights for Chunk RVs}
 
 Now all observations and all chunks have their best-fit model parameters
 computed by {\tt crank.pro}, and all RVs are barycentric
@@ -339,32 +336,56 @@ Figure~\ref{doppler:fig:flowchart} for the calling sequence).
 
 % need to adjust chunk zero point
 First, the chunk RVs need to be adjusted so that they have the same
-``zero point". As mentioned in the previous subsection, the measured
-RV for each chunk at a certain epoch $T_{\rm obs}$ is a relative RV
-against the DSST taken at epoch $T_0$, $v_{*,\T_{\rm obs}} -
-v_{*,T_0}$. This is because the stellar lines and their Doppler shift
-in each chunk are modeled by red-shifting the DSST: $F_{*}'(\lambda) =
-F_{*}(\lambda\cdot(1+z))$. The wavelength solution for the DSST
-implies its absolute RV $v_{*,\ T_0}$ at $T_0$. If the wavelength
-solution for all DSST chunks corresponds to the exact same value of
-$v_{*,\ T_0}$, then measured RVs for all chunks in the observed
-stellar iodine observation would have the same ``zero
-point". Consequently, any biases or relative errors in the DSST
+``zero point". Ideally, measured RVs from all chunks in one
+observation are good estimates for the true RV of this epoch, so the
+mean of all chunk RVs provides an unbiased estimate for the true RV
+and their scatter provides a sense for the RV uncertainty. However, in
+reality, some effects may cause the chunk RV to be biased and have a
+constant offset from the true RV. One of the leading culprits is the
+error in the wavelength solution of a DSST. As mentioned in the
+previous section, the measured RV for each chunk at a certain epoch
+$T_{\rm obs}$ is a relative RV against the DSST taken at epoch $T_0$,
+$v_{*,\ T_{\rm obs}} - v_{*,\ T_0}$. This is because the stellar lines
+and their Doppler shift in each chunk are modeled by red-shifting the
+DSST: $F_{*}'(\lambda) = F_{*}(\lambda\cdot(1+z))$. The wavelength
+solution for the DSST implies its absolute RV $v_{*,\ T_0}$ at
+$T_0$. If the wavelength solution for all DSST chunks corresponds to
+the exact same value of $v_{*,\ T_0}$, then measured RVs for all
+chunks in the observed stellar iodine observation would have the same
+``zero point". Consequently, any biases or relative errors in the DSST
 wavelength solution would result in a shifted zero point for that
 chunk with respect to other chunks. For example, one source of error
 comes from the fact that the wavelength solution for DSST is derived
 from neighboring B star $+$ iodine observations, which assumes that
 the wavelength solution for the orders and pixels remain the same
 between the B star and the DSST observations. Or, the wavelength
-solution derived from B star observations may be imperfect.
-
-There also could be other reasons why the RV zero point of a chunk
-deviates from the other chunks. Things like CCD effect, errors in
-iodine atlas or DSST, 
-zzz other sources for zero point shifts. The scatter in RV zero points
-will translate  
+solution derived from B star observations may be imperfect. There are
+also other reasons why the RV zero point of a chunk deviates from the
+other chunks. Things like persisting CCD effect and certain errors in
+iodine atlas or DSST can cause biases in RV estimates that contain a
+constant shift component. In the end, the inconsistent RV zero points
+will translate into RV scatter as we take the average of all chunk RVs
+to estimate the RV for one observation. Thus, it is very important to
+determine and correct for the chunk RV zero point offsets.
 
 % need to compute weights for each chunk and observation
-Second, 
+Second, not all spectral chunks are equal in terms of the quality of
+their reported RVs, meaning that we need to take a weighted
+average. There are several reasons why one chunk would consistently
+have a larger RV scatter than the other. The most obvious one is
+difference in the amount of Doppler information contained in the
+chunks. Some chunks have more and/or deeper stellar/iodine lines,
+which make them more powerful in accessing the RV information of the
+star. Some chunks land on the peak of the blaze, which constantly give
+them more SNR over the chunks down near the bottom. Some chunks may
+contain stellar lines that have more sensitive response to stellar
+activity, which would manifest as RV scatter or ``jitter". This is not
+an exhaustive list, but the important thing is that there could be
+many reasons which we know or do not know, and even for some of the
+things we do know, we could have no way of estimate how much extra RV
+scatter it would introduce to the chunk. Therefore, it is most
+sensible to derive the chunk weights empirically, rather than using
+any a priori ones.
 
 % the algorithm
+Overall, the algorithm for vanking works like this:
