@@ -31,4 +31,4 @@ clean :
 #	\rm *.out
 
 public:
-	\cp $(FILE).pdf ~/Dropbox/Public/sharon_$(FILE).pdf
+	\cp $(FILE).pdf ~/Dropbox/Public/$(FILE).pdf

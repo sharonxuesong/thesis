@@ -11,13 +11,20 @@ publications contain description for certain elements of the code
   2011ApJS..197...26J}.
 
 % history of the code
-Earliest documentation of code indicates 1991, co-created by Paul
-Butler and Geoff Marcy. Heavily modified by John Johnson for CPS. Paul
-Butler also has a version for LCPS, which he now maintains and also
-serves as the pipeline for PFS and APF. Later maintained by Howard
-Issacson at Berkeley. This code has been applied to data taken by
-Keck/HIRES, AAT, APF, PFS, Lick/Hamilton, Magellan, HET/HRS (this
-thesis), and so on. Our code is from John Johnson, version 2013.
+The earliest date mark in the code is 1991, which is roughly when Paul
+Butler and Geoffrey Marcy started drafting the code. The code was
+heavily modified by John Johnson around 2002-2008. Later on, two
+versions of the code are maintained by two separate groups: the
+California Planet Survey (LCPS) team (John Johnson) and the
+Lick-Carnegie Planet Survey team (Paul Butler). Post 2014, the CPS
+version of the code was maintained mostly by Howard Isaacson at UC
+Berkeley. This code is widely used by many iodine-calibrated
+precise RV instruments, such as Lick/Hamilton, HET/HRS (this thesis;
+Chapter~\ref{chap:het}), AAT/UCLES, Magellan/PFS, and the Automated
+Planet Finder (APF) at Lick (both LCPS and CPS have their own version
+of this code for APF). Our copy of the code was kindly provided by
+John Johnson in 2009, and the copy was checked to still be consistent
+with the CPS version in 2013.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,15 +34,15 @@ thesis), and so on. Our code is from John Johnson, version 2013.
 First, we describe the basic mathematics and algorithm behind RV
 extraction from iodine-calibrated stellar spectra using the CPS
 code. The overall algorithm is to forward model the stellar spectra
-using synthetic or empirically derived reference spectra, fitting $N$
-parameters, one of which is the Doppler shift, $z$.
+using synthetic or empirically derived reference spectra, finding
+best-fit model parameters including the Doppler shift, $z$.
 
 The reference spectra include\footnote{It can also include a model
   spectrum for a faint secondary star, telluric absorption lines (see
   Chapter~\ref{chap:keck} Section~\ref{keck:sec:telluric}), and so
   on.}: a model spectrum for the iodine absorption lines, $F_{\rm
   I_2}(\lambda)$ and a model spectrum for the star,
-$F_{*}(\lambda)$. The goal is to use the model the observed,
+$F_{\star}(\lambda)$. The goal is to use the model the observed,
 extracted, and normalized 1-D spectrum, $F_{\rm obs}(x)$, at any given
 pixel position (and spectral order), $x$, using these reference spectra
 and model parameters. The broadening effect of the spectrograph is
@@ -45,21 +52,21 @@ to as the IP throughout this thesis and is denoted as
 $\curlyp(x)$. Hence,
 \beq
 F_{\rm obs}(x) = \left[ F_{\rm I_2}(\lambda(x)) \times
-F_{*}'(\lambda(x)) \right] \ast \curlyp(x),
+F_{\star}'(\lambda(x)) \right] \ast \curlyp(x),
 \eeq
 where $\lambda(x)$ is the wavelength solution for the 1-D spectrum,
-and $F_{*}'$ is the red-shifted stellar spectrum defined by
-$F_{*}'(\lambda) = F_{*}(\lambda\cdot(1+z))$. The Doppler shift $z$
-contains two components: the stellar RV $v_*$ and the barycentric (BC)
+and $F_{\star}'$ is the red-shifted stellar spectrum defined by
+$F_{\star}'(\lambda) = F_{\star}(\lambda\cdot(1+z))$. The Doppler shift $z$
+contains two components: the stellar RV $v_{\star}$ and the barycentric (BC)
 velocity of the Earth $v_{\rm BC}$. The BC component is corrected by
-$v_* = v_{\rm measured} + v_{\rm BC} + z \cdot v_{\rm BC}$.
+$v_{\star} = v_{\rm measured} + v_{\rm BC} + z \cdot v_{\rm BC}$.
 
 % relative RV measurement to DSST
 The stellar reference spectrum is empirically derived from iodine-free
 stellar observations taken on an epoch, say, $T_0$. As a result, all
 measured RVs for the star using a stellar template from $T_0$
 represent relative stellar velocities between epoch $T_0$ and epoch
-$T_{\rm obs}$ (i.e., $v_{*, T_{\rm obs}} - v_{*, T_0}$), instead of the
+$T_{\rm obs}$ (i.e., $v_{\star, T_{\rm obs}} - v_{\star, T_0}$), instead of the
 absolutely RVs of the star. The following subsection describes the
 origins of the stellar (and also the iodine) reference spectra.
 
@@ -331,8 +338,9 @@ corrected. What's next?
 
 Two extremely important things need to happen at this point before we
 can have an RV time series in hand, and they are accomplished by {\tt
-  jjvank.pro} and most importantly, {\tt vdclean.pro} (see
-Figure~\ref{doppler:fig:flowchart} for the calling sequence).
+  jjvank.pro} and most importantly, {\tt vel.pro} and {\tt
+  vdclean.pro} (see Figure~\ref{doppler:fig:flowchart} for the calling
+sequence).
 
 % need to adjust chunk zero point
 First, the chunk RVs need to be adjusted so that they have the same
@@ -345,12 +353,12 @@ constant offset from the true RV. One of the leading culprits is the
 error in the wavelength solution of a DSST. As mentioned in the
 previous section, the measured RV for each chunk at a certain epoch
 $T_{\rm obs}$ is a relative RV against the DSST taken at epoch $T_0$,
-$v_{*, T_{\rm obs}} - v_{*, T_0}$. This is because the stellar lines
+$v_{\star, T_{\rm obs}} - v_{\star, T_0}$. This is because the stellar lines
 and their Doppler shift in each chunk are modeled by red-shifting the
-DSST: $F_{*}'(\lambda) = F_{*}(\lambda\cdot(1+z))$. The wavelength
-solution for the DSST implies its absolute RV $v_{*, T_0}$ at
+DSST: $F_{\star}'(\lambda) = F_{\star}(\lambda\cdot(1+z))$. The wavelength
+solution for the DSST implies its absolute RV $v_{\star, T_0}$ at
 $T_0$. If the wavelength solution for all DSST chunks corresponds to
-the exact same value of $v_{*, T_0}$, then measured RVs for all
+the exact same value of $v_{\star, T_0}$, then measured RVs for all
 chunks in the observed stellar iodine observation would have the same
 ``zero point". Consequently, any biases or relative errors in the DSST
 wavelength solution would result in a shifted zero point for that
@@ -389,7 +397,18 @@ any a priori ones.
 
 % the algorithm
 Overall, the algorithm for vanking works like this:
-
+\begin{itemize}
+\item It rejects chunks (and observations) with poor performances
+  indicated by, for example, high $\chi^2_\nu$ values.
+\item It brings all chunks to having the same RV zero point.  
+\item It computes the weighted average RV for each observation based
+  on the chunk RVs, where the weight for each chunk in each
+  observation is evaluated by how well this chunk behaves in long term
+  (by comparing it with other chunks across all observations).
+  Then the weight is also scaled by how good each observation is,
+  which is evaluated by comparing the behavior of a typical chunk in
+  one observation with the other observations.
+\end{itemize} 
 
 % the specifics
 To be specific, most of the heavy lifting is done in {\tt vel.pro} and
@@ -417,32 +436,71 @@ computation of chunk weights, i.e., it
   chunks which have the highest $\chi_\nu^2$ values.
 \item Computes the RV zero point offsets for all chunks and adjust all
   chunks to have the same zero points. Mathematically, this is done
-  for each chunk by doing, say, for the i$^{\rm th}$ chunk:
+  for each chunk by subtracting the offset velocity, which is
+  estimated by the mean velocity of each chunk in all observations,
+  i.e.:
   \beq
-  {\rm offset_{i,j}} = \sum_{\rm j=1}^{\rm j=N_{obs}}{v_{\rm i,j}}/N
+  {\rm offset\ for\ chunk\ } i = \sum_{j=1}^{N}{v_{i,j}}/N
   \eeq
-  where $v_{\rm i,j}$ means the reported RV for a chunk with
+  where $v_{i,j}$ means the reported RV for a chunk with
   index $i$ in observation $j$, and there are $N$
-  observations and $M$ chunks in total, so $v_{\rm i,j}$ is a
-  $M\timesN$ matrix. This is basically requiring that the mean RV
+  observations and $M$ chunks in total, so $v_{i,j}$ is a
+  $M \times N$ matrix. This is basically requiring that the mean RV
   reported by any chunk over all observations is set to zero (or any
-  arbitrary value, since we only care about relative RVs across
-  observations instead of the overall ``systemic" velocity of the
-  star).
+  arbitrary value, since we only care about the RV variation of the
+  star instead of its absolute velocity).
 \item Computes chunk weights as the inverse of the estimated RV
-  variance of each chunk, i.e., $1/\sigma_{\rm RV,ch}^2$. For the
-  i$^{\rm th}$ chunk in the j$^{\rm th}$ observation:
+  variance of each chunk $i$ in each observation $j$, i.e.,
+  $w_{i,j} = 1/\sigma_{i,j}^2$, and 
   \beq
-  {\rm standard\ deviation\ of\ }\left\{ \left( \Delta_{\rm ob=j,ch} \cdot
-  r_{\rm ob=j} \right),\ {\rm ch=1,...,N_{ch}}\right\},
+  \sigma_{i,j} = r_j \cdot \sigma_i,
   \eeq
-  where
-  \beq
-  \Delta_{\rm ob=j,ch=i} = v_{\rm ob=j,ch=i} - {\rm median}\left\{ v_{\rm
-    ob=j,ch},\ {\rm ch=1,...,N_{ch}} \right\},
-  \eeq
-  and
-  \beq
-  r_{\rm ob=j} = {\rm median}{ \left\{ \left( |diff|/\Delta_{\rm ob=j,ch} \right),\ {\rm ch=1,...,N_{ch}} \right\} }
-  \eeq
+  where $\sigma_i$ is defined for each chunk and $r_j$ is defined for
+  each observation as:
+  \begin{eqnarray}
+  \sigma_i &=& std\left\{  \Delta_{i,j},\ j=1,...,N  \right\}\\
+  r_j &=& {\rm median}\left\{   |\Delta_{j,i}| \cdot \sigma_i,\  i=1,...,M
+  \right\}
+  \end{eqnarray}
+  where $std$ stands for standard deviation, and $\Delta_{i,j}$ is the
+  matrix of velocity differences between $v_{i,j}$ and the median
+  velocity of all chunks in each corresponding observation j:
+  \begin{eqnarray}
+  \Delta_{i,j} &=& v_{i,j} - \widetilde{v}_j \\
+  \widetilde{v}_j &=& {\rm median}\left\{  v_{i,j},\  i=1,...,M  \right\},
+  \end{eqnarray}  
+\item Rejects top 1\% of the chunks which have the highest $\sigma_i$.
 \end{enumerate} 
+
+Then {\tt vdclean.pro} passes back the $v_{i,j}$ and the $w_{i,j}$
+matrices to {\tt vel.pro}, which rejects the top 1\% chunks that have
+the largest $v_{i,j}-\widetilde{v}_j$ for each observation. Then {\tt
+  vel.pro} computes the weighted mean RV for each observation,
+\beq
+v_j = \sum_{i=1}^M\left(v_{i,j}\cdot w_{i,j}\right)/\sum_{i=1}^Mw_{i,j}.
+\eeq
+It is worth noting that because $w_{i,j} = \sigma_j \cdot r_j$, this is
+equivalent to
+\beq
+v_j = \sum_{i=1}^M\left(v_{i,j}\cdot \sigma_i\right)/\sum_{i=1}^M\sigma_i
+\eeq
+However, $r_j$ enters the picture when calculating the corresponding
+RV uncertainty,
+\beq
+\sigma_{v_j} = \left(\sqrt{\sum_{i=1}^Mw_{i,j}}.\right)^{-1}.
+\eeq
+$v_j$ nad $\sigma_{v_j}$ are then passed back to {\tt jjvank.pro} and
+stored in the {\tt cf3} structure in the {\tt vst} file for the star.
+
+% Closing remarks
+The algorithm of vanking does not have the most rigorous statistical
+justification. It was more or less conjured up intuitively and tweaked
+until it worked, and it works extremely well: the RV scatter is
+decreased by typically a factor of two or more before and after
+vanking. It also efficiently eliminates problematic chunks such as the
+ones with telluric contamination, and as a result, it mitigates the
+adverse effects caused by the contamination
+(Section~\ref{keck:sec:telluric}). Vanking certainly has room for
+improvement, just like the rest of the code, which is a topic that
+will be touched on in Chapter~\ref{chap:conclusion}.
+
