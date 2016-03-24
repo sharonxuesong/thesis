@@ -403,9 +403,9 @@ observation and print out warning messages. Second, the {\tt vd} cube
 put together by {\tt vdcube.pro} gets passed on to {\tt vdclean.pro},
 and {\tt vdclean.pro} performs a series tasks including quality checks, outlier
 rejections, RV zero point offset adjustment, and finally the
-computation of chunk weights:
+computation of chunk weights, i.e., it
 \begin{enumerate}
-\item Throw out chunks with bad DSST or containing no Doppler
+\item Throws out chunks with bad DSST or containing no Doppler
   information (meaning it has a weight of 0 as calculated following
   the method described in \citealt{butler1996}).
 \item Rejects the chunks where the fitter constantly fails to converge
@@ -417,19 +417,19 @@ computation of chunk weights:
   chunks which have the highest $\chi_\nu^2$ values.
 \item Computes the RV zero point offsets for all chunks and adjust all
   chunks to have the same zero points. Mathematically, this is done
-  for each chunk by doing, say, for the i$^{\rm th}$ chunk ${\rm ch = i}$:
+  for each chunk by doing, say, for the i$^{\rm th}$ chunk:
   \beq
-  v_{\rm ob, ch=i} -= \sum_{\rm ob=1}^{\rm ob=N_{obs}}{v_{\rm ob,
-      ch=i}}/N_{\rm obs}
+  {\rm offset_{i,j}} = \sum_{\rm j=1}^{\rm j=N_{obs}}{v_{\rm i,j}}/N
   \eeq
-  where $v_{\rm obs,ch}$ means the reported RV for a chunk with
-  index ch in observation labeled as obs, and there are $N_{\rm obs}$
-  observations total. This is basically requiring that the mean RV
+  where $v_{\rm i,j}$ means the reported RV for a chunk with
+  index $i$ in observation $j$, and there are $N$
+  observations and $M$ chunks in total, so $v_{\rm i,j}$ is a
+  $M\timesN$ matrix. This is basically requiring that the mean RV
   reported by any chunk over all observations is set to zero (or any
   arbitrary value, since we only care about relative RVs across
   observations instead of the overall ``systemic" velocity of the
   star).
-\item Chunk weights are computed as the inverse of the estimated RV
+\item Computes chunk weights as the inverse of the estimated RV
   variance of each chunk, i.e., $1/\sigma_{\rm RV,ch}^2$. For the
   i$^{\rm th}$ chunk in the j$^{\rm th}$ observation:
   \beq
