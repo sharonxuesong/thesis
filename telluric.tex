@@ -128,7 +128,56 @@ contamination.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Results}
 
-Plots: RV difference vs. BC for sig Dra and tau Ceti. And M stars.
+%----------------------------------------------------------------
+% Telluric effect, no photon noise
+% plot made by ~/Exo.../Keck.../simulate.../msplot.pro
+\begin{figure}
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rja01-rjb01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rja01-rjb01.eps}}
+\caption{Effects of telluric lines manifested as correlation between
+  RV and BC. Each point represents the difference in RV estimates for
+  a pair of simulated spectra: one without telluric absorption, and
+  one with telluric absorption on top of the stellar and iodine
+  spectra. To isolate the effects of telluric lines, the simulated
+  spectra used for this plot do not have Poisson noise added, and they
+  have simple one-component Gaussian IPs which have fixed width and
+  thus the IP parameters are all fixed to the true values in the RV extraction.
+\label{telluric:fig:rjab}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+%----------------------------------------------------------------
+% Telluric effect, with photon noise
+% plot made by ~/Exo.../Keck.../simulate.../msplot.pro
+\begin{figure}
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rjc01-rjd01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rjc01-rjd01.eps}}
+\caption{Same as Figure~\ref{telluric:fig:rjab}, but for simulated
+  spectra with Poisson noise (and still the same simple IPs).
+\label{telluric:fig:rjcd}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+%----------------------------------------------------------------
+% Telluric effect, with photon noise and complex IPs
+% plot made by ~/Exo.../Keck.../simulate.../msplot.pro
+\begin{figure}
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-test0-test1.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-test0-test1.eps}}
+\caption{Same as Figure~\ref{telluric:fig:rjab}, but for simulated
+  spectra with Poisson noise and complex IPs that are similar to the
+  ones in actual observations. IP parameters are not fixed in this
+  case, so the code is fitting 12 additional parameters for the IP on
+  top of the 3 for wavelength solution and Doppler shift (see
+  Chapter~\ref{chap:doppler} for more details on the code).
+\label{telluric:fig:rjcd}}
+\end{figure}
+%----------------------------------------------------------------
+
+
 
 Micro-tellurics in the iodine region introduces RMS$=0.6$ m/s scatter
 for GK stars (RV systematic error added in quadrature). Leaving
