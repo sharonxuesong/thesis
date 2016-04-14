@@ -186,7 +186,7 @@ For M stars... (probably worse)
 \begin{figure}
 \includegraphics[scale=0.5]{telluric/neid.eps} 
 \caption{Improvements in RV RMS for different ``level" of telluric
-  modeling. For example, the mid point labeled with ``50\%, 33 cm/s"
+  modeling/removal. For example, the mid point labeled with ``50\%, 33 cm/s"
   means that if you model your telluric absorption lines to 50\% of
   their original depths, the effects of the residual telluric
   absorption will add 33 cm/s in quadrature to your final RV RMS. The
@@ -199,9 +199,7 @@ For M stars... (probably worse)
 \end{figure}
 %----------------------------------------------------------------
 
-
-Plots: effects of full forward modeling (RV difference between modeled
-and contaminated, modeled and control).
+\subsubsection{How about real observations?}
 
 We demonstrate the effectiveness of several remedies. First, double
 masking: probably a terrible idea. Throwing away the pixels will make
@@ -224,6 +222,7 @@ well. However, the statistical weighting procedure at the very end
 will empirically quantify which chunks behave badly due to ineffective
 modeling of telluric lines and thus throw out or de-weigh the chunks.
 
+Lead to the next section on deconvolution error.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
