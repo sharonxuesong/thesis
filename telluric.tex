@@ -133,50 +133,31 @@ contamination.
 % plot made by ~/Exo.../Keck.../simulate.../msplot.pro
 \begin{figure}
 \subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rja01-rjb01.eps}}\
-\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rja01-rjb01.eps}}
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rja01-rjb01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rjc01-rjd01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rjc01-rjd01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-test0-test1.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-test0-test1.eps}}
 \caption{Effects of telluric lines manifested as correlation between
   RV and BC. Each point represents the difference in RV estimates for
   a pair of simulated spectra: one without telluric absorption, and
   one with telluric absorption on top of the stellar and iodine
-  spectra. To isolate the effects of telluric lines, the simulated
-  spectra used for this plot do not have Poisson noise added, and they
-  have simple one-component Gaussian IPs which have fixed width and
-  thus the IP parameters are all fixed to the true values in the RV extraction.
-\label{telluric:fig:rjab}}
-\end{figure}
-%----------------------------------------------------------------
-
-
-%----------------------------------------------------------------
-% Telluric effect, with photon noise
-% plot made by ~/Exo.../Keck.../simulate.../msplot.pro
-\begin{figure}
-\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rjc01-rjd01.eps}}\
-\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rjc01-rjd01.eps}}
-\caption{Same as Figure~\ref{telluric:fig:rjab}, but for simulated
-  spectra with Poisson noise (and still the same simple IPs).
-\label{telluric:fig:rjcd}}
-\end{figure}
-%----------------------------------------------------------------
-
-
-
-%----------------------------------------------------------------
-% Telluric effect, with photon noise and complex IPs
-% plot made by ~/Exo.../Keck.../simulate.../msplot.pro
-\begin{figure}
-\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-test0-test1.eps}}\
-\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-test0-test1.eps}}
-\caption{Same as Figure~\ref{telluric:fig:rjab}, but for simulated
+  spectra. {\bf Top 2 panels:} To isolate the effects of telluric
+  lines, the simulated spectra used for this plot do not have Poisson
+  noise added, and they have simple one-component Gaussian IPs which
+  have fixed width and thus the IP parameters are all fixed to the
+  true values in the RV extraction. {\bf Middle 2 panels:} same as the
+  top panels, but for simulated spectra with Poisson noise (same noise
+  for the telluric and non-telluric spectrum pairs; and still the same
+  simple IPs). {\bf Bottom 2 panels:} same as above, but for simulated
   spectra with Poisson noise and complex IPs that are similar to the
   ones in actual observations. IP parameters are not fixed in this
   case, so the code is fitting 12 additional parameters for the IP on
   top of the 3 for wavelength solution and Doppler shift (see
   Chapter~\ref{chap:doppler} for more details on the code).
-\label{telluric:fig:rjcd}}
+\label{telluric:fig:sim}}
 \end{figure}
 %----------------------------------------------------------------
-
 
 
 Micro-tellurics in the iodine region introduces RMS$=0.6$ m/s scatter
@@ -196,6 +177,28 @@ For M stars... (probably worse)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Remedies and Effectiveness}
+
+
+\subsubsection{How precisely does one need to model the tellurics?}
+
+%----------------------------------------------------------------
+% NEID Plot showing how much you need to model tellurics
+\begin{figure}
+\includegraphics[scale=0.5]{telluric/neid.eps} 
+\caption{Improvements in RV RMS for different ``level" of telluric
+  modeling. For example, the mid point labeled with ``50\%, 33 cm/s"
+  means that if you model your telluric absorption lines to 50\% of
+  their original depths, the effects of the residual telluric
+  absorption will add 33 cm/s in quadrature to your final RV RMS. The
+  blue point marks the RV RMS for simulations with Poisson noise and
+  complex IP on HD 185144, which represents the photon-limited RV
+  precision (subject to additional numeric or algorithmic errors; see
+  Chapter~\ref{chap:conclusion} for more on the limitation of the
+  Doppler code).
+\label{telluric:fig:neid}}
+\end{figure}
+%----------------------------------------------------------------
+
 
 Plots: effects of full forward modeling (RV difference between modeled
 and contaminated, modeled and control).
