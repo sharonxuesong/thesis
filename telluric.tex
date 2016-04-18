@@ -196,7 +196,31 @@ There are several ways to remedy the adverse effects of telluric lines
 on RV precision and accuracy: masking, modeling, or a combination of both.
 
 % why simple masking would not work for high precision/accuracy
-First, double masking: probably a terrible idea. Throwing away the
+First, we can simply mask out the telluric lines in the observation
+(and also in the deconvolved stellar reference spectrum). For each
+observation, we can locate the pixels contaminated by telluric lines,
+and flag them as bad pixels so that the fitter would ignore them. This
+is done ``dynamically'' in the fitting process, in the sense that, for
+each iteration in the least-$\chi^2$ minimization process, the
+contaminated pixels are located according to the current wavelength
+solution parameters in this fitting iteration. The wavelength solution
+changes from iteration to iteration, and thus the masked pixels can
+change too. One can easily see that this introduces some
+complications. First of all, the degrees of freedom might change
+during the fitting, because some telluric lines may shift in and out
+of this spectral chunk as the wavelength solution changes. As a result, a
+dynamic mask complicates the $\chi^2$ surface and would make the
+fitter harder to converge or may create more loci for the fitter to
+get stuck in, causing additional errors. Furthermore, masking is throwing
+away iodine and stellar content embedded in these pixels too. Finally, to
+``mask'' the telluric lines out, one needs to pick a flux threshold,
+say, masking all telluric absorption deeper than 0.5\% level. This
+number is hard to choose, because masking too much would throw away
+too many iodine and stellar pixels, but masking too little would mean
+leaving shallow telluric lines and line wings that can still cause
+biased RV estimates. We have determined that n\% is the best...
+
+double masking: probably a terrible idea. Throwing away the
 pixels will make the fitter harder to converge, and introduce
 additional errors on the scales larger than the effects of telluric
 lines themselves. Additionally, it is hard to choose a flux cut-off
@@ -210,18 +234,18 @@ RV forward modeling process, where water column density can either be
 from a priori knowledge or an additional free parameter. While
 modeling is shown to be a better approach to the problem (see the
 following subsection), it is not free of troubles: telluric lines can
-be notoriously hard to model to high precision. There are several
-reasons for this: lab measurements of a large number of water lines
-are inaccurate, in terms of line depths, line positions, and line
-shapes; and these line properties can also change due to change or a
-lack of knowledge of the atmospheric conditions, such as wind, high
-line-of-sight variations (e.g., water vapor), and mixing
-uncertainties. For a summary of the state of the problem and
-recommendations of paths forward recommended by the RV community, see
-Section~4.6 in \cite{eprv2015}. However, the goal here is not to model
-or ``remove'' the telluric lines perfectly, but to mitigate their
-impact on RV precision and accuracy as much as possible, which is
-discussed in detail in the following subsection. 
+be notoriously hard to model to high precision (below 1\% RMS
+residual). There are several reasons for this: lab measurements of a
+large number of water lines are inaccurate, in terms of line depths,
+line positions, and line shapes; and these line properties can also
+change due to change or a lack of knowledge of the atmospheric
+conditions, such as wind, high line-of-sight variations (e.g., water
+vapor), and mixing uncertainties. For a summary of the state of the
+problem and recommendations of paths forward recommended by the RV
+community, see Section~4.6 in \cite{eprv2015}. However, the goal here
+is not to model or ``remove'' the telluric lines perfectly, but to
+mitigate their impact on RV precision and accuracy as much as
+possible, which is discussed in detail in the following subsection.
 
 % but combination of the two could be better 
 Additionally, the weighing procedure or ``vanking'' in the CPS Doppler
