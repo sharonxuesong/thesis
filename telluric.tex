@@ -105,6 +105,8 @@ add an M dwarf standard here as well!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Methodology}
 
+sig Dra RMS is 2.57 m/s and tau Ceti 3.05 m/s for real Keck data.
+
 We simulated Keck observations on sig Dra and tau Ceti by using
 synthetic stellar spectra of their respective spectral types (?) using
 SME (ZZZ cite Valenti and Fischer). We simulated one spectrum for each
@@ -151,7 +153,7 @@ contamination.
 \subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rjc01-rjd01.eps}}\
 \subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rjc01-rjd01.eps}}\
 \subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-test0-test1.eps}}\
-\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-test0-test1.eps}}
+\subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-test0-test1.eps}}\
 \caption{Effects of telluric lines manifested as correlation between
   RV and BC. Each point represents the difference in RV estimates for
   a pair of simulated spectra: one without telluric absorption, and
@@ -193,40 +195,105 @@ For M stars... (probably worse)
 \subsection{Remedies and Effectiveness}
 
 There are several ways to remedy the adverse effects of telluric lines
-on RV precision and accuracy: masking, modeling, or a combination of both.
+on RV precision and accuracy: masking, modeling, or a combination of
+both. HARPS works...
+
+\subsubsection{Masking is an ineffective solution}
+
+%----------------------------------------------------------------
+% Table: RV RMS for various simulations
+\renewcommand{\arraystretch}{1.2} % more row spacing for the table
+\begin{deluxetable}{ccl}
+\tabletypesize{\scriptsize}
+\tablecaption{RV RMS for Simulations with Poisson Noise and Complex IP 
+\label{telluric:tab:rmsmasking}}
+\tablewidth{320pt}
+\tablehead{
+  \colhead{HD 185144} & \colhead{HD 10700} & \colhead{Simulation Conditions}
+}
+\startdata
+1.26 m/s & 1.34 m/s & No tellurics \\
+1.35 m/s & 1.42 m/s & With tellurics \\
+1.35 m/s & 1.39 m/s & No tellurics, but masking telluric pixels \\
+1.37 m/s & 1.43 m/s & With tellurics, and masking telluric pixels
+\enddata
+\end{deluxetable}
+%----------------------------------------------------------------
+
+% what do I mean when I talk about masking?
+The simplest solution is to mask out telluric lines in the spectrum,
+which means, in practice, locate the telluric-contaminated pixels and
+flag them as bad pixels in the observed spectrum so that the
+least-$\chi^2$ fitter will ignore them. For \keck\ or any
+iodine-calibrated RV reduction, this also means masking out the
+contaminated region in the deconvolved stellar reference
+spectrum. This is done ``dynamically'' in the fitting process, in the
+sense that, for each iteration in the least-$\chi^2$ minimization
+process, the contaminated pixels are located according to the current
+wavelength solution parameters in this fitting iteration. The
+wavelength solution changes from iteration to iteration, and thus the
+masked pixels can change too. 
+
+% simulations and results
+To investigate the effectiveness of masking, we performed RV
+extraction on simulated spectra with or without telluric lines
+injected and with or without masking (all with Poisson noise and
+complex IP to mimic real observations as much as possible). The
+results are tabulated in Table~\ref{telluric:tab:rmsmasking}. In terms
+of improving RV precision or reducing RV RMS, masking is very
+ineffective. The additional errors it introduces diminish its
+merits. On the other hand, masking does improve the accuracy to some
+degree: for example, masking does remove the downward RV trend seen in
+HD 10700 data on the bottom right plot of
+Figure~\ref{telluric:fig:sim} in the BC range $[-3\times10^4,\
+-2\times10^4]$ m/s. However, masking is an ineffective way to mitigate
+the effects of telluric contamination overall, especially since the RV
+errors and RV-BC trends are dominated by photon noise and algorithmic
+errors (and other types of errors too in real observations).
 
 % why simple masking would not work for high precision/accuracy
-First, we can simply mask out the telluric lines in the observation
-(and also in the deconvolved stellar reference spectrum). For each
-observation, we can locate the pixels contaminated by telluric lines,
-and flag them as bad pixels so that the fitter would ignore them. This
-is done ``dynamically'' in the fitting process, in the sense that, for
-each iteration in the least-$\chi^2$ minimization process, the
-contaminated pixels are located according to the current wavelength
-solution parameters in this fitting iteration. The wavelength solution
-changes from iteration to iteration, and thus the masked pixels can
-change too. One can easily see that this introduces some
-complications. First of all, the degrees of freedom might change
-during the fitting, because some telluric lines may shift in and out
-of this spectral chunk as the wavelength solution changes. As a result, a
-dynamic mask complicates the $\chi^2$ surface and would make the
+So why masking does not work? First of all, it complicates the
+$\chi^2$ surface and ``breaks'' the L-M fitter. Due to the ``dynamic''
+nature of the mask mentioned above, the degrees of freedom for fitting
+could change, because some telluric lines may shift in and out of this
+spectral chunk as the wavelength solution changes. This would make the
 fitter harder to converge or may create more loci for the fitter to
-get stuck in, causing additional errors. Furthermore, masking is throwing
-away iodine and stellar content embedded in these pixels too. Finally, to
-``mask'' the telluric lines out, one needs to pick a flux threshold,
-say, masking all telluric absorption deeper than 0.5\% level. This
-number is hard to choose, because masking too much would throw away
-too many iodine and stellar pixels, but masking too little would mean
-leaving shallow telluric lines and line wings that can still cause
-biased RV estimates. We have determined that n\% is the best...
+get stuck in, causing additional errors. Furthermore, masking is
+throwing away iodine and stellar content embedded in these pixels
+too. Finally, to ``mask'' the telluric lines out, one needs to pick a
+flux threshold for the masks. This threshold must maintain a balance
+between masking too much (throwing away too much iodine and stellar
+information) and too little (leaving shallow telluric lines and line
+wings untreated). In our study, we have chosen a flux threshold of
+0.3\%, which means any pixel with telluric absorption deeper than
+0.3\% will be masked (reference telluric spectrum is generated by
+TERRASPEC at an altitude of 70$^{\degree}$, meaning deep oxygen lines,
+and with precipitable water vapor 0.8~mm, typical \keck\
+humidity). This masks 11\% of the spectral domain, which is quite
+substantial and is very damaging to the RV precision, but is almost
+the minimal amount of masking required to achieve some RV accuracy
+improvement.
 
-double masking: probably a terrible idea. Throwing away the
-pixels will make the fitter harder to converge, and introduce
-additional errors on the scales larger than the effects of telluric
-lines themselves. Additionally, it is hard to choose a flux cut-off
-level. Throwing away too much would mean unstable solution and lower
-RV precision, but masking too little would mean insufficient removal
-of tellurics.
+% how about masking in real observations?
+We also tried masking in RV reduction for real observations, and saw
+no improvement over RV precision or accuracy. This is because other
+effects dominate over telluric absorption, as mentioned above, such as
+photon and algorithmic errors and especially deconvolution errors in
+stellar reference spectrum, which we will touch on in
+Section~\ref{keck:telluric:future} and discuss in more detail in
+Section~\ref{keck:sec:dsst}.
+
+% summarize
+To summarize, masking sounds like a simple solution to the problem of
+micro-telluric contamination, but it is actually complicated to
+implement (for iodine-calibrated RV reduction) and it is ineffective
+in terms of improving RV precision. We do not recommend masking as a
+remedy for treating micro-telluric lines in iodine-calibrated RV
+work. We believe the most effective way is to forward model telluric
+lines, and combine that with some ``masking'' for deep or troublesome
+telluric lines, which we discuss in the next subsection.
+
+\subsubsection{How precisely does one need to model the tellurics?}
 
 % modeling is the way to go
 The other way is to incorporate telluric lines as part of the iodine
@@ -260,8 +327,6 @@ further incorporating in forward modeling of telluric line is the
 optimal solution to the problem. We will discuss the complications
 with real observations in the second subsection.
 
-
-\subsubsection{How precisely does one need to model the tellurics?}
 
 realistically
 speaking, below a certain threshold set by science requirement. As
