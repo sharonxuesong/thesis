@@ -431,6 +431,20 @@ which we believe is the optimal solution for iodine-calibrated RVs.
 
 \subsubsection{How about real observations?}
 
+%----------------------------------------------------------------
+% Effect of clean DSST and preliminary modeling with real data
+% plot made by ~/Exo.../Keck.../plots_general/basic_rv.pro, choice='3panel'
+\begin{figure}
+\subfloat[HD 185144, rj82 template]{\includegraphics[scale=0.42]{telluric/185144_BC_RV_rj82_3panel.eps}}\
+\subfloat[HD 185144, rj172 template]{\includegraphics[scale=0.42]{telluric/185144_BC_RV_rj172_3panel.eps}}\
+\subfloat[HD 10700, rj82 template]{\includegraphics[scale=0.42]{telluric/10700_BC_RV_rj82_3panel.eps}}\
+\caption{Effect of using clean DSST and preliminary telluric modeling
+  on RV precision and accuracy.
+\label{telluric:fig:real}}
+\end{figure}
+%----------------------------------------------------------------
+
+
 % what we did and what we saw
 The situation is much more complicated for real observations, because
 uncontrollable and unknown noise sources enter the picture. We have
@@ -464,6 +478,21 @@ when
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Discussion and Future Work}\label{keck:telluric:future}
+
+
+
+%----------------------------------------------------------------
+% Plot showing algorithmic errors
+% made by ~/Exo../Keck../simulate.../msplot.pro, in /msplot/.
+\begin{figure}
+\includegraphics[scale=0.65]{telluric/185144-rv-bc-rja01-rje01-rjf01.eps} 
+\caption{RV vs.\ BC for HD 185144, for simulations with fixed simple
+IP with various IP width (spectral resolution, $\sigma=1.7$
+corresponds to original \keck\ resolution), no Poisson noise. The
+errors and trends here are purely caused by algorithmic errors.
+\label{telluric:fig:algorithm}}
+\end{figure}
+%----------------------------------------------------------------
 
 
 For redder bands, it is unclear at the moment what the requirement
