@@ -6,6 +6,120 @@ This is about HET/HRS. This will have introduction to HET and HRS.
 \section{Adoption of REDUCE and the CPS Doppler Code for HET/HRS}
 
 
+%----------------------------------------------------------------
+% HD 37605 and the improvement on precision brought by temperature stabilization
+% plot made by ~/ExoPlanet-2010-2011/Targets/37605/rv_plot/rvplot_NESSF2013.eps
+% grabbed from ~/ExoPlanet-2010-2011/Professional_Development/201301-NESSF/proposal/
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{het/37605.eps}
+\caption{
+\label{het:fig:tempstable}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Search for a Better Instrumental Profile}\label{het:sec:ip}
+
+
+%----------------------------------------------------------------
+% Demonstration of convolution to fit iodine atlas
+% plot made by ~/Exo.../HET.../plots_general/convol_kernel/deconv_plot.pro
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{het/convolution_kernel.eps}
+\caption{Illustration of convolving the iodine atlas with a kernel to
+  fit the observed iodine lines.
+\label{het:fig:convkernel}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+
+%----------------------------------------------------------------
+% Comparison between HET and Keck chunk fit
+% plot made by ~/Exo.../HET.../plots_general/fit_demo/plotfit.pro
+\begin{figure}
+\centering
+\subfloat[\het\ Chunk]{\includegraphics[scale=0.35]{het/20120124.176005.chunk189.eps}}
+\subfloat[\keck\ Chunk]{\includegraphics[scale=0.35]{het/rj82.77.chunk308.eps}}
+\caption{
+\label{het:fig:iodchunkcomp}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+
+
+%----------------------------------------------------------------
+% Comparing 2005 and 2008 data, with GH and Gaussian IPs
+% plot from ~/ExoPlanet-2010-2011/Professional_Development/201000-NSF_Jason/plots/
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{het/iodfit.eps}
+\caption{
+\label{het:fig:ghgau}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------------
+% Comparing Keck and HET IPs in Fourier space
+% plot from screen shot of a slide in
+% ~/ExoPlanet-2010-2011/Professional_Development/20150727-ThesisCommMeet/
+% original plot is from ~/Exo../HET.../06-line.../powspec.pro and stored in ./plots/
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{het/fftip.eps}
+\caption{Clear signature of \het\ slit (R $=$ 60k). A hint of \keck\
+  slit too.
+\label{het:fig:fftip}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+%----------------------------------------------------------------
+% Fitting with a Moffat function
+% plot made by ~/ExoPlanet-2010-2011/HET-HRS-IP/06-line_through_dots/thar.pro
+% and stored in ./plots/
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{het/thar_vs_moffat.eps}
+\caption{
+\label{het:fig:moffat}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+
+%----------------------------------------------------------------
+% Comparing fits with two IPs
+% plot made by ~/Exo.../HET.../plots_general/fit_demo/compfit.pro
+\begin{figure}
+\centering
+\subfloat{\includegraphics[scale=0.3]{het/20120124.176005.chunk191.compip.eps}}
+\subfloat{\includegraphics[scale=0.35]{het/20120124.176005.chunk191.compfit.eps}}
+\caption{
+\label{het:fig:iodipcomp}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Investigation on the Fourier Transform Spectrometer Scans of the Iodine Cell}\label{het:sec:fts}
 
@@ -60,7 +174,8 @@ relative line ratios.
 %----------------------------------------------------------------
 % Figure: HET FTS, KPNO old scan vs. NIST new scan
 \begin{figure}[!th]
-\includegraphics[angle=0.,scale=0.35]{het/compare_het_fts_26.eps}
+\centering
+\includegraphics[angle=0.,scale=0.45]{het/compare_het_fts_26.eps}
 \caption{Comparison of the KPNO FTS scan (black) and the NIST FTS scan
   (red) for the HET/HRS iodine cell for a selected
   1.5\AA\ chunk. \textbf{Top:} Two scans at their native resolution
@@ -86,8 +201,8 @@ that the NIST scan provides worse fits.
 %----------------------------------------------------------------
 % Figure: chisq of iodine observation fit, KPNO old scan vs. NIST new scan
 \begin{figure*}[!th]
-\includegraphics[angle=0.,scale=0.38]{het/hetfts_oldVSnew_chisq.eps}
-\includegraphics[angle=0.,scale=0.38]{het/hetfts_oldVSnew_chisq_dc.eps}
+\includegraphics[angle=0.,scale=0.33]{het/hetfts_oldVSnew_chisq.eps}
+\includegraphics[angle=0.,scale=0.33]{het/hetfts_oldVSnew_chisq_dc.eps}
 \caption{Both plots are histograms of \chisq\ values of a single
   iodine observation. Each \chisq\ value in the histogram represents
   the \chisq\ goodness of fit for a $\sim$2\AA\ spectral chunk in this
@@ -153,6 +268,7 @@ for HET obervation despite the fact that it is for a different cell.
 %----------------------------------------------------------------
 % Figure: chisq of iodine observation fit, KPNO HET old scan vs. Keck scan
 \begin{figure}[!th]
+\centering
 \includegraphics[angle=0.,scale=0.38]{het/chisq_comparison.eps}
 \caption{Comparison of the median \chisq\ values for fits of iodine
   observations using the HET cell KPNO scan and the Keck cell KPNO
@@ -295,8 +411,8 @@ results of comparison are shown in the next section.
 % Figure: TS12 spectrum vs. KPNO FTS scan, native resolution, selected
 % 2A chunk
 \begin{figure*}[!th]
-\includegraphics[angle=0.,scale=0.38]{het/chunk_5425A_original_sclrem.eps}
-\includegraphics[angle=0.,scale=0.38]{het/chunk_5425A_60k_gaus_sclrem_diff.eps}
+\includegraphics[angle=0.,scale=0.33]{het/chunk_5425A_original_sclrem.eps}
+\includegraphics[angle=0.,scale=0.33]{het/chunk_5425A_60k_gaus_sclrem_diff.eps}
 \caption{Comparison of the Sandiford iodine cell KPNO FTS spectrum and
   the spectrum taken with TS12. \textbf{Left:} Comparison of the two
   spectra in their native resolutions (both about
@@ -323,7 +439,8 @@ $455,000$ and maybe even higher.
 %----------------------------------------------------------------
 % Figure: TS12 spectrum vs. KPNO FTS scan, 60k, all, with residuals
 \begin{figure}[!th]
-\includegraphics[angle=0.,scale=0.38]{het/all_60k_gaus_sclrem_diff.eps}
+\centering
+\includegraphics[angle=0.,scale=0.45]{het/all_60k_gaus_sclrem_diff.eps}
 \caption{The same as the right panel of Figure~\ref{fig:ts12}, the
   KPNO spectrum and the TS12 spectrum both at $60,000$, but for the entire
   $\sim$30\AA\ TS12 spectrum available. 
@@ -370,10 +487,41 @@ model is 0.73\% (the rms value is 1\%, thus \chisq\ is $\sim 2$--$3$).
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Search for a Better Instrumental Profile}\label{het:sec:ip}
 
 
+
+
+
+%----------------------------------------------------------------
+% HET/HRS cell, TS12 vs KPNO vs NIST
+% plot from ~/TS12/match_fts/figure/, made by plotcomp.pro
+% grabbed from ~/ExoPlanet-2010-2011/Professional_Development/201402-NESSF/renewal/proposal/
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{het/het70_comp.eps}
+\caption{
+\label{het:fig:hetts12}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------------
+% HET/HRS cell, IodineSpec5 2 temperatures vs. NIST, and KPNO
+% plot from ~/ExoPlanet-2010-2011/IodineSpec5/, made by plots_general.pro
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{het/HET_NIST_temp.eps}
+\caption{
+\label{het:fig:iodspec5}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Investigation on Modal Noise}
+%\section{The Investigation on Modal Noise}
   
