@@ -1,0 +1,399 @@
+% HET FTS
+
+
+\subsection{Motivation}
+
+Successful modeling of the iodine observations (B star spectra taken
+through the Iodien cell) is a good indication of a working radial
+velocity (RV) pipeline. At Keck/HIRES, which has demosntrated 1 m/s RV
+precision over the years, the modeling of the iodine observations
+yields a reduced chi-square (\chisq) value of typically 1.05. However,
+for HET/HRS iodine observations, with the same RV pipeline used at
+Keck, the typical \chisq\ value is $>2$ or even $>5$ for some
+observations.
+
+As we were investigating the reasons behind the apparent `bad fit' of
+HET/HRS iodine observations, we decided to check the quality of the
+exisitng iodine cell FTS scan/spectrum, which was taken at KPNO in
+1993. The main reason is that the FTS scan was taken almost two
+decades ago, and during this time the cell may have gone through
+changes (such as temperature, leaking or condensation, etc., though
+unlikely, since the cell was designed to be stable).  This would mean
+that the FTS scan is out of date and inaccurate, and it could explain
+the `bad fits' to the iodine observation.
+
+We therefore took the HET/HRS cell to the National Institute of
+Standards and Technology (NIST) and obtained a new FTS scan in 2011. A
+close comparison between this new scan from NIST and the old scan at
+KPNO reveals that they have many differences:
+\begin{itemize}
+  \item The overall line depths are very different --- the NIST scan
+    has deeper lines.
+  \item The absolute wavelength solutions are different, and the
+    drifting of wavelength solution or the dispersion scales at
+    different wavelength are also different.
+  \item Even after we adjust the `normalization' level of the NIST
+    scan (assuming the FTS data has normalization issues or low
+    frequency noise/offset), the line ratios of the two scans still
+    exhibits differences.
+\end{itemize}
+
+Figure~\ref{fig:fts_old_new} shows the comparison between the two
+scans in a selected 2\AA\ region. As the two scans also differ in
+resolution (the NIST scan has a higher resolution), the middle panel
+is a more direct comparison: the NIST scan has been convolved down to
+the same resolution with the KPNO scan; it is also shifted in
+wavelength space so that the two scans match in absolute wavelength
+solution; and it is adjusted to a proper `normalization' level to
+match with the KPNO scan as much as possible in order to compare their
+relative line ratios.
+
+    
+%----------------------------------------------------------------
+% Figure: HET FTS, KPNO old scan vs. NIST new scan
+\begin{figure}[!th]
+\centering
+\includegraphics[angle=0.,scale=0.45]{het/compare_het_fts_26.eps}
+\caption{Comparison of the KPNO FTS scan (black) and the NIST FTS scan
+  (red) for the HET/HRS iodine cell for a selected
+  1.5\AA\ chunk. \textbf{Top:} Two scans at their native resolution
+  and original wavelength solution. \textbf{Middle:} Comparison of the
+  two scans after adjusting the normalization, shifting, and
+  convolution for the NIST scan to match the KPNO scan for a more
+  direct comparison of line depths/ratios. \textbf{Bottom:} Residuals
+  of the middle panel, NIST spectrum minus the KPNO spectrum. The
+  median absolute deviation between the two spectra is 0.02
+  (2\%), though at many places, especially at line centers, the two
+  can differ by up to 5--10\%.
+  \label{fig:fts_old_new}}
+\end{figure}
+%----------------------------------------------------------------
+
+We suspect that the NIST scan is problematic. The reason is
+illustrated in the left panel of Figure~\ref{fig:chisq_old_new}, where
+it shows the histogram of \chisq\ values for fitting an selected iodine
+observation using the two scans, respectively. Each \chisq\ value is
+for a 2\AA\ chunk in this selected iodine observation. It is clear
+that the NIST scan provides worse fits.
+
+%----------------------------------------------------------------
+% Figure: chisq of iodine observation fit, KPNO old scan vs. NIST new scan
+\begin{figure*}[!th]
+\includegraphics[angle=0.,scale=0.33]{het/hetfts_oldVSnew_chisq.eps}
+\includegraphics[angle=0.,scale=0.33]{het/hetfts_oldVSnew_chisq_dc.eps}
+\caption{Both plots are histograms of \chisq\ values of a single
+  iodine observation. Each \chisq\ value in the histogram represents
+  the \chisq\ goodness of fit for a $\sim$2\AA\ spectral chunk in this
+  iodine observation (each iodine observation is chopped into several
+  hundred of chunks and is fitted independently).
+%
+  \textbf{Left:} \chisq\ histograms for the fit of the iodine
+  observation using the KPNO (black) and NIST (red) scan as iodine
+  templates, respectively. The KPNO scan obviously performs better.
+%
+  \textbf{Right:} \chisq\ histograms for the two scans, but both with
+  the normalization as a free parameter for each chunk (as we suspect
+  the NIST scan has problems in normalization). The two scans now
+  perform at essentially the same level. Dashed red line is the same
+  red histogram as plotted in the left panel. Notably, the KPNO scan
+  also performs better when we float the normalization parameter.
+  \label{fig:chisq_old_new}}
+\end{figure*}
+%----------------------------------------------------------------
+
+
+Since the direct comparision between the KPNO scan and the NIST scan
+has hinted that the `normalization' of the NIST scan might be
+problematic, we decide to add a free parameter to account for this
+`normalization error' when fitting the iodine observation. The right
+panel of Figure~\ref{fig:chisq_old_new} shows the \chisq\ histograms
+for the same iodine observation using the two scans, but adding a free
+parameter as the `normalization' when fitting each chunk (note: the
+normalization parameter is a free parameter for each chunk, not a
+global single parameter). The two scans now perform at essentially the
+same level.
+
+This is both encouraging and worrisome at the same time. It is
+encouraging because it seems that we have found the problem with the
+NIST scan, and also have a solution for it. It is very worrisome
+because this reveals that:
+\begin{itemize}
+  \item Even the KPNO cell performs visibly better when we float the
+    normalization paramter. This may suggest that there are
+    `normalization' issues or low frequency errors/noise in the KPNO
+    scan as well.
+  \item Obtaining high-quality, reliable FTS scans of iodine cell is
+    very difficult, and the FTS scans cannot be naively trusted as the
+    `ground truth' super accurate templates of the complicated iodine
+    spectrum.
+  \item The pipeline (when floating normalization as a free parameter)
+    cannot distinguish which scan is the `correct' one (by \chisq)
+    even when two scans differ as much as $\sim$5--10\% at places and
+    also have obvious line ratio differneces (see comparison in bottom
+    panel of Figure~\ref{fig:fts_old_new}). However, this level of
+    difference in FTS may affect the RV precision.
+\end{itemize}  
+
+Perhaps even more alarmingly and more puzzling, when we use the KPNO
+scan for the iodine cell used at Keck/HIRES to fit an HET/HRS iodine
+observation, it yields smaller \chisq\ values
+(Figure~\ref{fig:chisq_old_keck}). A closer look at the KPNO HET cell
+scan and the Keck cell scan reveals that the two cells seem to have
+very similar optical depths, and this maybe why the Keck scan works
+for HET obervation despite the fact that it is for a different cell.
+
+
+%----------------------------------------------------------------
+% Figure: chisq of iodine observation fit, KPNO HET old scan vs. Keck scan
+\begin{figure}[!th]
+\centering
+\includegraphics[angle=0.,scale=0.38]{het/chisq_comparison.eps}
+\caption{Comparison of the median \chisq\ values for fits of iodine
+  observations using the HET cell KPNO scan and the Keck cell KPNO
+  scan. Each point represents the median \chisq\ value for all the
+  chunks in a single iodine observation. Results of multiple
+  observations are plotted here to illustrate the statistically
+  significance. The Keck cell KPNO scan provides a better fit than the
+  HET cell KPNO scan when fitting HET iodine observations.
+  \label{fig:chisq_old_keck}}
+\end{figure}
+%----------------------------------------------------------------
+
+\textbf{All of the facts above prompted us to seek a relatively
+  independent way to perform quality checks for any FTS scan --- not
+  just comparing their relative qualities or performances.} One
+natural choice is to obtain spectra taken with high-resolution echelle
+spectrographs, which are measurements of the iodine spectrum directly
+in the `real wavelength space' instead of in the `Fourier space', and
+thus they serve as good reference spectra as they suffer from
+different types of error compared to FTS. Since FTS scans are usually
+at a very high spectral resolution ($200,000$--$400,000$), this limits
+our choice to essentially only one spectrograph --- the TS12 setting
+of the Tull Spectrograph at the 2.7m Telescope at McDonald.
+
+\textbf{\textit{The Main Purpose}} of the test using a TS12 spectrum
+is to see if it shows significant difference with the KPNO FTS scan,
+especially in terms of line depths and ratios. We chose to use the
+iodine cell at the Sandiford (2.1m) Telescope, because the HET/HRS
+cell was still under active use when we did this test. The Sandiford
+cell also has an KPNO FTS scan which was taken together with the KPNO
+scan of the HET cell in 1993, so it serves the purpose of testing the
+overall quality of the KPNO scans.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Methods}
+
+We obtained the spectra of the Sandiford iodine cell with TS12 from
+September 7 to September 9, 2013, when the telescope was scheduled to
+on Cassegrain instrument and the Tull Spectrograph room was free for
+use. The description on data acquisition and reduction in this section
+and the results presented in the next section are for the the
+contiguous $\sim$30\AA\ spectrum region that we took on the second and
+third day of observation.
+
+\textbf{\textit{Hardware Settings:}} We used the TS12 arm of the Tull
+Spectrograph, and the specific instrument choices are listed in
+Table~\ref{tab:hardware}. The cell was kept at a temperature of
+49.9--50.1$^\circ$C, the same as its working temperature for RV work
+and its temperature when the KPNO was taken (50$^\circ$C). Slit \#23
+is chosen to maximize SNR while maintaining sufficient resolution ---
+it is among the longest slit and is also the second narrowest slit.
+
+%----------------------------------------------------------------
+% Table: variability analysis results
+\renewcommand{\arraystretch}{1.3} % more row spacing for the table
+\begin{deluxetable}{rl}
+%\rotate
+\tabletypesize{\scriptsize}
+\tablewidth{180pt}
+\tablecaption{Hardware Settings for TS12 Iodine Spectrum Test\label{tab:hardware}}
+\startdata
+  \hline
+  \multicolumn{2}{c}{Tull Spectrograph, TS12, Coude107} \\
+  \hline
+  Echelle & E1 \\
+  Cross Disperser & c \\
+  CCD & TK4, 1024$\times$1056 \\
+  On-chip Binning & 1$\times$1 \\
+  Slit & \#23 (L$\times$W $=30\arcsec \times 0\arcsec .32$)
+\enddata
+\end{deluxetable}
+%----------------------------------------------------------------
+
+
+\textbf{\textit{Observation:}} A single exposure frame for the iodine
+spectrum covers about 1.9\AA. The dispersion direction runs vertically
+along the chip with increasing wavelength when increasing the $y$-axis
+pixel. The dispersion scale is about 0.002\AA\ per pixel ($\sim$7
+pixels per resolution element). We immediately preceded or followed
+each exposure with a flat fielding frame. The exposure times for the
+iodine and flat frames are both 45 seconds to achieve a
+signal-to-noise ratio (SNR) of 160 per pixel. Neighboring frames
+differ by about 1\AA\ in absolute wavelength. If prominent Solar or
+ThAr line was predicted within the wavelength coverage of a frame,
+then we also took a Solar or ThAr frame to verify the rough wavelength
+solution (the exposure time varied --- typically a couple minutes to
+up to 10 minutes). We took dark frames (45s each, about 10 frames) in
+the morning at the beginning of each day.
+
+\textbf{\textit{Reduction:}} We combined and averaged all available
+dark frames and created a master dark frame. Then we subtracted the
+master dark from all flat and iodine frames. After outlier rejection
+(cosmic rays, chip defects, etc.), we modeled the scattered light for
+each row of pixels by using the region outside the slit image.  We
+stacked 160 neighboring rows and fitted a third order polynomial along
+the column, and then interpolated for the amount of scattered light
+within the slit image region and subtracted it. Both the flat and
+iodine frames have scattered light removed. We then normalized the
+flat frames and divided each iodine frame by its associated normalized
+flat (for the slit image regions only).
+
+\textbf{\textit{Extraction:}} As the slit does not lie perfectly along
+the $x$-axis direction on the chip, we corrected for this by cutting
+columns along the dispersion direction and cross-correlating the
+columns. Then we interpolated and shifted the columns to create an
+aligned image, which we stacked along the $x$-axis direction and
+obtained the reduced, extracted spectrum. Each spectrum is then
+normalized by dividing the estimated continuum (top 5\% counts). Due
+to lower quality of scattered light removal near the edge of the chip,
+we discarded the top 80 and bottom 80 rows of pixels. Thus the
+extracted spectrum from each frame is about 1.6\AA\ across (instead of
+1.9\AA). The $\sim$20 frames are then `stitched' together by finding
+the overlapping region through cross correlation for each pair of
+neighboring frames and taking into account the changes and differences
+of dispersion scales across frames.
+\begin{comment}
+For the overlapping region, the spectrum in the bluer frame is
+`projected' onto the redder frame by taking into account the changes
+and differences in pixel dispersion scales in the two frames. The
+overlapping spectral region in the stitched spectrum thus has the
+dispersion scale of the redder frame, but it preserves the
+normalization of the bluer frame. This way the two frames are stitched
+together.
+\end{comment}
+
+\textbf{\textit{Mapping onto FTS:}} To compare with the KPNO FTS
+spectrum, we chopped the TS12 spectrum into 2\AA\ chunks and project
+each chunk onto the FTS spectrum by cross correlation. In this way we
+obtained the absolute wavelength solution and dispersion scale (as set
+by the wavelength solution of the FTS scan) for the TS12 spectrum. The
+results of comparison are shown in the next section.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Results}
+
+%----------------------------------------------------------------
+% Figure: TS12 spectrum vs. KPNO FTS scan, native resolution, selected
+% 2A chunk
+\begin{figure*}[!th]
+\includegraphics[angle=0.,scale=0.33]{het/chunk_5425A_original_sclrem.eps}
+\includegraphics[angle=0.,scale=0.33]{het/chunk_5425A_60k_gaus_sclrem_diff.eps}
+\caption{Comparison of the Sandiford iodine cell KPNO FTS spectrum and
+  the spectrum taken with TS12. \textbf{Left:} Comparison of the two
+  spectra in their native resolutions (both about
+  $450,000$--$500,000$). \textbf{Right:} Comparison of the two spectra
+  convolved down to about $60,000$ resolution, which is the resolution
+  of typical iodine observations or radial velocity observations
+  (star$+$iodine). Bottom panel shows the residuals in percentage of
+  the TS12 spectrum minus the KPNO spectrum, with a median absolute
+  deviation of 0.3\%.
+  \label{fig:ts12}}
+\end{figure*}
+%----------------------------------------------------------------
+
+The left panel of Figure~\ref{fig:ts12} shows a direct comparison of the reduced
+TS12 spectrum (a random 2\AA\ chunk) with the KPNO FTS scan, at their
+native resolutions. Note that the TS12 spectrum appears to have a
+higher resolution than the FTS scan. According to the header of the
+FTS scan, its resolution is about $491,000$. An FFT analysis on the TS12
+spectrum (to see where the high-frequency signal cuts off and becomes
+indistinguishable from the noise) shows that its resolution is about
+$455,000$ and maybe even higher.
+
+
+%----------------------------------------------------------------
+% Figure: TS12 spectrum vs. KPNO FTS scan, 60k, all, with residuals
+\begin{figure}[!th]
+\centering
+\includegraphics[angle=0.,scale=0.45]{het/all_60k_gaus_sclrem_diff.eps}
+\caption{The same as the right panel of Figure~\ref{fig:ts12}, the
+  KPNO spectrum and the TS12 spectrum both at $60,000$, but for the entire
+  $\sim$30\AA\ TS12 spectrum available. 
+  \label{fig:60k_all}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+To make a more direct comparison and also to see the differences of
+the two spectra (if any) would make a significant impact when fitting
+a $60,000$ resolution iodine observation, we degraded the resolution
+of both spectra to $60,000$ by convolving them with a Gaussian of a
+proper width. We analyzed the FFT spectra of the two convolved spectra
+to make sure that they are indeed at the same resolution, and both are
+around $60,000$. The right panel of Figure~\ref{fig:ts12} illustrates
+the comparison of the two spectra at $R\sim60,000$, with residuals of
+the TS12 spectrum minus the KPNO FTS spectrum plotted in the bottom
+panel. The two spectra differ by a median absolute deviation of 0.3\%
+($0.4\%$ for the entire $\sim$30\AA\ spectrum available as shown in
+Figure~\ref{fig:60k_all}). As the TS12 spectrum has a SNR of about 160
+and we have convolved the comparison spectrum down to $R\sim60,000$,
+the expected shot noise should be $\sim 1/160\times
+\sqrt{450,000/60,000}=0.23\%$. The additional $\sim 0.1\%$--$0.2\%$ of
+noise may come from flat fielding, scattered light removal, cosmic ray
+removal and interpolation between pixels, stitching of spectra,
+projection onto the FTS spectrum and interpolation for comparison
+purposes, and so on.
+
+For comparison: when fitting the HET/HRS Iodine observation used for
+creating Figure~\ref{fig:chisq_old_new} (median SNR for a typical
+chunk is $\sim$150, or 0.65\% shot noise), for a typical chunk, the
+median absolute deviation between the observation and the best-fit
+model is 0.73\% (the rms value is 1\%, thus \chisq\ is $\sim 2$--$3$).
+
+
+% SUMMARY
+\textbf{\textit{Conclusion:} Through this test, we have demonstrated that an
+  iodine cell spectrum taken with TS12 has the same quality as an FTS
+  scan to serve as the `true solution' of the iodine spectrum (caveat:
+  lack of wavelength solution). A comparison between the TS12 spectrum
+  and the FTS scan of the same cell serves as a good method to check
+  the quality of FTS scans.}
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------
+% HET/HRS cell, TS12 vs KPNO vs NIST
+% plot from ~/TS12/match_fts/figure/, made by plotcomp.pro
+% grabbed from ~/ExoPlanet-2010-2011/Professional_Development/201402-NESSF/renewal/proposal/
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{het/het70_comp.eps}
+\caption{
+\label{het:fig:hetts12}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------------
+% HET/HRS cell, IodineSpec5 2 temperatures vs. NIST, and KPNO
+% plot from ~/ExoPlanet-2010-2011/IodineSpec5/, made by plots_general.pro
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{het/HET_NIST_temp.eps}
+\caption{
+\label{het:fig:iodspec5}}
+\end{figure}
+%----------------------------------------------------------------
+
+
