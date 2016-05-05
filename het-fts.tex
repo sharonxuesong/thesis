@@ -366,6 +366,74 @@ model is 0.73\% (the rms value is 1\%, thus \chisq\ is $\sim 2$--$3$).
 
 
 
+ZZZ temperature change
+
+
+A ``ground truth" iodine atlas is crucial for the precise iodine
+radial velocimetry. It is used for modeling the observed iodine lines
+in the stellar$+$iodine RV observation to anchor the absolute
+wavelengths and the spectrograph response function. Such a ``ground
+truth" atlas is normally obtained through a Fourier Transform
+Spectrometer (FTS). Our previous work has revealed potential problems
+with FTS atlases, and in our original proposal, we promised to use the
+TS12 arm of the Tull spectrograph at McDonald Observatory to validate
+the qualities of the FTS iodine atlases for HET/HRS, MINERVA, and the
+McDonald 2.7m.
+
+In October 2014, the TS12 observations were successfully carried
+out. All data are reduced and we have made comparisons between the
+TS12 spectra and FTS scans. For the 2.7m cell, its TS12 spectrum
+matches very well to its FTS atlas, again (together with the 2.1m cell
+data from 2013) proving that TS12 is an appropriate tool for
+validating FTS atlases. The TS12 spectra for the MINERVA cell is also
+ready, and right now we are waiting for the FTS expert on our team to
+reduce the MINERVA FTS data for comparison, which is expected to be
+done before June (first light of the proto-type MINERVA spectrograph).
+
+Finally, for the HET/HRS iodine cell, we have taken its TS12 spectra
+at three different temperatures (50, 60, and 70$\degree$C; the RV
+working temperature for the cell is 70$\degree$C). Our main findings
+(both are first-time discoveries for iodine RV work) are as follows:
+
+(a) Temperature change (5--10$\degree$C) in iodine cell matters: The
+long suspected temperature-induced iodine spectrum change was finally
+confirmed, which is seen very visibly among the TS12 spectra taken at
+three different temperatures. Based on our NIST FTS atlases taken at
+two different temperatures, temperature change on the order of
+10$\degree$C should not induce visible line changes. However, we
+suspected issues with temperature control and data calibration with
+the NIST atlases, and the TS12 spectra confirmed our suspicion and
+proved that temperature on the order of even 5$\degree$C would have
+manifested as significant line changes (for precise RV purposes).
+
+(b) The HET/HRS cell very likely has changed over time: The TS12
+spectra match better with the more recent but potentially problematic
+NIST FTS atlas, which had worse $\chi^2_\nu$ fit than the old KPNO
+atlas. This is completely unexpected and suggests that: the NIST atlas
+was perhaps taken at the correct temperature (i.e.\ the KPNO atlas was
+at a lower and wrong temperature) but the worse fit was caused by
+calibration errors in the atlas; and/or the temperature or optical
+depth of the cell changes over the course of 20 years, and hence the
+differences between these three spectra (Figure~\ref{fig:fts}); and
+further more, it is possible that the temperature/optical depth of the
+cell changes on a much shorter scale during the observing seasons, and
+most of the time it stays at a temperature/optical depth that is
+similar to the one when the KPNO atlas was taken (e.g.\ actually at a
+lower temperature though thought to be at 70$\degree$C).
+
+To answer these questions and to actually resolve the issue of a
+changing cell, we have found a possible third venue that might provide
+reliable, ultra-high resolution, and wavelength calibrated iodine
+atlas -- a theoretical code that computes iodine transmission spectrum
+(at any specified temperature) based on both physics and empirical
+calibrations (IodineSpec5; \citealt{iodinespec5}). We have
+successfully installed and learned the code, and properly translated
+the code output into practical astrophysical units and to account for
+optical depth differences. We are now using the code to diagnose the
+HET/HRS cell to study whether the cell temperature or optical depth
+changes (as reflected by actual HET/HRS observations instead of
+FTS/TS12 atlas observations), and to explore the possibility of using
+the theoretical output as the new ``ground-truth" atlas.
 
 
 

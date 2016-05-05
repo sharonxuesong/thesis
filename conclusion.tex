@@ -2,9 +2,49 @@
 
 This is conclusion.
 
+%------------------
 promised to talk about limitation of the CPS code/algorithm, and the
 new RV code.
 
+The work described in the previous sections is all done with the
+California Planet Search Consortium Doppler code, which is a legacy
+code in IDL primarily written by John A.\ Johnson but with legacy
+parts that date back to the work of Marcy \& Butler as early as
+1989. It is proven to be able to produce RVs at $\sim 1$
+\mps\ precision with Keck data, and is behind the discoveries and
+characterization of numerous exoplanets, including the first
+Earth-mass Earth-radius planet Kepler-78b \citep{howard2013,pepe2013}.
+
+Yet, this great legacy code has many drawbacks: It is based on a
+simple home-constructed Levenberg–-Marquardt least $\chi^2$ fitter
+(LM fitter) which has high requirement on initial guesses for
+parameters and is terribly inefficient and inadequate in exploring the
+$\chi^2$ space. It also has many legacy house keeping parts and
+complicated structures that makes it hard to upgrade, adopt for other
+instruments, and add new modules and functions.
+
+We have set out to write a new RV code that is built in {\it Python}.
+The new code carries on the valuable successful parts of the CPS code
+over, and more importantly, built to be highly modular and thus will
+be easy to adopt for other instruments or to plug in modern
+numerical and statistical tools.
+
+We have completed the structural design and built the core part of the
+code, where it fits one spectral chunk using any designated maximum
+likelihood style fitter (e.g.\ a better LM fitter, which yield a
+smaller $\chi^2_\nu$ value when testing with Keck spectral chunks). We
+plan to make it fully functional for the commissioning of MINERVA in
+Summer 2015 (see Section~3 for future plans to implement more
+advanced tools).
+
+Currently there is a large cry in the RV community for a public,
+high-precision RV code which would allow better transparency and cross
+checking of results. We have made our code publicly available through
+{\tt gitHub}, and we plan to document the methods in peer-reviewed
+literature once the code is ready to be released for the greater
+community.
+
+%------------------
 promised to talk about new vanking project.
 
 This will also contain work on MINERVA and EPDS and looking forward to
