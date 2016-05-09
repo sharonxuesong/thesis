@@ -6,8 +6,10 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{het/convolution_kernel.eps}
-\caption{Illustration of convolving the iodine atlas with a kernel to
-  fit the observed iodine lines.
+\caption{Illustration of convolving the iodine atlas (sharp solid
+  lines) with a kernel (middle right insert) to fit the observed
+  iodine lines (black dots near the bottom, with best-fit model
+  plotted in solid line).
 \label{het:fig:convkernel}}
 \end{figure}
 %----------------------------------------------------------------
@@ -23,7 +25,12 @@
 \centering
 \subfloat[\het\ Chunk]{\includegraphics[scale=0.35]{het/20120124.176005.chunk189.eps}}
 \subfloat[\keck\ Chunk]{\includegraphics[scale=0.35]{het/rj82.77.chunk308.eps}}
-\caption{
+\caption{Comparison between fits for a typical iodine-only chunk using
+  \het\ data (left panel) and \keck\ data (right panel). Bottom panels
+  are showing the residuals against best-fit models, plotted on the
+  same $y$-axis scale. \het\ fit is significantly worse than \keck,
+  which we believe is one of the major drivers behind \het's poorer RV
+  precision. 
 \label{het:fig:iodchunkcomp}}
 \end{figure}
 %----------------------------------------------------------------
@@ -39,7 +46,14 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{het/iodfit.eps}
-\caption{
+\caption{Illustration of fitting the iodine-only data (bottom panel)
+  using different IPs (top panels), in this case, using GH and sum of
+  Gaussians (GAU). These two IPs are practically ``equally bad",
+  having similarly large reduced $\chi^2$ but neither produces a
+  satisfactory fit. It is also interesting to see how ``stable" the
+  best-fit IP can be across the years (i.e., in 2005 vs.~2008),
+  hinting that the best IP may take a simple, smooth, and
+  slowly-varying form. 
 \label{het:fig:ghgau}}
 \end{figure}
 %----------------------------------------------------------------
@@ -55,8 +69,13 @@
 \begin{figure}
 \centering
 \includegraphics[scale=0.45]{het/fftip.eps}
-\caption{Clear signature of \het\ slit (R $=$ 60k). A hint of \keck\
-  slit too.
+\caption{Fourier transform or power spectrum of a \het\ iodine-only
+  spectrum (black dots) and its smoothed version (blue line). There is
+  a clear signature of the \het\ slit at 4.3 pixel (corresponding to
+  slit width for resolution R $=$ 60k). For comparison, the red curve
+  is for \keck\ data, which shows no clear signiture of a slit,
+  because \keck\ is not fiber-fed and the PSF of the star falls mostly
+  within its slit.
 \label{het:fig:fftip}}
 \end{figure}
 %----------------------------------------------------------------
@@ -107,19 +126,6 @@ which is what is achieved at Keck and enabled $\sim 1$ \mps\ RV
 precision.
 
 
-%----------------------------------------------------------------
-% Fitting with a Moffat function
-% plot made by ~/ExoPlanet-2010-2011/HET-HRS-IP/06-line_through_dots/thar.pro
-% and stored in ./plots/
-\begin{figure}
-\centering
-\includegraphics[scale=0.45]{het/thar_vs_moffat.eps}
-\caption{
-\label{het:fig:moffat}}
-\end{figure}
-%----------------------------------------------------------------
-
-
 
 
 
@@ -130,8 +136,43 @@ precision.
 \centering
 \subfloat{\includegraphics[scale=0.3]{het/20120124.176005.chunk191.compip.eps}}
 \subfloat{\includegraphics[scale=0.35]{het/20120124.176005.chunk191.compfit.eps}}
-\caption{
+\caption{Introducing a sharp feature into the \het\ IP model, a
+  triangle on top of the GH IP (red curve in the left panel), produces
+  a better fit, somewhat to our surprise. The black in the left panel
+  is the best-fit GH IP. GH$+$triangle is the IP model that produces
+  the least $\chi^2_\nu$ among all of our IP models. However, as shown
+  by the right panel, the two fits barely have any visible difference
+  (red curve for GH$+$triangle IP and black for GH; bottom panel plots
+  the residuals). Such a sharp feature in the IP is unphysical, and we
+  interpretate this results as a hint for an unreliable iodine atlas
+  (the sharp peak at the center is perhaps the IP model trying to
+  ``stretch" the iodine lines deeper; see Section~\ref{het:sec:fts}
+  for more details).
 \label{het:fig:iodipcomp}}
 \end{figure}
 %----------------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------------
+% Fitting with a Moffat function
+% plot made by ~/ExoPlanet-2010-2011/HET-HRS-IP/06-line_through_dots/thar.pro
+% and stored in ./plots/
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{het/thar_vs_moffat.eps}
+\caption{Histogram of goodness of fit, $\chi^2_\nu$, values for
+  spectral chunks of an iodine spectrum. The modified Moffat function
+  (red) performs almost equally well while having only 3 parameters,
+  com- pared with the complicated 11-parameter GH function (black
+  solid). Red dashed histogram is for fits using a ThAr line profile
+  as IP. The insert is showing the modified Moffat function can fit a
+  ThAr line quite well.
+\label{het:fig:moffat}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+
 
