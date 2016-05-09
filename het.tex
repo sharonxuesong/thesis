@@ -2,8 +2,24 @@
 
 This is about HET/HRS. This will have introduction to HET and HRS.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Adoption of REDUCE and the CPS Doppler Code for HET/HRS}
+Motivation behinding using HRS, including its advantages, such as
+queque schedule and fiber feed. However, it never performed on 1-2~m/s
+level in terms of RV precision like \keck.
+
+Temperature stability in the spectrograph room of \hrs\ was identified
+early on as one of the contributing factors to the RV systematic
+errors, and this issue was resolved since the installation of a fine
+temperature control system in March 2008 (J.~Bean, L.~Ramsey,
+P.~McQueen private communications). We confirmed the improvement in RV
+precision as a result of this upgrade in our analysis with the HD
+37605 data, which is illustrated in the lower panel of
+Figure~\ref{het:fig:tempstable}. The RMS of \hrs\ velocities with
+respect to the best Keplerian fit of the HD 37605 system is 9 m/s for
+data before March 2008, and it is reduced to 6 m/s for data
+afterwards. Such improvement is encouraging, and a closer look at the
+data and the intermediate products of the Doppler pipeline reveals
+even more potential contributors to the RV instability of \hrs, which
+is the theme of this chapter.
 
 
 %----------------------------------------------------------------
@@ -26,6 +42,37 @@ This is about HET/HRS. This will have introduction to HET and HRS.
 %----------------------------------------------------------------
 
 
+We set out to first construct a data reduction and RV extraction
+pipeline for \het, which is described in
+Section~\ref{het:sec:pipeline}. Then we tried to improve the precision
+by seeking out for a better instrumental profile (IP) model, i.e., a
+functional form that can bring good fit to \het\ data, which is
+documented in Section~\ref{het:sec:ip}. Section~\ref{het:sec:fts}
+describes our efforts in validating the iodine cell Fourier Transform
+Spectrometer (FTS) scans for \het\ and our investigation on the
+plausible changes in cell properties.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adoption of REDUCE and the CPS Doppler Code for HET/HRS}\label{het:sec:pipeline}
+
+What we did to modify REDUCE and the CPS Doppler code to get HET working.
+
+We modified the REDUCE reduction routines built by Dr.\ Sara Gettle
+and Dr.\ Steve Bongiono for raw spectral data reduction. The most
+important modification was to automate the routine for tracing the
+echelle orders on the spectral image, which used to require
+human-intervention (i.e., clicking on the echelle orders to help the
+code recognize the traces). I also wrote wrapper routines to automate
+patch reduction for \het\ observation programs or any single target
+star.
+
+In terms of adapting the CPS Doppler code, it was mostly for training
+the code to recognize \het\ images, to work with our local file
+structures, and to be able to produce DSST locally using \het\ data
+(instead of using \keck\ DSST like we did initially, which does not
+produce RVs as precise as using \het\ DSSTs).
 
 
 
