@@ -1,4 +1,4 @@
-\chapter{Improve the Radial Velocity Precision of HET/HRS}\label{chap:het}
+\chapter{Improving the Radial Velocity Precision of HET/HRS}\label{chap:het}
 
 This is about HET/HRS. This will have introduction to HET and HRS.
 
@@ -90,4 +90,53 @@ produce RVs as precise as using \het\ DSSTs).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{The Investigation on Modal Noise}
-  
+ 
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion and Future Work}\label{het:sec:conclusion}
+ 
+Our adventure in improving the RV precision of \het, though incomplete
+and sometimes inconclusive so far, have taught us several important
+lessons for iodine-calibrated precise RV work:
+
+\begin{itemize}
+  \item The IP functional forms for fiber-fed spectrographs probably
+differ quite significantly from slit-fed ones, and it is important to
+find a good IP function which not only describes the IP well but also
+has good convergence properties for the forward modeling.
+fitter. Initial guesses on IP parameters could play an important role.
+  \item The iodine atlas provided by FTS scans should not be taken for
+granted as the ``ground truth''. There are challenges with FTS
+measurements and data reduction for measuring absorption spectrum with
+such a big spectral span. The cell can also change over time, nulling
+any old FTS scans. Echelle spectrograph with hyper resolution like the
+TS12 arm on the Tull Spectrograph is very helpful for validating
+iodine atlas or checking cell quality.
+  \item It is vital to stabilize the cell to a desired temperature
+precicely and accurately, probably at least to
+$\pm$10$\degree$C. Theoretical code computing iodine lines such as
+IodineSpec5 is helpful for diagnosing problems with iodine cells. One
+can imagine that this can also be helpful in identifying permanent
+cell change like the one experienced by the Lick/Hamilton cell, which
+compromised the usefulness of the spectrograph for precise RV work
+fatally.
+\end{itemize}
+
+Looking forward, there are several things which can help solving the
+mystery and hopefully eventually leading to an improvement in the RV
+precision of \het:
+
+{\bf (1)} Adding temperature as a free parameter.
+
+{\bf (2)} Exploring options with IP.
+
+{\bf (3)} Examining the spectral data. Modal noise test, raw reduction
+quality, etc.
+
+More importantly, the upgraded \het\ has great promise in RV
+precision, and carrying on these lessons and works is vital for
+ensuring good RV performance ($\sim$1~m/s). 
+
+
+
