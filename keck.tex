@@ -13,31 +13,65 @@ This is about Keck/HIRES.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Erros Induced by Imperfect Stellar Reference Spectra}\label{keck:sec:dsst}
 
-%----------------------------------------------------------------
-% Effect of imperfect DSST
-% plot made by ~/Exo.../Keck.../simulate.../msplot.pro, plot_name='3panel'
-\begin{figure}
-\subfloat[HD 185144]{\includegraphics[scale=0.42]{keck/185144-rv-bc-3panel-test0-testd0.eps}}\
-\subfloat[HD 10700]{\includegraphics[scale=0.42]{keck/10700-rv-bc-3panel-test0-testd0.eps}}\
-\caption{Effect of imperfect DSST on simulated data.
-\label{keck:fig:dsst}}
-\end{figure}
-%----------------------------------------------------------------
+\input{keck-dsst.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion and Future Work}\label{keck:sec:conclusion}
+
+In this chapter, we described our work on discovering and
+characterizing two RV systematic error sources for \keck: telluric
+contamination and errors in the DSST. 
+
+Telluric contamination...
+
+Errors in the DSST...
+
+In addition, there is a third major RV systematic source in \keck\
+data: numerical and algorithmic errors. This is illustrated in
+Figure~\ref{telluric:fig:algorithm}. 
 
 
 %----------------------------------------------------------------
-% Chunk illustration of effect of imperfect DSST
-% plot made by ~/Exo.../Keck.../simulate.../msplot.pro, plot_name='makefakedsst','chunkcomp'
+% Plot showing algorithmic errors
+% made by ~/Exo../Keck../simulate.../msplot.pro, in /msplot/.
 \begin{figure}
-\subfloat{\includegraphics[scale=0.3]{keck/185144_makefakedsst_100.eps}}
-\subfloat{\includegraphics[scale=0.3]{keck/185144_chunkcomp_100.eps}}\
-\subfloat{\includegraphics[scale=0.3]{keck/10700_makefakedsst_104.eps}}
-\subfloat{\includegraphics[scale=0.3]{keck/10700_chunkcomp_104.eps}}\
-\caption{Effect of imperfect DSST on simulated data for a single
-spectral chunk. HD 185144 is for a chunk near 5160\AA, and HD 10700 is
-for a chunk around 5166\AA, which are spectral regions that tend to
-receive high weights due to ample stellar lines and a lack of telluric
-lines.
-\label{keck:fig:dsstchunk}}
+\includegraphics[scale=0.65]{telluric/185144-rv-bc-rja01-rje01-rjf01.eps} 
+\caption{RV vs.\ BC for HD 185144, for simulations with fixed simple
+IP with various IP width (spectral resolution, $\sigma=1.7$
+corresponds to original \keck\ resolution), no Poisson noise. The
+errors and trends here are purely caused by algorithmic errors.
+\label{telluric:fig:algorithm}}
 \end{figure}
 %----------------------------------------------------------------
+
+In terms of future work:
+
+{\bf (1) Continuing the battle with telluric contamination: } For
+redder bands, it is unclear at the moment what the requirement would
+be, although some theoretical calculation by
+\cite{2016AAS...22713719S} suggests that modeling to 1\% may not be
+sufficient for reaching below 1~m/s in the near infrared.
+
+We will try real observation, and see if a priori or floating water
+column density parameter works better.
+
+We hope to do a study on M dwarfs, because they are probably worse.
+
+Important for MINERVA, HRS2, HPF2. Crucial for CARMENES, HPF, EPDS, SHREK,
+ESPRESSO, SPiRou etc. White paper has suggested improvement on line
+lists in HITRAN. EPRV2 has a lot of recommendations. That is the
+future direction.
+
+{\bf (2) Searching for a better DSST fabrication method: }
+
+This will be useful for Magellan/PFS.
+
+{\bf (3) Eliminating the numerical and algorithmic errors: } the
+numerical and algorithmic errors, I am constructing a new RV
+extraction code, which is the topic of Chapter~\ref{chap:conclusion}.
+
+
+
