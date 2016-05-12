@@ -100,6 +100,14 @@ produce RVs as precise as using \het\ DSSTs).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion and Future Work}\label{het:sec:conclusion}
  
+To summarize, we think that two of the major drivers behind \het's RV
+systematic errors are temperature stabilization issues with the iodine
+cell (or inaccurate iodine atlas which fails to capture such changes)
+and inaccurate modeling of the IPs. We have laid foundations for
+solving these two problems, and it is promising that future work may
+bring the $>$10-year worth of \het\ archival RV data to a higher RV
+precision, much similar to \keck's.
+
 Our adventure in improving the RV precision of \het, though incomplete
 and sometimes inconclusive so far, have taught us several important
 lessons for iodine-calibrated precise RV work:
@@ -131,17 +139,28 @@ Looking forward, there are several things which can help solving the
 mystery and hopefully eventually leading to an improvement in the RV
 precision of \het:
 
-{\bf (1)} Adding temperature as a free parameter.
+{\bf (1) Adding temperature as a free parameter} when fitting
+\het\ data to extract RVs. The effectiveness of this approach can
+first be tested through fitting B star $+$ iodine frames. 
 
-{\bf (2)} Exploring options with IP.
+{\bf (2) Finding a better IP function:} This can be first done
+through fitting ThAr frames, and then tested via fitting B star $+$
+iodine frames, which would be simultaneous with fitting for the cell
+temperature (inconvenient but necessary, because it is almost
+impossible to disentangle the two). 
 
-{\bf (3)} Examining the spectral data. Modal noise test, raw reduction
-quality, etc.
+{\bf (3) Examining the spectral data for modal noise or raw reduction
+errors:} We have taken day time engineering data before the HET
+shutdown/upgrade to test if modal noise is significant in \het\
+data. Although we have calculated that the number of modes in the
+\het\ fiber is large enough that modal noise should not be a concern,
+it would still be valuable to reduce and analyze these data to prove
+this hypothesis.
 
 More importantly, the upgraded \het\ has great promise in RV
 precision, and carrying on these lessons is crucial for ensuring good
 RV performance ($\sim$1~m/s). Chapter~\ref{chap:conclusion} has more
-on future work and directions with the upgraded \het.
+the upgraded \het\ and related future work.
 
 
 
