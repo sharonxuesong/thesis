@@ -1,6 +1,11 @@
 \chapter{Improving the Radial Velocity Precision of Keck/HIRES}\label{chap:keck}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction and Background}
+
 This is about Keck/HIRES.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Effects of Telluric Contamination and Remedies}\label{keck:sec:telluric}
@@ -16,62 +21,174 @@ This is about Keck/HIRES.
 \input{keck-dsst.tex}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical and Algorithmic Errors}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion and Future Work}\label{keck:sec:conclusion}
+Solving the least-$\chi^2$ problem in a multi-dimensional, multi-modal
+setting is not easy. Efficient as it might be in terms of
+computational time, the least-$\chi^2$ algorithm employed by the CPS
+Doppler code could give biased solution and comprise the RV precision
+and accuracy. We performed simulations to probe the magnitude of such
+errors.
 
-In this chapter, we described our work on discovering and
-characterizing two RV systematic error sources for \keck: telluric
-contamination and errors in the DSST. 
-
-Telluric contamination...
-
-Errors in the DSST...
-
-In addition, there is a third major RV systematic source in \keck\
-data: numerical and algorithmic errors. This is illustrated in
-Figure~\ref{telluric:fig:algorithm}. 
+Figure~\ref{keck:fig:algorithm} illustrates the RV scatter and RV-BC
+trends induced by algorithmic errors -- the RVs plotted are from
+simulations with no photon noise added, using the exact input spectrum
+as the DSST, and the exact simple Gaussian IPs as the input. A perfect
+algorithm should return all zeros for the RV, which is not the case
+here. To probe the origin of this algorithmic errors a bit further, we
+have run three sets of simulations at three different spectral
+resolution (i.e., using different Gaussian IP widths). The amplitude
+of the RV scatter decreases as the resolution increases, which is as
+expected because shallower spectral lines probably translate to
+shallower $\chi^2$ surfaces. However, the signature ``period'' or
+length scale (in BC space) of the RV-BC trend does not change, which
+is about 8~km/s or 6 pixels on the CCD. We are still investigating the
+origin of this signature length scale (perhaps its in the blaze
+normalization, or interpolation or rebinning algorithms, to name a
+couple). The dichotomy in the red points (the fact that they split
+into two RV groups) is probably due to the convergence criteria (which
+are tuned for \keck\ resolution, and not sufficient for significantly
+higher ones) and the algorithm's sensitivity in initial guesses.
 
 
 %----------------------------------------------------------------
 % Plot showing algorithmic errors
 % made by ~/Exo../Keck../simulate.../msplot.pro, in /msplot/.
 \begin{figure}
+\centering
 \includegraphics[scale=0.65]{telluric/185144-rv-bc-rja01-rje01-rjf01.eps} 
 \caption{RV vs.\ BC for HD 185144, for simulations with fixed simple
-IP with various IP width (spectral resolution, $\sigma=1.7$
-corresponds to original \keck\ resolution), no Poisson noise. The
-errors and trends here are purely caused by algorithmic errors.
-\label{telluric:fig:algorithm}}
+IPs and no photon noise added. The data plotted here are from
+simulated spectral data with different IP widths (or spectral
+resolution, $\sigma=1.7$ pixels corresponds to original \keck\
+resolution). The origins of the RV scatters and trends in these plots
+are purely algorithmic.
+\label{keck:fig:algorithm}}
 \end{figure}
 %----------------------------------------------------------------
 
-In terms of future work:
+Figure~\ref{keck:fig:chunkalgorithm} shows an example chunk with
+visible algorithmic errors. Again the top panel is showing real data,
+and the bottom one is the simulated data (with photon noise and
+complex IPs). This is a severe case, because its a chunk near 5900\AA\
+which does not contain a large amount of stellar or iodine lines, and
+therefore it is particularly challenging for the algorithm to find a
+good $\chi^2$ minimum.
 
-{\bf (1) Continuing the battle with telluric contamination: } For
-redder bands, it is unclear at the moment what the requirement would
-be, although some theoretical calculation by
-\cite{2016AAS...22713719S} suggests that modeling to 1\% may not be
-sufficient for reaching below 1~m/s in the near infrared.
+Unfortunately it is hard to quantify how much RV RMS the algorithmic
+errors add to the RV budget, because the major damage comes from the
+biases instead of the increased scatter (and the ``vanking'' procedure
+breaks down because of this, unable to weigh the chunks effectively
+and improve the precision). Figure~\ref{keck:fig:algorithm} suggests
+that it can lead to spurious signals with considerable amplitude (1-3
+m/s) for high SNR observations (the simulated observations here
+essentially have infinitely SNR).
 
-We will try real observation, and see if a priori or floating water
-column density parameter works better.
 
-We hope to do a study on M dwarfs, because they are probably worse.
+%----------------------------------------------------------------
+% Chunk Plot showing algorithmic errors
+% made by ~/Exo../Keck../simulate.../msplot.pro, in /msplot/.
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{keck/chunkcomp-algorithm.eps} 
+\caption{Real (top) or simulated (bottom) Keck RVs from a 2\AA\ chunk
+from HD 185144 spectra showing RV systematic errors caused by
+algorithmic errors. The RVs in the bottom panel are from the
+simulations with complex IPs and photon noise.
+\label{telluric:fig:chunkalgorithm}}
+\end{figure}
+%----------------------------------------------------------------
 
-Important for MINERVA, HRS2, HPF2. Crucial for CARMENES, HPF, EPDS, SHREK,
-ESPRESSO, SPiRou etc. White paper has suggested improvement on line
-lists in HITRAN. EPRV2 has a lot of recommendations. That is the
-future direction.
 
-{\bf (2) Searching for a better DSST fabrication method: }
+To list a few places in the Doppler code which may cause significant
+numerical and algorithmic errors (not in any particular order): 
+\begin{itemize}
+\item The LM least-$\chi^2$ fitter: it can get stuck in local
+  minima, and it may have reached the crude convergence criteria but not
+  actually converged, and it is extremely sensitive to initial guesses.
+\item The interpolation algorithm for interpolating or rebinning the model
+  spectra. The current algorithm is not flux-conservative.
+\item The simple linear fit to the blaze function in each chunk (each
+  chunk contains 80 pixels).
+\item ``Vanking'', or the final statistical weighting process, only
+  takes into account RV scatter of each chunk but not biases.
+\end{itemize}
 
-This will be useful for Magellan/PFS.
+Overall, it is not surprising at all that this decade-old Doppler code
+fails to deliver precise RVs to the modern era standard. We discuss
+the paths forward in Chapter~\ref{chap:conclusion}.
 
-{\bf (3) Eliminating the numerical and algorithmic errors: } the
-numerical and algorithmic errors, I am constructing a new RV
-extraction code, which is the topic of Chapter~\ref{chap:conclusion}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion and Future Work}\label{keck:sec:conclusion}
+
+In this chapter, we described our work on discovering and
+characterizing three RV systematic error sources for \keck: telluric
+contamination, errors in the DSST, and algorithmic errors. 
+
+Telluric contamination, and in particular, micro-telluric lines, has a
+small but non-negligible effects on the RV precision and accuracy. For
+a typical G type star like the ones targeted by CPS, micro-tellurics
+adds $\sim 0.6$~m/s to the RV error budget (in quadrature) and also a
+spurious signal with an amplitude on the order of 10-20~cm/s if left
+untreated. We have summarized the best strategies for treating
+micro-telluric lines for precise RV using iodine calibrators in
+Section~\ref{keck:sec:telluric}, which are masking deep lines,
+cleaning DSST, forward modeling the telluric lines in RV extraction,
+and assigning lower statistical weights to telluric-contaminated
+chunks.
+
+Errors in the DSSTs are one of current major RV systematic sources in
+\keck\ RV data, and quite likely the largest one. It adds 1 m/s to the
+RV error budget and creates a spurious signal with amplitude $\sim$ 1
+m/s. RV-BC trends in simulated data match the ones seen in the
+observed spectra among many spectral chunks, which pinned down this
+source of error unambiguously. 
+
+Algorithmic errors contribute a considerable amount to the current
+\keck\ RV budget as well, and it is hard to imagine it would deliver
+sub-m/s precision. After all, it is extremely challenging to find a
+$\chi^2$ minimum on a complex surface with 15 dimensions (parameters)
+using spectral data with 80 points (80 pixels per chunk) and
+highly covariant model parameters. 
+
+In terms of future work along these lines:
+
+{\bf (1) Continuing the battle with telluric contamination: } We plan
+to run simulations on an M star, HD 95735, also a RV standard. M stars
+are particularly interesting because they may be more susceptible to
+telluric contamination -- they have more stellar lines in the red
+where the telluric lines are denser. We also plan to implement full
+forward-modeling of telluric lines in real data reduction (as opposed
+to our toy modeling with fixed water column density for all
+dates/observations), and find out whether a priori or floating water
+column density parameter works better. We hope to implement our
+telluric correction package into the official CPS pipeline eventually,
+which will be busily chewing \keck\ follow-up data on TESS targets
+(many M dwarfs, undoubtedly) in the near future.
+
+{\bf (2) Searching for a better DSST fabrication method: } We will
+diagnose the origin of the DSST errors while searching for a better
+deconvolution algorithm. It is possible that the current CPS
+``deconvolution'' algorithm described in Section~\ref{keck:sec:dsst}
+is sufficient, but the problem is in the normalization or some other
+parts of the process. Nonetheless, it could be rewarding to jump out
+of the current frame work and try another completely different
+approach (e.g., constructing DSST from all the star$+$iodine frames,
+which has been attempted by Andrew Vanderberg and John Johnson).
+
+{\bf (3) Eliminating the numerical and algorithmic errors: } The CPS
+Doppler code can certainly use an upgrade. However, in order to
+eliminate a large portion of the algorithmic errors we are seeing now,
+it probably means major structural changes to this lengthy and complex
+legacy code written for early-1990 computers, regardless whether one
+would like to stick with the L-M least-$\chi^2$ fitter. Therefore,
+instead, I am building a new RV extraction code from scratch, using
+Python and modern algorithms, which is one of the topics in
+Chapter~\ref{chap:conclusion}.
 
 
 

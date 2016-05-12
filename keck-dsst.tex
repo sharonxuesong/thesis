@@ -112,15 +112,30 @@ made the telluric-free simulated data as described in
 Section~\ref{keck:telluric:method}). We compare the RVs between the
 extraction using the perfect DSST and the simulated DSST in
 Figure~\ref{keck:fig:dsst}. Indeed, the errors in DSST are capable of
-inducing RV-BC trends with an amplitude near 1~m/s. The patterns are
-different from the real observed RV-BC trends, which we tentatively
-attribute to: (1) the synthetic spectrum is different from the real
-stellar spectrum; (2) the noise and other random errors are different,
-e.g., how IPs used in deconvolution can differ from the real IPs due
-to the added photon noise, although they have the same input in the
-simulation. Note that in reality, the difference in IPs and wavelength
-solution between the B star and stellar frames can rise from many more
-places besides photon noise.
+inducing RV-BC trends with an amplitude near 1~m/s. Because we used
+the same IPs and wavelength solutions for the B star $+$ iodine frames
+and the stellar frames, the errors in DSST we are probing here are
+mostly from the deconvolution algorithm and random errors from the
+photon noise and the CPS Doppler code/algorithm. The current CPS code
+uses an unconventional ``deconvolution'' algorithm written by John
+Johnson, which forward models the underlying stellar spectrum by
+adding nodes of Gaussians at places of stellar lines, convolving that
+with the derived IP from B star frames, and minimizing the $\chi^2$ to
+find depths and positions of the Gaussian nodes. CPS has used other
+deconvolution algorithms such as the Jansson constrained non-linear
+method, which did not out-perform the current recipe using ``piston
+Gaussians''.
+
+The RV-BC patterns in the middle panels of Figure~\ref{keck:fig:dsst}
+are different from the real observed RV-BC trends, which we
+tentatively attribute to: (1) the synthetic spectrum is different from
+the real stellar spectrum; (2) the noise and other random errors are
+different, e.g., how IPs used in deconvolution can differ from the
+real IPs due to the added photon noise, although they have the same
+input in the simulation; (3) and the fact that there are other sources
+of RV systematic errors in real data. Note that in reality, the
+difference in IPs and wavelength solution between the B star and
+stellar frames can rise from many more places besides photon noise.
 
 
 %----------------------------------------------------------------
@@ -154,7 +169,7 @@ chunks are as such but others show different patterns between
 simulation and reality? The answer to this question will shine some
 light on the original of the DSST errors and hopefully even a remedy,
 which will be one of the focuses of future works. We summarize our
-conclusion and lay out future works in the next section.
+conclusion and lay out future works in the final section of this chapter.
 
 
 %----------------------------------------------------------------
