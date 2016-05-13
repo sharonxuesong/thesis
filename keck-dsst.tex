@@ -20,58 +20,13 @@ and the star's intrinsic RV variation. As a result, it manifests as
 anomalous RV-BC trends and adds bias and scatter to the final RVs.
 
 We do know for sure that there are errors in the DSST, which could
-arise from every step of its making. Here is an outline of how DSSTs
-are made (also illustrated in Figure~\ref{keck:fig:dsstmake}) with
-highlights on potential sources of errors: 
-\begin{enumerate}
-\item A few high SNR, high resolution (using a narrower slit than
-  the one for standard star$+$iodine frames) observations on the target
-  stars are taken without the iodine cells. These are the bases for the
-  DSST. The 1-D stellar spectra extracted from these frames are stacked
-  together to raise the SNR, and {\em the stacking process could have errors
-    from interpolation and rebinning}. Each chunk of the stacked 1-D
-  stellar spectrum is also normalized before the final deconvolution,
-  and {\em normalization errors can sneak in}.
-\item Bracketing these stellar observations, both before and after,
-  a couple of frames on nearby B star are taken through the iodine
-  cell. These are the frames which anchor the wavelength solution
-  and IPs for the stellar frames. The IPs derived from these frames
-  are later used for deconvolving the stellar frames to make
-  DSST. {\em The IPs in the B star $+$ iodine frames might be different from the
-    ones in the stellar frames} because of, for example, changes in the
-  telescope's PSF, changes in the spectrograph IPs due to the
-  addition of the iodine cell in the light path, and so on. This
-  could introduce errors in the DSST. {\em The wavelength solution of
-    these two types of frames can also differ} for similar reasons, and
-  although the wavelength zero point for each spectral chunk have a
-  large tolerance for errors, {\em any errors in wavelength dispersion
-  can translate into RV errors}.
-\item Using the averaged IPs derived from the B star $+$ iodine
-  frames, the stacked stellar spectrum is deconvolved. Its
-  wavelength solution is determined by the averaged wavelength
-  solution of the B star frames. Deconvolution is a ill-posed
-  problem and does not have unique solutions, and therefore {\em errors
-    in DSST can arise from the deconvolution algorithm employed}. 
-\end{enumerate}
-
-%----------------------------------------------------------------
-% How DSST is made
-% plot made by converting a slide in Berkeley-CIPS talk in 2015 talk
-% tour into png the pdf then ps then eps 
-\begin{figure}
-\centering
-\includegraphics[scale=0.42]{keck/dsstmake.eps}
-\caption{Illustration of the making of DSST from deconvolution, using
-  IPs derived from neighboring B star $+$ iodine observations.
-\label{keck:fig:dsstmake}}
-\end{figure}
-%----------------------------------------------------------------
-
-
-However, the question is how much does a DSST differ from the real
-stellar spectrum, and more importantly, how do these errors translate
-into RV errors and how much. Is the RV-BC trend with $\sim$1~m/s
-amplitude dominated by such errors?
+arise from every step of its making (See
+Chapter~\ref{doppler:sec:reference} for details on how DSSTs are made
+and potential sources of errors associated with each steps). However,
+the question is how much does a DSST differ from the real stellar
+spectrum, and more importantly, how do these errors translate into RV
+errors and how much. Is the RV-BC trend with $\sim$1~m/s amplitude
+dominated by such errors?
 
 To answer these questions, we performed simulations using synthetic
 data and the Doppler code. In the previous section, when simulating

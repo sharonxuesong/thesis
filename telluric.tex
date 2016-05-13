@@ -29,11 +29,11 @@ Model, \citealt{lblrtm}; with line lists from HIgh-resolution
 TRANsmission molecular absorption database, or HITRAN,
 \citealt{hitran2013}) and also TAPAS \citep{tapas}, which is a more
 user-friendly but less flexible package wrapper using LBLRTM. They
-concluded that the micro-tellurics have an impact (defined as RMS of
-difference between RVs before and after micro-telluric removal) of
-$\sim$10-20 cm/s for G stars observed with low to moderate air masses,
-but the impact can be substantial in some cases to up to $\sim$0.5-1
-m/s.
+concluded that the micro-tellurics have an impact (defined as the
+root-mean-square, RMS, of difference between RVs before and after
+micro-telluric removal) of $\sim$10-20 cm/s for G stars observed with
+low to moderate air masses, but the impact can be substantial in some
+cases to up to $\sim$0.5-1 m/s.
 
 \cite{artigau2014} uses principal component analysis (PCA) to
 empirically correct for telluric lines in HARPS-S data (both
@@ -75,7 +75,8 @@ pervasiveness of micro-telluric lines, i.e.~$\leq$1--3\% in depths.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Impacts of Micro-tellurics on RV Precision}\label{keck:telluric:impact}
+\subsection{Characterize the Impacts of Micro-tellurics on RV
+  Precision via Simulation}\label{keck:telluric:impact} 
 
 % why Keck, why 185144 and 10700
 To evaluate the impacts of micro-tellurics (referred to often simply
@@ -105,58 +106,167 @@ values from the most up-to-date CPS pipeline due to some recent
 improvements in the CPS version. The most recent CPS inventory (as of
 April 2016) also has a few new observations on these two stars.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Methodology}\label{keck:telluric:method}
-
-We simulated Keck observations on sig Dra and tau Ceti by using
-synthetic stellar spectra of their respective spectral types (?) using
-SME (ZZZ cite Valenti and Fischer). We simulated one spectrum for each
-actual observed spectrum taken at Keck through the CPS programs. The
-synthetic stellar spectra is multiplied with the iodine atlas to
-create the standard iodine$+$ star RV observations. The multiplied
-spectrum is then multiplied with the blaze function and convolved with
-the observed spectral PSF, both derived from real observations for
-each night. Poisson noise is added.
-
-We then forward model the simulated spectra to extract RVs using the
-CPS Keck code (ZZZ cite Johnson and Howard). We used the synthetic
-stellar spectrum as the input stellar template. In reality, stellar
-templates are derived from observed stellar spectra via deconvolution,
-which would introduce additional errors. Using the same synthetic
-stellar spectrum would eliminate such errors and isolate the problem
-to telluric lines only.
-
-Same noise pairs.
-
-We ran two sets of simulations: control and contaminated. In the
-control, we only had stellar spectrum and iodine spectrum. In the
-contaminated, we added in simulated telluric lines in the simulated
-observed spectrum. The telluric lines were generated using TERRASPEC
-(ZZZ cite Bender). We adopted the typical Mauna Kea atmospheric
-condition (temperature and pressure profiles) and typical oxygen
-column density (which in realiaty flucturate very little anyway). For
-simplicity, we assumed the same water column density for every
-observation, which is pwv$=1$mm, a little bit humid than a typical
-Mauna Kea night (true? I think this is actually pretty typical). The
-pair of simulated control and contaminated spectra have the same added
-Poisson noise, and therefore any RV differences derived from these two
-sets of simulation would reveal the net effect of telluric
-contamination.
+We describe how we simulated our data and used them to characterize
+the impacts of tellurics in Section~\ref{keck:telluric:method}, and
+then lay out our results in Section~\ref{keck:telluric:results}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Results}
+\subsubsection{Methodology of the Simulation}\label{keck:telluric:method}
+
+% how we approach the problem with simulation
+The overall strategy is to bring out the effects of telluric
+contamination by comparing the extracted RVs from pairs of simulated
+observations: one with telluric absorption, and the other one in the
+pair without. For example, for HD 185144, we simulated two spectra for
+each of the 712 real observed spectrum. We then had two sets of
+simulated observations, one free of tellurics and one contaminated
+with tellurics. Next we ran the Doppler code on each set of 712
+spectra to extract RVs from them, and for the set with tellurics we
+used telluric-contaminated DSST and a telluric-free DSST for the
+telluric-free spectra. \\
+
+% how we simulated the spectrum
+Below is our recipe for simulating \keck\ spectra and DSSTs:
+\begin{enumerate}
+\item Generate a synthetic spectrum for the target star using
+  Spectroscopy Made Easy (SME;
+  \citealt{valentipiskunov1996,valentifischer2005}; the SME spectra are
+  kindly provided by Jason Curtis). We refer to this spectrum as the
+  input synthetic spectrum or the SME spectrum.
+\item Based on the SME spectrum, generate a DSST for the target
+  star. First, we redshift the SME spectrum so that it has the same
+  barycentric velocity as the real DSST of the target star. Then we
+  break the SME spectrum into chunks as defined by the real DSST (an IDL
+  structure) of this target star.
+\item Run TERRASPEC, a versatile software for synthesizing telluric
+  spectrum (it is a wrapper around the HITRAN line list and the LBLRTM
+  package), to generate a telluric absorption spectrum using a typical
+  Mauna Kea atmospheric condition in the summer, with precipitable water
+  vapor (pwv) 1~mm (a little bit more humid than Keck's usual
+  condition), and oxygen column density that is consistent with the
+  altitude of the real DSST observation. We multiply this synthetic
+  telluric spectrum with the SME spectrum to make a
+  telluric-contaminated DSST.
+\item Loop through each real observed spectra of the target star, and
+  simulate a pair of observations following this recipe:
+  \begin{enumerate}
+  \item Shift the SME spectrum to have the same barycentric velocity
+    as the star at the epoch of the real observation (i.e., assuming
+    intrinsic stellar velocity is zero).
+  \item Generate a continuous wavelength solution for each echelle
+      order based on the best-fit wavelength solution for the real
+      spectrum. 
+  \item Re-sample the SME spectrum and the iodine atlas onto a
+    wavelength grid that is four times finer than the wavelength
+    solution grid. Multiply the stellar spectrum with the iodine
+    atlas.
+  \item To add telluric contamination: multiply the simulated spectrum
+    with a telluric absorption spectrum generated with TERRASPEC, again
+    for typical Mauna Kea summer, with pwv $=$ 1~mm, and oxygen column
+    density that is consistent with the altitude of the real observation.
+  \item Determine the IP for each echelle order with two options: (1)
+    a single Gaussian with $\sigma=1.7$ pixel, matching the \keck\
+    resolution; (2) a sum-of-Gaussian IP derived using the average IPs for
+    each echelle order. We will explain these two options later in the
+    text.
+  \item Convolve each order of the stellar$\times$iodine spectrum with
+    the IP.
+  \item Fit for the blaze function for each order of the real observed
+    spectrum with a third-order polynomial using the top 1\% of the flux,
+    and multiply the simulated spectrum so that they have matching ``blaze
+    functions''. This also ensures that the simulated spectrum has the
+    same photon counts as the real one.
+  \item Add photon noise according to Poisson statistics, when
+    desired.
+  \end{enumerate}
+\item Generate a separate data log file for each set of simulated of
+  observations under the same conditions (i.e., telluric choice, IP choice,
+  photon-noise choice).
+\end{enumerate}
+
+% different sets of simulations
+To isolate the problem of tellurics, we first simulated spectra free
+of photon noise and with a simple single Gaussian IP for the
+spectrograph ($\sigma = 1.7$ pixels to match the \keck\
+resolution). When extracting RVs for such sets of simulated spectra,
+we fixed the IPs to the same as input and only fitted for three free
+parameters. This removes the errors induced by photon noise and
+uncertainties in IP fitting (which, after all, involves 12 additional
+free parameters). We then added the Poisson noise to the spectra, but
+still using simple and fixed IPs, to see how the effects will change
+in cases with limited-SNR (as opposed to infinite SNR). Next, we used
+complex IPs, the same ones as the best-fit sum-of-Gaussian IPs found
+for real spectra, and float the IP parameters when extracting RVs. The
+conditions and results of these three pairs of simulations are listed
+in Table~\ref{telluric:tab:simulation}, and also illustrated in
+Figure~\ref{telluric:fig:sim}. These results show the impacts of
+telluric contamination on \keck\ data, which is discussed in the
+following subsection.
+
+
+%----------------------------------------------------------------
+% Table: RV RMS for various simulations
+\renewcommand{\arraystretch}{1.2} % more row spacing for the table
+\begin{deluxetable}{ccccl}
+\tabletypesize{\scriptsize}
+\tablecaption{List of Simulations
+\label{telluric:tab:simulation}}
+\tablewidth{\textwidth}
+\tablehead{
+  \colhead{Simulation Conditions} & \colhead{Tellurics?} &
+  \colhead{185144 RMS} &
+  \colhead{10700 RMS} &
+  \colhead{More Details in} 
+}
+\startdata
+No photon noise, & No & 0.62 m/s & 1.95 m/s\tablenotemark{c} & Section~\ref{keck:telluric:results} \\ 
+simple, fixed IPs & Yes & 1.21 m/s & 2.42 m/s\tablenotemark{c} & top
+panels, Figure~\ref{telluric:fig:sim} \\ 
+\hline
+Poisson noise, & No & 2.11 m/s\tablenotemark{c} & 2.54 m/s\tablenotemark{c} & Section~\ref{keck:telluric:results} \\
+simple, fixed IPs\tablenotemark{a} & Yes & 2.12 m/s\tablenotemark{c} & 2.81 m/s\tablenotemark{c} &
+middle panels, Figure~\ref{telluric:fig:sim} \\ 
+\hline
+Poisson noise, & No & 1.22 m/s & 1.35 m/s & Section~\ref{keck:telluric:results}\\
+complex, floating IPs,\tablenotemark{a} & Yes & 1.29 m/s & 1.44 m/s &
+bottom panels, Figure~\ref{telluric:fig:sim} \\ 
+\hline
+Poisson noise, & No & 1.27 m/s & 1.43 m/s &Section~\ref{keck:telluric:masking} \\
+complex, floating IPs, & Yes & 1.27 m/s & 1.43 m/s & Figure~\ref{telluric:fig:dsstmask} \\
+masking the telluric pixels\tablenotemark{a} & & & & Table~\ref{telluric:tab:rmsmasking}  \\
+\hline 
+Poisson noise, & pwv $=$ 0.5, 0.9 & 1.28, 1.22 m/s & 1.32, 1.30 m/s &
+Section~\ref{keck:telluric:neid} \\ 
+complex, floating IPs, & pwv $=$ 1.0, 1.1 & 1.25, 1.23 m/s & 1.33, 1.31
+m/s & Figure~\ref{telluric:fig:neid} \\ 
+modeling tellurics\tablenotemark{b} 
+\enddata
+\tablenotetext{a}{With pairs of simulated spectra with or without
+  tellurics and each pair has the same Poisson noise added.}
+\tablenotetext{b}{Telluric lines added with pwv $=$ 1~mm, and we
+  extracted RVs using pwv $=$ 0.5, 0.9, 1.0, 1.1~mm to access how
+  accurately/precisely one needs to model the tellurics.}
+\tablenotetext{c}{These simulations suffer from severe numerical and
+  algorithmic errors for reasons not yet fully understood.}
+\end{deluxetable}
+%----------------------------------------------------------------
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Results of the Simulation}\label{keck:telluric:results}
 
 %----------------------------------------------------------------
 % Telluric effect, no photon noise
 % plot made by ~/Exo.../Keck.../simulate.../msplot.pro
 \begin{figure}
-\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rja01-rjb01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rja01-rjb01.eps}}
 \subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rja01-rjb01.eps}}\
-\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rjc01-rjd01.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-rjc01-rjd01.eps}}
 \subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-rjc01-rjd01.eps}}\
-\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-test0-test1.eps}}\
+\subfloat{\includegraphics[scale=0.38]{telluric/185144-rv-bc-test0-test1.eps}}
 \subfloat{\includegraphics[scale=0.38]{telluric/10700-rv-bc-test0-test1.eps}}\
 \caption{Effects of telluric lines manifested as correlation between
   RV and BC. Each point represents the difference in RV estimates for
@@ -179,19 +289,57 @@ contamination.
 \end{figure}
 %----------------------------------------------------------------
 
+% no photon noise
+Figure~\ref{telluric:fig:sim} illustrates the effects of telluric
+contamination under different conditions. The top panels are RV
+differences between the simulated spectrum pairs with infinite SNR and
+perfectly known IPs, which might somewhat represent the capability of
+future precise RV instruments. These two plots highlight the net
+effects of telluric contamination: they cause large biases in RV
+estimates, which manifest as strong RV-BC correlations or
+trends. These biases clearly can not be fully corrected by the
+statistical weighting or ``vanking'' procedure in the Doppler code.
 
-Micro-tellurics in the iodine region introduces RMS$=0.6$ m/s scatter
-for GK stars (RV systematic error added in quadrature). Leaving
-untreated, this would define the precision floor.
+% adds photon noise?
+Interestingly, when we added in photon noise (middle panels of
+Figure~\ref{telluric:fig:sim}), the effects of telluric contamination
+are washed out significantly. This is probably because for individual
+chunks, the RV scatter caused by photon noise washes out the scatters
+and biases induced by tellurics, and chunks with tellurics will have a
+larger RV RMS compared with telluric-free chunks. Vanking then is able
+to identify telluric-contaminated chunks and assigns them smaller
+weights, thus reducing the impacts of telluric contamination.
 
-Additionally, it manifests as spurious signal at periods of a sidereal
-year and harmonics, with an amplitude of 20 cm/s. This would affect
-our ability to detect super-Earth in the habitable zone of GK stars
-(Earth's signal is 8 cm/s). We have seen such spurious signal in Keck
-data on many stars, and telluric contamination is one of the
-contributing factors (see discussion for other factors).
+% adds complex IP
+When using complex IPs and fitting for IPs in RV extraction (bottom
+panels of Figure~\ref{telluric:fig:sim}), the effects of telluric
+contamination are further washed out, as we are adding in more
+errors. We can barely see any RV-BC correlation in the case of HD
+185144 and only some in HD 10700.
 
-For M stars... (probably worse)
+% tellurics add RV RMS
+The RV-BC correlations shown in Figure~\ref{telluric:fig:sim} will
+translate into spurious peaks in the periodograms of the target star,
+and such spurious peaks will have periods around a sidereal year and
+its harmonics. This is very damaging for the search of exoplanets in
+the Habitable Zone around Sun-like stars, which would have periods
+around 360 days. Besides these spurious signals, telluric
+contamination also causes increases in RV RMS. In all cases of
+telluric-free and telluric-contaminated simulation pairs, the RV RMS
+is larger for the telluric-contaminated case
+(Table~\ref{telluric:tab:simulation}). The RMS numbers written in
+Figure~\ref{telluric:fig:sim} represent the amount of RV RMS added (in
+quadrature) because of telluric contamination (again, the spectrum
+pairs are same-noise pairs -- they only differ in terms of having or
+not having telluric lines). These numbers also represent a RV RMS
+floor set by the telluric contamination: for example, if we ignore
+tellurics in RV reduction, one would not achieve an RV precision of
+$<$0.6-0.7 m/s on G type stars using iodine cells as calibrators. This
+would comprise our ability to detect Earth or super-Earth exoplanets
+greatly (again, Earth 2.0 would have an RV amplitude of 0.08 m/s). In
+the next section, we discuss strategies to eliminate these adverse
+effects of telluric contamination for iodine-calibrated precise RV
+data.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,26 +348,32 @@ For M stars... (probably worse)
 
 There are several ways to remedy the adverse effects of telluric lines
 on RV precision and accuracy: masking, modeling, or a combination of
-both. HARPS works...
+both. Like the rest of this section, we focus our efforts on
+iodine-calibrated data. For ThAr-calibrated data, the current official
+HARPS pipeline masks deep telluric lines and abandons spectral orders
+that are heavily contaminated (Xavier Dumusque, private communication;
+\citealt{artigau2014}). \cite{2016AAS...22713719S} also discusses
+remedies and their effectiveness for ThAr-calibrated data in more band
+options including the near infrared.
 
-\subsubsection{Masking is an ineffective solution}
+\subsubsection{Masking is an ineffective solution}\label{keck:telluric:masking}
 
 %----------------------------------------------------------------
 % Table: RV RMS for various simulations
 \renewcommand{\arraystretch}{1.2} % more row spacing for the table
 \begin{deluxetable}{ccl}
 \tabletypesize{\scriptsize}
-\tablecaption{RV RMS for Simulations with Poisson Noise and Complex IP 
+\tablecaption{Comparison of RV RMS between Simulations with or without Masking
 \label{telluric:tab:rmsmasking}}
 \tablewidth{320pt}
 \tablehead{
   \colhead{HD 185144} & \colhead{HD 10700} & \colhead{Simulation Conditions}
 }
 \startdata
-1.26 m/s & 1.34 m/s & No tellurics \\
-1.35 m/s & 1.42 m/s & With tellurics \\
-1.35 m/s & 1.39 m/s & No tellurics, but masking telluric pixels \\
-1.37 m/s & 1.43 m/s & With tellurics, and masking telluric pixels
+1.22 m/s & 1.35 m/s & No tellurics \\
+1.29 m/s & 1.44 m/s & With tellurics \\
+1.27 m/s & 1.43 m/s & No tellurics, but masking telluric pixels \\
+1.27 m/s & 1.43 m/s & With tellurics, and masking telluric pixels
 \enddata
 \end{deluxetable}
 %----------------------------------------------------------------
@@ -261,24 +415,25 @@ and being shifted in order to model the observation.
 %----------------------------------------------------------------
 
 
-% simulations and results
+% simulations and results 
 To investigate the effectiveness of masking, we performed RV
 extraction on simulated spectra with or without telluric lines
 injected and with or without masking (all with Poisson noise and
 complex IP to mimic real observations as much as possible). For
 stellar reference spectrum, we used the synthetic spectrum with
-telluric lines. The results are tabulated in
-Table~\ref{telluric:tab:rmsmasking}. In terms of improving RV
-precision or reducing RV RMS, masking is very ineffective. The
-additional errors it introduces diminish its merits. On the other
-hand, masking does improve the accuracy to some degree: for example,
-masking does remove the downward RV trend seen in HD 10700 data on the
-bottom right plot of Figure~\ref{telluric:fig:sim} in the BC range
-$[-3\times10^4,\ -2\times10^4]$ m/s. However, masking is an
-ineffective way to mitigate the effects of telluric contamination
-overall, especially since the RV errors and RV-BC trends are dominated
-by photon noise and algorithmic errors (and other types of errors too
-in real observations).
+telluric lines. The results are already listed in
+Table~\ref{telluric:tab:simulation}, but is listed again in
+Table~\ref{telluric:tab:rmsmasking} for clear comparisons. In terms of
+improving RV precision or reducing RV RMS, masking is very
+ineffective. The additional errors it introduces diminish its
+merits. On the other hand, masking does improve the accuracy to some
+degree: for example, masking does remove the downward RV trend seen in
+HD 10700 data on the bottom right plot of
+Figure~\ref{telluric:fig:sim} in the BC range $[-3\times10^4,\
+-2\times10^4]$ m/s. However, masking is an ineffective way to mitigate
+the effects of telluric contamination overall, especially since the RV
+errors and RV-BC trends are dominated by photon noise and algorithmic
+errors (and other types of errors too in real observations).
 
 % why simple masking would not work for high precision/accuracy
 So why masking does not work? First of all, it complicates the
@@ -297,7 +452,7 @@ wings untreated). In our study, we have chosen a flux threshold of
 0.3\%, which means any pixel with telluric absorption deeper than
 0.3\% will be masked (reference telluric spectrum is generated by
 TERRASPEC at an altitude of 70$^{\degree}$, meaning deep oxygen lines,
-and with precipitable water vapor (pwv) 0.8~mm, a little more than
+and with pwv $=$ 0.8~mm, a little more than
 typical \keck\ humidity). This masks 11\% of the spectral domain,
 which is quite substantial and is very damaging to the RV precision,
 but is almost the minimal amount of masking required to achieve some
@@ -322,7 +477,7 @@ work. We believe the most effective way is to forward model telluric
 lines, and combine that with some ``masking'' for deep or troublesome
 telluric lines, which we discuss in the next subsection.
 
-\subsubsection{How precisely does one need to model the tellurics?}
+\subsubsection{How precisely does one need to model the tellurics?}\label{keck:telluric:neid}
 
 
 %----------------------------------------------------------------
@@ -424,40 +579,110 @@ which we believe is the optimal solution for iodine-calibrated RVs.
 \subfloat[HD 185144, rj82 template]{\includegraphics[scale=0.42]{telluric/185144_BC_RV_rj82_3panel.eps}}\
 \subfloat[HD 185144, rj172 template]{\includegraphics[scale=0.42]{telluric/185144_BC_RV_rj172_3panel.eps}}\
 \subfloat[HD 10700, rj82 template]{\includegraphics[scale=0.42]{telluric/10700_BC_RV_rj82_3panel.eps}}\
-\caption{Effect of using clean DSST and preliminary telluric modeling
-  on RV precision and accuracy.
+\caption{Effects of using clean DSST and preliminary telluric modeling
+  on RV precision and accuracy, for HD 185144 (top two rows) and HD
+  10700 (bottom row). There are two sets of data for HD 185144 because
+  we ran the Doppler code with two DSSTs derived from spectra taken at
+  two different epochs (i.e., at different BCs). The left and middle
+  panels are showing RVs vs.\ BCs for RV extractions with and without
+  telluric treatment, respectively. The right panels show the RV
+  difference between the two panels.
 \label{telluric:fig:real}}
 \end{figure}
 %----------------------------------------------------------------
 
 
-% what we did and what we saw
+% what should we do about real observations?
 The situation is much more complicated for real observations, because
-uncontrollable and unknown noise sources enter the picture. We have
-tested both masking and preliminary modeling for real Keck RV
-observations on HD 185144 and HD 10700. In the case of HD 185144, RV
-RMS went down (from 2.57 m/s) after we applied masking (to 2.44 m/s)
-or modeling (to 2.50 m/s), with visible changes in the RV-BC
-trends. In the case of HD 10700, the RV RMS actually went up (from
-3.05 m/s) after masking (to 3.26 m/s) or modeling (3.17 m/s), also
-with visible changes in the RV-BC trend.
+other noise sources enter the picture, some uncontrollable and/or
+unknown. It turns out that telluric contamination is {\em not} the
+dominant sources of RV systematic errors in \keck\ data. We later
+found out that the major culprit behind the RV-BC correlation patterns
+is probably errors in the DSSTs, which is discussed in
+Section~\ref{keck:sec:dsst}. This fact makes it somewhat difficult to
+assess the effectiveness of telluric treatment on real data, but the
+simulations have demonstrated that the the best and effective strategy
+is to have a clean DSST and to forward model the telluric lines (and
+also to mask out deep lines and de-weight chunks with hard-to-clean
+tellurics, which are already taken care of by vanking).
 
-% well actually dsst dominates the errors anyway
-If telluric contamination is dominating the spurious RV-BC trend, then
-the results would be easier to interpret: other things, such as photon
-noise and algorithmic errors mentioned above dominate the RV RMS, and
-hence we see the almost arbitrary fluctuation of RV RMS with different
-telluric remedies; and the changes we see in RV-BC trend are due to
-the fact that we are removing the damages caused by telluric
-contamination in RV accuracy. This is perhaps true for the cases of
-masking, but is probably false for the cases with modeling, because
-another important component is at play here: the deconvolved stellar
-reference spectrum.
+\begin{comment}
+We have tested both masking and preliminary
+modeling: In the case of HD 185144, RV RMS went down (from
+2.57 m/s) after we applied masking (to 2.44 m/s) or modeling (to 2.50
+m/s), with visible changes in the RV-BC trends. In the case of HD
+10700, the RV RMS actually went up (from 3.05 m/s) after masking (to
+3.26 m/s) or modeling (3.17 m/s), also with visible changes in the
+RV-BC trend.
+\end{comment}
+
+% our best efforts...
+Figure~\ref{telluric:fig:real} represents our best efforts so far and
+their effects. Our treatment plan includes using ``cleaned'' DSSTs (we
+describe how we cleaned the DSSTs later in this subsection) and
+preliminary modeling of telluric lines in the Doppler code, where we
+used pwv $=$ 1.0 mm for all observations instead of fitting pwv for
+each one. In the case of HD 185144, the RV RMS values decreased after
+we treated the tellurics, but it is not the case for HD 10700 -- we
+suspect that the difference comes from the choice of the pwv value of
+1~mm, which is more typical for HD 185144 observations but perhaps not
+so for HD 10700 (these two stars are at very different
+Declinations). We plan to model the water absorption in each
+observation using best-fit or best-estimated pwv in the near future.
 
 % DSST and how we cleaned it
-For simulations, we have the privilege of using a true stellar
-reference spectrum that is free of tellurics. For real observations,
-when 
+How about telluric lines in the DSST? For simulations, we have the
+privilege of using the synthetic spectrum which is naturally
+telluric-free. For real observations, telluric contamination enters
+every observed spectrum associated with the making of DSST (for a
+detailed description of how the DSST is made, see
+Section~\ref{doppler:sec:reference}). To remove errors in the DSST
+caused by the telluric contamination, we formulated a recipe to
+``clean up'' the DSST:
+
+\begin{enumerate}
+\item When fitting the bracketing B star $+$ iodine observations, we
+  incorporate synthetic telluric lines generated by TERRASPEC as one of
+  the input reference spectra (just like the iodine atlas). The water
+  column density, or pwv, is determined by fitting two rich water bands
+  among the spectrum taken by the red chip data of \keck\
+  (7000-8000\AA). Although we use Mauna Kea's typical atmospheric
+  condition and adjust oxygen column density according to observation
+  altitude, we still fit for oxygen column density to allow some room
+  for errors in the model (the adjustment needed is typically $<$0.5\%).
+\item Using the IPs and wavelength solution derived in step (1), we
+  run the deconvolution algorithm and generate a DSST, which would
+  have telluric lines in it because telluric lines exist in the
+  stellar (iodine-free) spectra.
+\item We divide out the telluric lines in the DSST in two steps: 
+  \begin{enumerate}
+  \item Fitting two parameters to make sure the telluric lines match
+    the ones in DSST: broadening parameter (width of a Gaussian
+    kernel) and wavelength shift. The broadening parameter is
+    necessary because the synthetic telluric lines are at an extremely
+    high resolution, while the telluric lines in the DSST are
+    deconvolved but are typically lower. The wavelength shift is
+    needed because the wavelengths of the telluric lines, provided by
+    the wavelength solution of the DSST, could differ from rest-frame
+    telluric line wavelengths because of errors in DSST or changing
+    atmospheric conditions such as wind. 
+  \item Fitting these two parameters is not a straight forward
+    least-$\chi^2$ problem, because stellar lines also present in the
+    spectrum and we do not have an input model for them. Thus, instead
+    of minimizing residuals between model (broadened and shifted
+    telluric lines) and data (deconvolved telluric lines plus stellar
+    lines), we minimize the flux above the continuum level to find
+    best-fit parameters and the best-fit telluric model.
+  \item We divide out the best-fit telluric model from the DSST to
+    obtain a cleaned DSST.
+  \end{enumerate}
+\end{enumerate}
+
+Naturally, this process does not clean up the DSST perfectly,
+especially for deep and moderately deep lines, where the line profiles
+are hard to match. We hope to improve this cleaning process, as well
+as the entire process for making DSSTs, which we discuss in
+Section~\ref{keck:sec:conclusion}. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

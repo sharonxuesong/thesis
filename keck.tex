@@ -49,7 +49,13 @@ normalization, or interpolation or rebinning algorithms, to name a
 couple). The dichotomy in the red points (the fact that they split
 into two RV groups) is probably due to the convergence criteria (which
 are tuned for \keck\ resolution, and not sufficient for significantly
-higher ones) and the algorithm's sensitivity in initial guesses.
+higher ones) and the algorithm's sensitivity in initial guesses. One
+caveat is that because the IPs were fixed in the Doppler code run for
+these simulations, the fitter only went through one pass (three free
+parameters) instead of the standard two passes, where in the final
+pass the wavelength dispersion scale is fixed. We will investigate
+whether is this the major cause of algorithmic errors shown in
+Figure~\ref{keck:fig:algorithm}. 
 
 
 %----------------------------------------------------------------
@@ -165,7 +171,10 @@ where the telluric lines are denser. We also plan to implement full
 forward-modeling of telluric lines in real data reduction (as opposed
 to our toy modeling with fixed water column density for all
 dates/observations), and find out whether a priori or floating water
-column density parameter works better. We hope to implement our
+column density parameter works better. We plan to improve the DSST
+cleaning process by incorporating forward modeling of telluric lines
+in the ``piston Gaussians deconvolver'' that is currently used for
+making DSST, instead of dividing them out. We hope to implement our
 telluric correction package into the official CPS pipeline eventually,
 which will be busily chewing \keck\ follow-up data on TESS targets
 (many M dwarfs, undoubtedly) in the near future.

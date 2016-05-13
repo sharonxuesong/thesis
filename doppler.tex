@@ -158,7 +158,7 @@ imposes no explicit parameters for the model.
 
 
 %-------------------------------------------------------------------------------
-\subsection{The Reference Spectra}
+\subsection{The Reference Spectra}\label{doppler:sec:reference}
 
 Ideally, the reference spectra are the ``ground truth" spectra,
 i.e. the intrinsic spectra of the sources (e.g., the iodine cell, or
@@ -192,13 +192,66 @@ iodine cell in the light path. Then they are stacked together to boost
 the SNR ($>500$), and then deconvolved with proper IPs derived from
 bracketing B star $+$ iodine observations. The wavelength solution for
 the DSST also comes from the bracketing B star $+$ iodine
-observations. See Section~\ref{keck:sec:dsst} for more information and
-problems related to DSSTs. For faint stars where obtaining stellar
+observations. For faint stars where obtaining stellar
 template is expensive or unfeasible, \cite{2006ApJ...647..600J}
 developed a technique where they ``morph" a synthetic stellar spectrum
 or an existing DSST of another star with similar stellar properties to
 fit the stellar iodine observation, and then they use this new morphed
 DSST for RV extraction.
+
+
+%----------------------------------------------------------------
+% How DSST is made
+% plot made by converting a slide in Berkeley-CIPS talk in 2015 talk
+% tour into png the pdf then ps then eps 
+\begin{figure}
+\centering
+\includegraphics[scale=0.42]{doppler/dsstmake.eps}
+\caption{Illustration of the making of DSST from deconvolution, using
+  IPs derived from neighboring B star $+$ iodine observations.
+\label{doppler:fig:dsstmake}}
+\end{figure}
+%----------------------------------------------------------------
+
+
+Here is an outline of how DSSTs for high SNR stars are made (also
+illustrated in Figure~\ref{doppler:fig:dsstmake}) with highlights on
+potential sources of errors: 
+
+\begin{enumerate}
+\item A few high SNR, high resolution (using a narrower slit than
+  the one for standard star$+$iodine frames) observations on the target
+  stars are taken without the iodine cells. These are the bases for the
+  DSST. The 1-D stellar spectra extracted from these frames are stacked
+  together to raise the SNR, and {\em the stacking process could have errors
+    from interpolation and rebinning}. Each chunk of the stacked 1-D
+  stellar spectrum is also normalized before the final deconvolution,
+  and {\em normalization errors can sneak in}.
+\item Bracketing these stellar observations, both before and after,
+  a couple of frames on nearby B star are taken through the iodine
+  cell. These are the frames which anchor the wavelength solution
+  and IPs for the stellar frames. The IPs derived from these frames
+  are later used for deconvolving the stellar frames to make
+  DSST. {\em The IPs in the B star $+$ iodine frames might be different from the
+    ones in the stellar frames} because of, for example, changes in the
+  telescope's PSF, changes in the spectrograph IPs due to the
+  addition of the iodine cell in the light path, and so on. This
+  could introduce errors in the DSST. {\em The wavelength solution of
+    these two types of frames can also differ} for similar reasons, and
+  although the wavelength zero point for each spectral chunk have a
+  large tolerance for errors, {\em any errors in wavelength dispersion
+  can translate into RV errors}.
+\item Using the averaged IPs derived from the B star $+$ iodine
+  frames, the stacked stellar spectrum is deconvolved. Its
+  wavelength solution is determined by the averaged wavelength
+  solution of the B star frames. Deconvolution is a ill-posed
+  problem and does not have unique solutions, and therefore {\em errors
+    in DSST can arise from the deconvolution algorithm employed}. 
+\end{enumerate}
+
+See Section~\ref{keck:sec:dsst} for more on the problems related to DSSTs.
+
+
 
 
 %-------------------------------------------------------------------------------
