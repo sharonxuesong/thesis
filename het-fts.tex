@@ -1,38 +1,55 @@
 % HET FTS
 
-As illustrated in the previous section, there are three components in
-fitting an iodine spectrum: the iodine atlas, the IP or convolution
-kernel, and the observed data. We have explored options for a better
-IP in the previous section, and in this section, we discuss challenges
-and problems with the iodine atlas, or, the iodine cell itself.
+As discussed in the previous section, successful modeling of the
+iodine observations (B star spectra taken through the Iodien cell) is
+a good indication of a working radial velocity (RV) pipeline. At
+Keck/HIRES, which has demosntrated 1 m/s RV precision over the years,
+the modeling of the iodine observations yields a reduced chi-square
+(\chisq) value of typically 1.05. However, for HET/HRS iodine
+observations, with the same RV pipeline used at Keck, the typical
+\chisq\ value is $>2$ or even $>5$ for some observations. 
+
+We have explored one of the two model components for modeling iodine
+observations, the choice of IP. In this section, we examine the other
+model component, the iodine atlas, that is, the ``ground truth''
+spectrum for the iodine absorption lines unique to the \het\ iodine
+cell. We came upon an interesting lead which made us believe that
+there might have been changes in the iodine cell itself and its
+enclosure.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation}
 
-Successful modeling of the iodine observations (B star spectra taken
-through the Iodien cell) is a good indication of a working radial
-velocity (RV) pipeline. At Keck/HIRES, which has demosntrated 1 m/s RV
-precision over the years, the modeling of the iodine observations
-yields a reduced chi-square (\chisq) value of typically 1.05. However,
-for HET/HRS iodine observations, with the same RV pipeline used at
-Keck, the typical \chisq\ value is $>2$ or even $>5$ for some
-observations.
-
 As we were investigating the reasons behind the apparent `bad fit' of
-HET/HRS iodine observations, we decided to check the quality of the
-exisitng iodine cell FTS scan/spectrum, which was taken at KPNO in
-1993. The main reason is that the FTS scan was taken almost two
+\het\ iodine observations, we decided to check the quality of the
+existing iodine atlas. An iodine atlas is normally obtained using a
+Fourier Transform Spectrometer (FTS; whose mechanism is just like a
+Michelson interferometer). The scan and its subsequent data reduction
+provides very high resolution spectrum (translated from Fourier space
+into real space) with typically $R > 250,000$-500,000.\footnote{It is worth
+noting here that although FTS normally provides wavelength solutions
+(from the registered arm lengths), but because of the inaccuracy of
+the default reported wavelengths, the final wavelength solution for
+the iodine atlas is usually derived from a theoretically computed iodine
+line list (e.g., \citealt{iodinespec5}).}
+
+The existing iodine atlas for the \het\ cell is from an FTS scan taken
+at the National Solar Observatory at KPNO using the Babar FTS
+(nicknamed for its large size; this machine has been decommissioned)
+in 1993. The main reason is that the FTS scan was taken almost two
 decades ago, and during this time the cell may have gone through
 changes (such as temperature, leaking or condensation, etc., though
-unlikely, since the cell was designed to be stable).  This would mean
+unlikely, since the cell was designed to be stable). This would mean
 that the FTS scan is out of date and inaccurate, and it could explain
 the `bad fits' to the iodine observation.
 
 We therefore took the HET/HRS cell to the National Institute of
-Standards and Technology (NIST) and obtained a new FTS scan in 2011. A
-close comparison between this new scan from NIST and the old scan at
-KPNO reveals that they have many differences:
+Standards and Technology (NIST) and obtained a new FTS scan in 2011
+(an effort carried out by Jason Wright, Ming Zhao, Stephen Redman and
+others at NIST; data reduction done by Stephen Redman). A close
+comparison between this new scan from NIST and the old scan at KPNO
+reveals that they have many differences:
 \begin{itemize}
   \item The overall line depths are very different --- the NIST scan
     has deeper lines.
@@ -51,7 +68,7 @@ resolution (the NIST scan has a higher resolution), the middle panel
 is a more direct comparison: the NIST scan has been convolved down to
 the same resolution with the KPNO scan; it is also shifted in
 wavelength space so that the two scans match in absolute wavelength
-solution; and it is adjusted to a proper `normalization' level to
+solution; and it is adjusted to a different ``normalization'' level to
 match with the KPNO scan as much as possible in order to compare their
 relative line ratios.
 
@@ -473,8 +490,8 @@ optical depth differences. Figure~\ref{het:fig:iodspec5} shows the results.
   lines) compared with theoretically computed iodine lines at
   70$\degree$C (blue dashed) and 150$\degree$C (red
   dotted-dashed). There are two free parameters for the theoretical
-  lines: temperature and optical depth. For this plot, we optimized
-  the the optical depths for the theoretical lines at both
+  lines: temperature and iodine column density. For this plot, we optimized
+  the iodien column density for the theoretical lines at both
   temperatures to try to fit the NIST FTS. As illustrated, neither
   temperature can produce a good fit, and the best-fit temperature is
   around 110$\degree$C. Note that the theoretical lines and the NIST
