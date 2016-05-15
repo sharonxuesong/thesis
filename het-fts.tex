@@ -93,7 +93,7 @@ relative line ratios.
 \end{figure}
 %----------------------------------------------------------------
 
-We suspect that the NIST scan is problematic. The reason is
+We initially suspected that the NIST scan was problematic. The reason is
 illustrated in the left panel of Figure~\ref{fig:chisq_old_new}, where
 it shows the histogram of \chisq\ values for fitting an selected iodine
 observation using the two scans, respectively. Each \chisq\ value is
@@ -144,58 +144,75 @@ because this reveals that:
 \begin{itemize}
   \item Even the KPNO cell performs visibly better when we float the
     normalization paramter. This may suggest that there are
-    `normalization' issues or low frequency errors/noise in the KPNO
+    ``normalization'' issues or low frequency errors/noise in the KPNO
     scan as well.
   \item Obtaining high-quality, reliable FTS scans of iodine cell is
     very difficult, and the FTS scans cannot be naively trusted as the
-    `ground truth' super accurate templates of the complicated iodine
+    ``ground truth'' super accurate templates of the complicated iodine
     spectrum.
+  \item The reason why adding a ``floating normalization'' fits the
+    data better might be because it accounts for optical depths difference
+    between the atlas and the actual observations, which may be a result
+    of changes in cell temperature or iodine column density in the cell.
   \item The pipeline (when floating normalization as a free parameter)
-    cannot distinguish which scan is the `correct' one (by \chisq)
+    cannot distinguish which scan is the ``correct'' one (by \chisq)
     even when two scans differ as much as $\sim$5--10\% at places and
     also have obvious line ratio differneces (see comparison in bottom
     panel of Figure~\ref{fig:fts_old_new}). However, this level of
-    difference in FTS may affect the RV precision.
+    difference in FTS may affect the RV precision, and not knowing
+    which atlas is the correct one definitely affects our ability to
+    search for a better IP and improve the RV precision of \het.
 \end{itemize}  
 
 Perhaps even more alarmingly and more puzzling, when we use the KPNO
 scan for the iodine cell used at Keck/HIRES to fit an HET/HRS iodine
-observation, it yields smaller \chisq\ values
-(Figure~\ref{fig:chisq_old_keck}). A closer look at the KPNO HET cell
-scan and the Keck cell scan reveals that the two cells seem to have
-very similar optical depths, and this maybe why the Keck scan works
-for HET obervation despite the fact that it is for a different cell.
+observation, it yields smaller \chisq\ values than using any of the
+other two scans (Figure~\ref{fig:lampi2fit}). The \het\ cell KPNO scan
+was taken at the same time using the same FTS machine as the \keck\
+cell scan. However, the set-temperatures of these two cells are very
+different: the \keck\ cell is designed to work at 55$\degree$C, while
+the \het\ cell is designed to work at $70\degree$C.
 
 
 %----------------------------------------------------------------
-% Figure: chisq of iodine observation fit, KPNO HET old scan vs. Keck scan
+% Figure: chisq of iodine observation fit, KPNO HET old scan vs. Keck
+% scan
+% plots made by
+% ~/ExoPlanet-2010-2011/HET-HRS-IP/05-Iodine_FTS_investigation/compare_fts/compare_fts_fits.pro
+% stored in ../plots/
 \begin{figure}[!th]
 \centering
-\includegraphics[angle=0.,scale=0.38]{het/chisq_comparison.eps}
+\includegraphics[angle=0.,scale=0.38]{het/het_lamp_i2_fits_kpno_nist_keck.eps}
 \caption{Comparison of the median \chisq\ values for fits of iodine
-  observations using the HET cell KPNO scan and the Keck cell KPNO
-  scan. Each point represents the median \chisq\ value for all the
-  chunks in a single iodine observation. Results of multiple
-  observations are plotted here to illustrate the statistically
-  significance. The Keck cell KPNO scan provides a better fit than the
-  HET cell KPNO scan when fitting HET iodine observations.
-  \label{fig:chisq_old_keck}}
+  observations using the \het\ cell KPNO scan (black solid line), the
+  NIST scan (red dashed), and the {\em \keck\ cell} KPNO scan (green
+  dotted-dashed). Each data point represents the median \chisq\ value
+  for all the chunks in a single iodine observation (these are all
+  lamp-illuminated -- no B star observation). Results of 550
+  \het\ observations are plotted here to illustrate the statistically
+  significance. The \keck\ cell KPNO scan provides a better fit than the
+  both \het\ scans when fitting \het\ iodine observations.
+  \label{fig:lampi2fit}}
 \end{figure}
 %----------------------------------------------------------------
 
-\textbf{All of the facts above prompted us to seek a relatively
-  independent way to perform quality checks for any FTS scan --- not
-  just comparing their relative qualities or performances.} One
+All of the facts above prompted us to seek a relatively
+independent way to perform quality checks for any FTS scan --- not
+just comparing their relative qualities or performances. One
 natural choice is to obtain spectra taken with high-resolution echelle
 spectrographs, which are measurements of the iodine spectrum directly
-in the `real wavelength space' instead of in the `Fourier space', and
+in the ``real wavelength space'' instead of in the ``Fourier space'', and
 thus they serve as good reference spectra as they suffer from
 different types of error compared to FTS. Since FTS scans are usually
-at a very high spectral resolution ($200,000$--$400,000$), this limits
+at a very high spectral resolution ($250,000$--$500,000$), this limits
 our choice to essentially only one spectrograph --- the TS12 setting
 of the Tull Spectrograph at the 2.7m Telescope at McDonald.
 
-\textbf{\textit{The Main Purpose}} of the test using a TS12 spectrum
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Methods}
+
+The main purpose of the test using a TS12 spectrum
 is to see if it shows significant difference with the KPNO FTS scan,
 especially in terms of line depths and ratios. We chose to use the
 iodine cell at the Sandiford (2.1m) Telescope, because the HET/HRS
@@ -203,10 +220,6 @@ cell was still under active use when we did this test. The Sandiford
 cell also has an KPNO FTS scan which was taken together with the KPNO
 scan of the HET cell in 1993, so it serves the purpose of testing the
 overall quality of the KPNO scans.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Methods}
 
 We obtained the spectra of the Sandiford iodine cell with TS12 from
 September 7 to September 9, 2013, when the telescope was scheduled to
