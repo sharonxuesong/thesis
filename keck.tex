@@ -114,7 +114,8 @@ numerical and algorithmic errors (not in any particular order):
   minima, and it may have reached the crude convergence criteria but not
   actually converged, and it is extremely sensitive to initial guesses.
 \item The interpolation algorithm for interpolating or rebinning the model
-  spectra. The current algorithm is not flux-conservative.
+  spectra. The current interpolater does not seem to make an effort at
+  conserving flux, for example. 
 \item The simple linear fit to the blaze function in each chunk (each
   chunk contains 80 pixels).
 \item ``Vanking'', or the final statistical weighting process, only
