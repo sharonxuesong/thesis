@@ -108,6 +108,33 @@ solving these two problems, and it is promising that future work may
 bring the $>$10-year worth of \het\ archival RV data to a higher RV
 precision, hopefully much similar to \keck's.
 
+%----------------------------------------------------------------
+% Chunk pixel flux variation comparison between Keck and HET
+% plot made by
+% ~/ExoPlanet-2010-2011/HET-HRS-IP/05-Iodine_FTS_investigation/chunk_variation/chunk_vary.pro
+% and plot_chunk_vary.pro and saved therein
+\begin{figure}
+\centering
+\subfloat{\includegraphics[scale=0.35]{het/het_chunk_variation.eps}}
+\subfloat{\includegraphics[scale=0.35]{het/keck_chunk_variation.eps}}\
+\subfloat{\includegraphics[scale=0.35]{het/line_spec_rms_keck_het.eps}}
+\caption{Comparison between the amounts of variation in a spectral
+chunk in $\sim 500$ \het\ and \keck\ lamp iodine observations,
+respectively. The top two panels show the overplotted spectra in this
+chunk, shifted and normalized so that the spectral lines match (using
+cross correlation and interpolation; normalized using total counts in
+this chunk). The black dots in each of the two top panels are the RMS
+values of the normalized counts in each pixel, multiplied by 4 and
+added by 0.5 for illustration purposes. The \het\ spectra exhibit
+significantly more variation than the \keck\ spectra, and we discuss
+potential reasons in Section~\ref{het:sec:conclusion}. The bottom
+panel is ploting the pixel counts RMS as a function of the derivative
+of the spectrum, which shows that the \het\ spectra have more
+variation in both line centers/continuum and line wings than \keck.
+\label{het:fig:chunkvary}}
+\end{figure}
+%----------------------------------------------------------------
+
 Our adventure in improving the RV precision of \het, though incomplete
 and sometimes inconclusive so far, have taught us several important
 lessons for iodine-calibrated precise RV work:
