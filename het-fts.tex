@@ -13,13 +13,14 @@ We have explored one of the two model components for modeling iodine
 observations, the choice of IP. In this section, we examine the other
 model component, the iodine atlas, that is, the ``ground truth''
 spectrum for the iodine absorption lines unique to the \het\ iodine
-cell. We came upon an interesting lead which made us believe that
-there might have been changes in the iodine cell itself and its
-enclosure.
+cell. A ``ground truth" iodine atlas is crucial for the precise iodine
+radial velocimetry. It is used for modeling the observed iodine lines
+in the stellar$+$iodine RV observation to anchor the absolute
+wavelengths and the spectrograph response function. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Motivation}
+\subsection{Why did we suspect the iodine atlas?}
 
 As we were investigating the reasons behind the apparent `bad fit' of
 \het\ iodine observations, we decided to check the quality of the
@@ -27,7 +28,7 @@ existing iodine atlas. An iodine atlas is normally obtained using a
 Fourier Transform Spectrometer (FTS; whose mechanism is just like a
 Michelson interferometer). The scan and its subsequent data reduction
 provides very high resolution spectrum (translated from Fourier space
-into real space) with typically $R > 250,000$-500,000.\footnote{It is worth
+into real space) with typically $R > 200,000$-500,000.\footnote{It is worth
 noting here that although FTS normally provides wavelength solutions
 (from the registered arm lengths), but because of the inaccuracy of
 the default reported wavelengths, the final wavelength solution for
@@ -171,12 +172,14 @@ other two scans (Figure~\ref{fig:lampi2fit}). The \het\ cell KPNO scan
 was taken at the same time using the same FTS machine as the \keck\
 cell scan. However, the set-temperatures of these two cells are very
 different: the \keck\ cell is designed to work at 50$\degree$C, while
-the \het\ cell is designed to work at $70\degree$C.
+the \het\ cell is designed to work at $70\degree$C. A closer look
+reveals that the HET KPNO scan and the Keck KPNO scan have very
+similar line depth, with Keck having slightly deeper lines (thus
+higher iodine molecule column density).
 
 
 %----------------------------------------------------------------
-% Figure: chisq of iodine observation fit, KPNO HET old scan vs. Keck
-% scan
+% Figure: chisq of iodine observations, NIST vs. KPNO vs. Keck cell 
 % plots made by
 % ~/ExoPlanet-2010-2011/HET-HRS-IP/05-Iodine_FTS_investigation/compare_fts/compare_fts_fits.pro
 % stored in ../plots/
@@ -204,38 +207,66 @@ spectrographs, which are measurements of the iodine spectrum directly
 in the ``real wavelength space'' instead of in the ``Fourier space'', and
 thus they serve as good reference spectra as they suffer from
 different types of error compared to FTS. Since FTS scans are usually
-at a very high spectral resolution ($250,000$--$500,000$), this limits
+at a very high spectral resolution ($200,000$--$500,000$), this limits
 our choice to essentially only one spectrograph --- the TS12 setting
 of the Tull Spectrograph at the 2.7m Telescope at McDonald.
 
+Our goal is to answer the question of {\bf which FTS scan better describes
+the \het\ iodine cell: the KPNO one, or the NIST one? Why?} While adding an
+additional normalization parameter can provide better fits for the
+iodine frames, we cannot afford to add such an additional parameter
+when extracting RVs from star$+$iodine data -- this normalization
+parameter is highly degenerate with Doppler shift and wavelength
+solution parameters, and it will undoubtedly decrease the RV
+precision. Another key question is {\bf why the FTS scan for the \keck\
+cell works the best.}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Methods}
+\subsection{Ultra-High Resolution Echelle Spectra of Iodine Cells}
 
-The main purpose of the test using a TS12 spectrum
-is to see if it shows significant difference with the KPNO FTS scan,
-especially in terms of line depths and ratios. We chose to use the
-iodine cell at the Sandiford (2.1m) Telescope, because the HET/HRS
-cell was still under active use when we did this test. The Sandiford
-cell also has an KPNO FTS scan which was taken together with the KPNO
-scan of the HET cell in 1993, so it serves the purpose of testing the
-overall quality of the KPNO scans.
+To break the tie between various FTS scans, we used the TS12 setting
+of the Tull Spectrograph at the 2.7m Telescope at McDonald
+Observatory, which provided a resolution of 500,000 (based on ThAr
+line measurements done by David Doss at McDonald). 
 
-We obtained the spectra of the Sandiford iodine cell with TS12 from
-September 7 to September 9, 2013, when the telescope was scheduled to
-on Cassegrain instrument and the Tull Spectrograph room was free for
-use. The description on data acquisition and reduction in this section
-and the results presented in the next section are for the the
-contiguous $\sim$30\AA\ spectrum region that we took on the second and
-third day of observation.
+We had two rounds of TS12 runs, both during day time and when the
+telescope was scheduled to on Cassegrain instrument and the Tull
+Spectrograph room was free for use. For the first run (from September
+7 to September 9, 2013; done by Ming Zhao and the author) we measured
+the iodine absorption spectrum for the iodine cell at the Sandiford
+(2.1m) Telescope, because the HET/HRS cell was still under active use
+when we did this test. The main purpose of the first run was to
+validate the quality of the TS12 spectrum and whether we can use it to
+across-validate the FTS scans. The Sandiford cell also has an KPNO FTS
+scan which was taken together with the KPNO scan of the HET cell in
+1993, so it also serves the purpose of testing the overall quality of
+the KPNO scans.
+
+In the second TS12 run, we measured the spectrum for the \het\ iodine
+cell in its new enclosure and temperature controller (along with the
+MINERVA iodine cell and the iodine cell on McDonald Harlan J.\ Smith
+2.7m telescope; from October 13 through October 16, 2014; carried out
+by Ming Zhao, Kim Star, and Joey Schmitt). Our TS12 runs are enabled
+by Anita Cochran, Bill Cochran, Phillip MacQueen, and the astronomers
+who used the Cassegrain instruments at night (VIRUS-W for the first
+run and IGRINS for the second), with great help and excellent
+engineering support from David Doss and Coyne Gibson at McDonald
+Observatory.
+
+The hardware settings and data reduction methods are the same for both
+runs, which are described below.
 
 \textbf{\textit{Hardware Settings:}} We used the TS12 arm of the Tull
 Spectrograph, and the specific instrument choices are listed in
-Table~\ref{tab:hardware}. The cell was kept at a temperature of
-49.9--50.1$^\circ$C, the same as its working temperature for RV work
-and its temperature when the KPNO was taken (50$^\circ$C). Slit \#23
-is chosen to maximize SNR while maintaining sufficient resolution ---
-it is among the longest slit and is also the second narrowest slit.
+Table~\ref{tab:hardware}. Slit \#23 is chosen to maximize SNR while
+maintaining sufficient resolution --- it is among the longest slit and
+is also the second narrowest slit. The Sandiford cell was kept at a
+temperature of 49.9--50.1$^\circ$C, the same as its working
+temperature for RV work and its temperature when the KPNO was taken
+(50$\degree$C). The \het\ cell was measured at four different
+temperatures: room temperature, 50$\degree$C, 60$\degree$C, and
+70$\degree$C (its working temperature). 
 
 %----------------------------------------------------------------
 % Table: variability analysis results
@@ -260,19 +291,35 @@ it is among the longest slit and is also the second narrowest slit.
 
 
 \textbf{\textit{Observation:}} A single exposure frame for the iodine
-spectrum covers about 1.9\AA. The dispersion direction runs vertically
-along the chip with increasing wavelength when increasing the $y$-axis
-pixel. The dispersion scale is about 0.002\AA\ per pixel ($\sim$7
-pixels per resolution element). We immediately preceded or followed
-each exposure with a flat fielding frame. The exposure times for the
-iodine and flat frames are both 45 seconds to achieve a
-signal-to-noise ratio (SNR) of 160 per pixel. Neighboring frames
+spectrum covers about 1.9\AA\ (Figure~\ref{het:fig:ts12image}). The
+dispersion direction runs vertically along the chip with increasing
+wavelength when increasing the $y$-axis pixel. The dispersion scale is
+about 0.002\AA\ per pixel ($\sim$7 pixels per resolution element). We
+immediately preceded or followed each exposure with a flat fielding
+frame. The exposure times for the iodine and flat frames are both 45
+seconds (90 seconds for \het\ cell) to achieve a signal-to-noise ratio
+(SNR) of 160 per pixel (higher for \het\ cell). Neighboring frames
 differ by about 1\AA\ in absolute wavelength. If prominent Solar or
 ThAr line was predicted within the wavelength coverage of a frame,
 then we also took a Solar or ThAr frame to verify the rough wavelength
 solution (the exposure time varied --- typically a couple minutes to
 up to 10 minutes). We took dark frames (45s each, about 10 frames) in
 the morning at the beginning of each day.
+
+%----------------------------------------------------------------
+% TS12 raw image
+% plot made by ds9 view on spec0248.fits in
+% /Volumes/galileo/rv/TS12/raw/, i.e. 2013 data, save as jpg then
+% converted online into eps
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{het/ts12_image.eps}
+\caption{One raw image frame taken using the TS12 setting of Tull
+  Spectrograph. It contains about 1.9\AA\ of iodine absorption spectrum. 
+\label{het:fig:ts12image}}
+\end{figure}
+%----------------------------------------------------------------
+
 
 \textbf{\textit{Reduction:}} We combined and averaged all available
 dark frames and created a master dark frame. Then we subtracted the
@@ -296,7 +343,7 @@ normalized by dividing the estimated continuum (top 5\% counts). Due
 to lower quality of scattered light removal near the edge of the chip,
 we discarded the top 80 and bottom 80 rows of pixels. Thus the
 extracted spectrum from each frame is about 1.6\AA\ across (instead of
-1.9\AA). The $\sim$20 frames are then `stitched' together by finding
+1.9\AA). The reduced frames are then `stitched' together by finding
 the overlapping region through cross correlation for each pair of
 neighboring frames and taking into account the changes and differences
 of dispersion scales across frames.
@@ -310,17 +357,49 @@ normalization of the bluer frame. This way the two frames are stitched
 together.
 \end{comment}
 
-\textbf{\textit{Mapping onto FTS:}} To compare with the KPNO FTS
-spectrum, we chopped the TS12 spectrum into 2\AA\ chunks and project
+\textbf{\textit{Mapping onto FTS:}} To compare with the FTS
+scans, we chopped the TS12 spectrum into 2\AA\ chunks and project
 each chunk onto the FTS spectrum by cross correlation. In this way we
 obtained the absolute wavelength solution and dispersion scale (as set
-by the wavelength solution of the FTS scan) for the TS12 spectrum. The
-results of comparison are shown in the next section.
+by the wavelength solution of the FTS scan) for the TS12
+spectrum.
 
+The results from our first TS12 run using the Sandiford cell
+demonstrated that an iodine cell spectrum taken with TS12 has the same
+quality as an FTS scan to serve as the `true solution' of the iodine
+spectrum. The left panel of Figure~\ref{fig:ts12} shows a direct
+comparison of the reduced TS12 spectrum (a random 2\AA\ chunk) with
+the KPNO FTS scan, at their native resolutions.\footnote{Note that the
+TS12 spectrum appears to have a higher resolution than the FTS
+scan. According to the header of the FTS scan, its resolution is about
+$491,000$. An FFT analysis on the TS12 spectrum (to see where the
+high-frequency signal cuts off and becomes indistinguishable from the
+noise) shows that its resolution is about $455,000$ and maybe even
+higher.}
 
+To make a more direct comparison and also to see the differences of
+the two spectra (if any) would make a significant impact when fitting
+a $60,000$ resolution iodine observation, we degraded the resolution
+of both spectra to $60,000$ by convolving them with a Gaussian of a
+proper width. The right panel of Figure~\ref{fig:ts12} illustrates the
+comparison of the two spectra at $R\sim60,000$, with residuals of the
+TS12 spectrum minus the KPNO FTS spectrum plotted in the bottom
+panel. The two spectra differ by a median absolute deviation of 0.3\%
+($0.4\%$ for the entire $\sim$30\AA\ spectrum available as shown in
+Figure~\ref{fig:60k_all}).\footnote{ For comparison: when fitting the
+HET/HRS Iodine observation used for creating
+Figure~\ref{fig:chisq_old_new} (median SNR for a typical chunk is
+$\sim$150, or 0.65\% shot noise), for a typical chunk, the median
+absolute deviation between the observation and the best-fit model is
+0.73\% (the RMS value is 1\%, thus \chisq\ is $\sim 2$--$3$).  } As
+the TS12 spectrum has a SNR of about 160 and we have convolved the
+comparison spectrum down to $R\sim60,000$, the expected shot noise
+should be $\sim 1/160\times \sqrt{450,000/60,000}=0.23\%$. The
+additional $\sim 0.1\%$--$0.2\%$ of noise may come from flat fielding,
+scattered light removal, cosmic ray removal and interpolation between
+pixels, stitching of spectra, projection onto the FTS spectrum and
+interpolation for comparison purposes, and so on.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Results}
 
 %----------------------------------------------------------------
 % Figure: TS12 spectrum vs. KPNO FTS scan, native resolution, selected
@@ -331,7 +410,7 @@ results of comparison are shown in the next section.
 \caption{Comparison of the Sandiford iodine cell KPNO FTS spectrum and
   the spectrum taken with TS12. \textbf{Left:} Comparison of the two
   spectra in their native resolutions (both about
-  $450,000$--$500,000$). \textbf{Right:} Comparison of the two spectra
+  $400,000$--$500,000$). \textbf{Right:} Comparison of the two spectra
   convolved down to about $60,000$ resolution, which is the resolution
   of typical iodine observations or radial velocity observations
   (star$+$iodine). Bottom panel shows the residuals in percentage of
@@ -341,15 +420,6 @@ results of comparison are shown in the next section.
 \end{figure*}
 %----------------------------------------------------------------
 
-The left panel of Figure~\ref{fig:ts12} shows a direct comparison of the reduced
-TS12 spectrum (a random 2\AA\ chunk) with the KPNO FTS scan, at their
-native resolutions. Note that the TS12 spectrum appears to have a
-higher resolution than the FTS scan. According to the header of the
-FTS scan, its resolution is about $491,000$. An FFT analysis on the TS12
-spectrum (to see where the high-frequency signal cuts off and becomes
-indistinguishable from the noise) shows that its resolution is about
-$455,000$ and maybe even higher.
-
 
 %----------------------------------------------------------------
 % Figure: TS12 spectrum vs. KPNO FTS scan, 60k, all, with residuals
@@ -357,105 +427,67 @@ $455,000$ and maybe even higher.
 \centering
 \includegraphics[angle=0.,scale=0.45]{het/all_60k_gaus_sclrem_diff.eps}
 \caption{The same as the right panel of Figure~\ref{fig:ts12}, the
-  KPNO spectrum and the TS12 spectrum both at $60,000$, but for the entire
-  $\sim$30\AA\ TS12 spectrum available. 
+KPNO spectrum and the TS12 spectrum for the Sandiford cell both at
+$60,000$, but for the entire $\sim$30\AA\ TS12 spectrum available. 
   \label{fig:60k_all}}
 \end{figure}
 %----------------------------------------------------------------
 
 
-To make a more direct comparison and also to see the differences of
-the two spectra (if any) would make a significant impact when fitting
-a $60,000$ resolution iodine observation, we degraded the resolution
-of both spectra to $60,000$ by convolving them with a Gaussian of a
-proper width. We analyzed the FFT spectra of the two convolved spectra
-to make sure that they are indeed at the same resolution, and both are
-around $60,000$. The right panel of Figure~\ref{fig:ts12} illustrates
-the comparison of the two spectra at $R\sim60,000$, with residuals of
-the TS12 spectrum minus the KPNO FTS spectrum plotted in the bottom
-panel. The two spectra differ by a median absolute deviation of 0.3\%
-($0.4\%$ for the entire $\sim$30\AA\ spectrum available as shown in
-Figure~\ref{fig:60k_all}). As the TS12 spectrum has a SNR of about 160
-and we have convolved the comparison spectrum down to $R\sim60,000$,
-the expected shot noise should be $\sim 1/160\times
-\sqrt{450,000/60,000}=0.23\%$. The additional $\sim 0.1\%$--$0.2\%$ of
-noise may come from flat fielding, scattered light removal, cosmic ray
-removal and interpolation between pixels, stitching of spectra,
-projection onto the FTS spectrum and interpolation for comparison
-purposes, and so on.
+After demonstrated that we can use TS12 spectrum to validate FTS
+scans, we performed our second TS12 run with the \het\ cell (and the
+2.7m cell and the MINERVA cell). For
+the 2.7m cell, its TS12 spectrum matches very well to its FTS atlas,
+again (together with the 2.1m cell data from 2013) proving that TS12
+is an appropriate tool for validating FTS atlases. For the HET/HRS
+iodine cell, the results are very informative:
 
-For comparison: when fitting the HET/HRS Iodine observation used for
-creating Figure~\ref{fig:chisq_old_new} (median SNR for a typical
-chunk is $\sim$150, or 0.65\% shot noise), for a typical chunk, the
-median absolute deviation between the observation and the best-fit
-model is 0.73\% (the rms value is 1\%, thus \chisq\ is $\sim 2$--$3$).
-
-
-% SUMMARY
-\textbf{\textit{Conclusion:} Through this test, we have demonstrated that an
-  iodine cell spectrum taken with TS12 has the same quality as an FTS
-  scan to serve as the `true solution' of the iodine spectrum (caveat:
-  lack of wavelength solution). A comparison between the TS12 spectrum
-  and the FTS scan of the same cell serves as a good method to check
-  the quality of FTS scans.}
+(1) Assuming that the \het\ cell temperature control was reliable
+during our TS12 run (Phillip MacQueen from McDonald Observatory, who
+built the cell and its enclosure, was at the TS12 run to set it up),
+then temperature change on the order of 5--10$\degree$C in iodine cell
+should induce a visible change in the absorption spectrum (right panel
+of Figure~\ref{het:fig:tempchange}). On the other hand, the
+temperature of the iodine gas in the cell was not at its set
+temperature of $70\degree$C during the NIST scan (left panel of
+Figure~\ref{het:fig:tempchange}). This could explain the difference
+between \het\ cell's NIST scan and the KPNO scan. The NIST scan
+appears to have stayed at higher than $70\degree$C the entire time
+(one hypothesis is that the gas on the light path was heated up by the
+ultra-luminous continuum lamp, while the glass container, which the
+temperature probe was monitoring, stayed cool). The \keck\ cell was
+also scanned at three different temperatures (50, 60, and
+70$\degree$C) at KPNO in 1993, and there are also visible differences
+between these three sets of scans.
 
 
+%----------------------------------------------------------------
+% HET cell spectral changes vs. temperature changes effects in TS12 and NIST scan
+% plot made by
+% ~/ExoPlanet-2010-2011/HET-HRS-IP/05-Iodine_FTS_investigation/compare_fts/explore_temp_change.pro and saved therein
+\begin{figure}
+\centering
+\subfloat{\includegraphics[scale=0.32]{het/nist_temp_change.eps}}
+\subfloat{\includegraphics[scale=0.32]{het/ts12_temp_change.eps}}
+\caption{{\bf Left:} \het\ cell NIST FTS scan at three different
+temperatures. {\bf Right:} \het\ cell TS12 spectra at four different
+temperatures for the same wavelength region, which, unlike the NIST
+scans, shows significant difference when the temperature of the cell
+changes by 10$\degree$C.
+\label{het:fig:tempchange}}
+\end{figure}
+%----------------------------------------------------------------
 
-ZZZ paragraphs on temperature change from NESSF renewal, needs heavy modification
 
 
-A ``ground truth" iodine atlas is crucial for the precise iodine
-radial velocimetry. It is used for modeling the observed iodine lines
-in the stellar$+$iodine RV observation to anchor the absolute
-wavelengths and the spectrograph response function. Such a ``ground
-truth" atlas is normally obtained through a Fourier Transform
-Spectrometer (FTS). Our previous work has revealed potential problems
-with FTS atlases, and in our original proposal, we promised to use the
-TS12 arm of the Tull spectrograph at McDonald Observatory to validate
-the qualities of the FTS iodine atlases for HET/HRS, MINERVA, and the
-McDonald 2.7m.
-
-In October 2014, the TS12 observations were successfully carried
-out. All data are reduced and we have made comparisons between the
-TS12 spectra and FTS scans. For the 2.7m cell, its TS12 spectrum
-matches very well to its FTS atlas, again (together with the 2.1m cell
-data from 2013) proving that TS12 is an appropriate tool for
-validating FTS atlases. The TS12 spectra for the MINERVA cell is also
-ready, and right now we are waiting for the FTS expert on our team to
-reduce the MINERVA FTS data for comparison, which is expected to be
-done before June (first light of the proto-type MINERVA spectrograph).
-
-Finally, for the HET/HRS iodine cell, we have taken its TS12 spectra
-at three different temperatures (50, 60, and 70$\degree$C; the RV
-working temperature for the cell is 70$\degree$C). Our main findings
-(both are first-time discoveries for iodine RV work) are as follows:
-
-(a) Temperature change (5--10$\degree$C) in iodine cell matters: The
-long suspected temperature-induced iodine spectrum change was finally
-confirmed, which is seen very visibly among the TS12 spectra taken at
-three different temperatures. Based on our NIST FTS atlases taken at
-two different temperatures, temperature change on the order of
-10$\degree$C should not induce visible line changes. However, we
-suspected issues with temperature control and data calibration with
-the NIST atlases, and the TS12 spectra confirmed our suspicion and
-proved that temperature on the order of even 5$\degree$C would have
-manifested as significant line changes (for precise RV purposes).
-
-(b) The HET/HRS cell very likely has changed over time: The TS12
-spectra match better with the more recent but potentially problematic
-NIST FTS atlas, which had worse $\chi^2_\nu$ fit than the old KPNO
-atlas. This is completely unexpected and suggests that: the NIST atlas
-was perhaps taken at the correct temperature (i.e.\ the KPNO atlas was
-at a lower and wrong temperature) but the worse fit was caused by
-calibration errors in the atlas; and/or the temperature or optical
-depth of the cell changes over the course of 20 years, and hence the
-differences between these three spectra (Figure~\ref{het:fig:hetts12}); and
-further more, it is possible that the temperature/optical depth of the
-cell changes on a much shorter scale during the observing seasons, and
-most of the time it stays at a temperature/optical depth that is
-similar to the one when the KPNO atlas was taken (e.g.\ actually at a
-lower temperature though thought to be at 70$\degree$C).
-
+(2) The TS12 spectrum at $70\degree$C matches better with the more
+recent but potentially problematic NIST FTS atlas
+(Figure~\ref{het:fig:hetts12}). This is completely unexpected and
+contradicts with the assumptions and/or conclusions we lay out in
+finding (1). The TS12 spectrum also does not match the FTS scan well
+enough given the high SNR nature of both. Perhaps neither TS12 or the
+NIST scan was at $70\degree$C. Or, perhaps the amount of iodine vapor
+was somehow different. 
 
 
 %----------------------------------------------------------------
@@ -477,20 +509,60 @@ lower temperature though thought to be at 70$\degree$C).
 \end{figure}
 %----------------------------------------------------------------
 
+These results prompted us to resolve for a second route to try to break
+the tie: using synthetic iodine absorption spectra, which is described
+in the next subsection.
 
 
-To answer these questions and to actually resolve the issue of a
-changing cell, we have found a possible third venue that might provide
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Measuring iodine cell temperatures using synthetic Iodine spectra}
+
+Using the TS12 spectra, we found that the temperature of the iodine
+gas in the cell might not be the same one reported by the temperature
+controller. However, we still could not break the tie between the KPNO
+scan and the NIST scan for \het\ cell: the KPNO scan provides a better
+fit to real observed data, but the TS12 spectrum shows us that the
+NIST scan looks closer to the ``truth'' as defined by TS12. Nor did we
+understand why the KPNO scan for the \keck\ cell works the best for
+\het\ data.
+
+To answer these questions, we have found a second venue that provides
 reliable, ultra-high resolution, and wavelength calibrated iodine
-atlas -- a theoretical code that computes iodine transmission spectrum
-(at any specified temperature) based on both physics and empirical
-calibrations (IodineSpec5; \citealt{iodinespec5}). We have
-successfully installed and learned the code, and properly translated
-the code output into practical astrophysical units and to account for
-optical depth differences. Figure~\ref{het:fig:iodspec5} shows the results.
+atlas -- a theoretical code that computes synthetic iodine
+transmission spectrum (at any specified temperature) based on both
+physics and empirical calibrations (IodineSpec5;
+\citealt{iodinespec5}). We emailed the authors and obtained the code,
+which only runs on Windows machines. The direct output of the code
+contains arrays of wave numbers and ``opacity'' ($\alpha$) for user-specified
+iodine isotope mix (for our purposes we only add $^{127}I_2$),
+temperature, wave number range, and line broadening kernel parameter
+(we chose thermal/Gaussian). To use the output of IodineSpec5 to fit
+an actual iodine absorption spectrum, there are two parameters:
+gas temperature and a constant which scales with iodine molecule
+column density, which we simply refer to as the column density hereafter.
 
-
-
+Quickly comparing the NIST scan with the IodineSpec5 models reveals
+that the NIST scan seems to be around 110$\degree$C, mostly based on
+visually examining the line ratios
+(Figure~\ref{het:fig:nisteyeball}). However, the synthetic iodine
+spectrum and the FTS scans have different broadening kernels. In order
+to ``fit'' the NIST scan with the synthetic spectra at various
+temperatures, we convolved the NIST scan with a single Gaussian kernel
+with $\sigma=0.0078$ (roughly at $R=$ 200,000 to try to match the
+\keck\ cell KPNO scan for comparison and illustration
+purposes). Except for the \keck\ scan, we did the same to lower the
+resolution of other FTS scans or TS12 spectra when using IodineSpec5
+to find out their temperatures. There are three four parameters in our
+fit: temperature, column density, resolution ($\sigma$ for the single
+Gaussian kernel to convolve the synthetic spectrum with), and a
+wavelength shift. We first optimized the column density, $\sigma$, and
+the wavelength shift while fixing the temperature (using L-M
+least-$\chi^2$ fitter using {\tt mpfitfun} package in IDL), and then
+we compare the goodness of fit of each model at different temperatures
+to determine which temperature best describes the FTS scan or TS12
+spectrum. The reason for this two-step optimization is because we have
+to generate the IodineSpec5 model spectra on a discrete temperature
+grid.
 
 
 %----------------------------------------------------------------
@@ -500,19 +572,38 @@ optical depth differences. Figure~\ref{het:fig:iodspec5} shows the results.
 \centering
 \includegraphics[scale=0.5]{het/HET_NIST_temp.eps}
 \caption{NIST FTS (black solid lines) and KPNO FTS (black dotted
-  lines) compared with theoretically computed iodine lines at
-  70$\degree$C (blue dashed) and 150$\degree$C (red
-  dotted-dashed). There are two free parameters for the theoretical
-  lines: temperature and iodine column density. For this plot, we optimized
-  the iodien column density for the theoretical lines at both
-  temperatures to try to fit the NIST FTS. As illustrated, neither
-  temperature can produce a good fit, and the best-fit temperature is
-  around 110$\degree$C. Note that the theoretical lines and the NIST
-  FTS have different broadening kernels. The NIST and KPNO FTS scans
-  probably differ in both optical depth and cell temperature.
-\label{het:fig:iodspec5}}
+lines) compared with theoretically computed iodine lines at
+70$\degree$C (blue dashed) and 150$\degree$C (red dotted-dashed). All
+spectra are at their original resolution. There are two free
+parameters for the theoretical lines: temperature and iodine column
+density. For this plot, we optimized the iodine column density for the
+theoretical lines at both temperatures to try to match the NIST FTS. As
+illustrated, neither temperature can produce a good match, and the
+best temperature is around 110$\degree$C. Note that the
+theoretical lines and the NIST FTS have different broadening
+kernels. The NIST and KPNO FTS scans probably differ in both optical
+depth and cell temperature.
+\label{het:fig:nisteyeball}}
 \end{figure}
 %----------------------------------------------------------------
+
+We first fitted the \keck\ cell KPNO FTS scan, whose temperature is
+known (50$\degree$C) and reliable. We also know that this FTS scan is
+probably very trust-worthy since \keck\ iodine atlas fits the data
+very well, as described in the previous subsection. Choosing a region
+where it contains temperature-sensitive lines, we found the best-fit
+temperature for the \keck\ KPNO scan is 55$\degree$C, although
+synthetic spectra ranging from 40-70$\degree$C all fit the data
+almost equally well and they are hard to distinguish (column density
+and temperature are highly degenerate parameters). 
+
+We then fitted the NIST scan, which has the highest SNR and
+resolution among all FTS scans or TS12 spectra (we also have a rough
+idea about its temperature). The results are shown in
+Figure~\ref{het:fit:nistfit}, where the top panel shows the best-fit
+models at different temperatures, and the bottom panel compares the
+NIST scan with its the best-fit model at 110$\degree$C, the KPNO scan,
+and the \keck\ cell KPNO scan. 
 
 
 %----------------------------------------------------------------
@@ -529,12 +620,32 @@ various temperatures and column densities. {\bf Bottom:} The \het\
 NIST scan (black dots) overplotted with the best-fit IodineSpec5 model
 (black solid line; at 110$\degree$C) and the \het\ cell and \keck\ 
 cell KPNO scans. All spectra in both panels are convolved down to a
-resolution of 150,000 (roughly \keck\ KPNO FTS scan resolution) to
+resolution of 200,000 (roughly \keck\ KPNO FTS scan resolution) to
 wash out the intrinsic IP difference between FTS scan (sinc function
 IP) and the synthetic spectrum (only natural broadening IP models).
 \label{het:fig:nistfit}}
 \end{figure}
 %----------------------------------------------------------------
+
+When we tried to fit the \het\ KPNO scan, the high degeneracy between
+column density and temperature hindered us from getting an accurate
+estimate for the temperature. Models in 40-80$\degree$C appear to fit
+equally well with varying column densities. However, only the fit at
+$70\degree$C has the same column density as the best-fit value derived
+from the NIST fit. We thus fixed the column
+density in our fits for \het\ KPNO scan, and (unsurprisingly) the best-fit
+temperature came out to be $70\degree$C. Therefore, we conclude that
+the NIST scan was indeed at a different gas temperature, and the old
+KPNO scan seems to be at the right temperature.
+
+But how about the TS12 spectrum? Again, using the best-fit column
+density derived from our NIST and KPNO fits, we estimated the
+temperatures for the TS12 spectra (supposedly) at 50, 60, and
+70$\degree$C. The best-fit temperature turns out to be 55$\degree$C
+for claimed 50$\degree$C TS12 spectrum, 80$\degree$C for the
+60$\degree$C one, and 100$\degree$C for the 70$\degree$C one. The
+results fitting for the ``70$\degree$C'' TS12 spectrum are in
+Figure~\ref{het:fig:ts12fit}.  
 
 
 %----------------------------------------------------------------
@@ -552,7 +663,31 @@ Bottom:} The best-fit temperature for the TS12 spectrum is about
 100$\degree$C (black solid). It is clearly at a lower temperature than
 the NIST scan (green dashed) but at a higher one than the KPNO one
 (green dotted-dashed). Again, all spectra in both panels are convolved
-down to $R=$ 150,000.
+down to $R=$ 200,000.
 \label{het:fig:ts12fit}}
 \end{figure}
 %----------------------------------------------------------------
+
+These findings on \het\ cell temperatures could explain the fits to
+real data. If the \het\ cell was kept at a higher temperature (e.g.,
+$\sim 100\degree$C) instead of $70\degree$C when it was in active use
+for precise RV calibration (despite what the temperature control
+reported), or if the actual temperature of the gas in the cell changes
+over time, then the KPNO scan, which was done at $70\degree$C,
+certainly cannot fit the observed data and provide precise
+calibrations to measure RVs to the level of \keck, which has a precise
+iodine atlas. Looking at the bottom panel of
+Figure~\ref{het:fig:ts12fit}, it is not hard to imagine why the \keck\
+cell scan provides the best fits to \het\ data
+(Figure~\ref{fig:lampi2fit}) -- if the gas temperature is between 70
+and 110$\degree$C during actual observations (and perhaps more often
+closer to 70$\degree$C), then an iodine atlas which has line depths in
+between the KPNO and the NIST scans would provide a better fit, which
+the \keck\ scan happens to satisfy.
+
+We believe that the difference between the iodine atlas and the actual
+iodine lines driven by temperature differences is the dominant factor
+behind \het's under-performance in RV precision compared with
+\keck. We outline potential solutions to improve the RV precision of
+\het\ archival data and our recommendations for the new HRS in the
+next section.
