@@ -18,8 +18,10 @@ iodine spectrum taken by the spectrograph
 (Figure~\ref{het:fig:convkernel}). The typical $\chi_\nu^2$ value that
 we obtain for fitting iodine spectra with a generic IP model
 (Gauss-Hermite polynomials) is about 2.5, while for Keck/HIRES, the
-$\chi_\nu^2$ value is typically around 1
-(Figure~\ref{het:fig:iodchunkcomp}).
+\chisq\ value is typically around 1
+(Figure~\ref{het:fig:iodchunkcomp}). The origin of this difference in
+\chisq\ does not seem to rise from a signal-to-noise difference in the
+spectra (Figure~\ref{het:fig:checksnr}).
 
 
 %----------------------------------------------------------------
@@ -54,6 +56,30 @@ $\chi_\nu^2$ value is typically around 1
 \label{het:fig:iodchunkcomp}}
 \end{figure}
 %----------------------------------------------------------------
+
+
+
+%----------------------------------------------------------------
+% HET and Keck chunk SNR and fit comparison
+% plot made by
+% ~/ExoPlanet-2010-2011/HET-HRS-IP/05-Iodine_FTS_investigation/check_snr.pro and saved in ./plots/a
+\begin{figure}
+\centering
+\subfloat{\includegraphics[scale=0.3]{het/het_check_snr.eps}}
+\subfloat{\includegraphics[scale=0.3]{het/keck_check_snr.eps}}
+\caption{Comparison of fits for iodine-free region/observation
+  (fitting a straight line for each chunk) and for iodine
+  region/chunks. The left panel is for \het\ data in one observation,
+  but using spectral orders with or without iodine lines. The right
+  panel is for \keck\ data in two different observations with and
+  without iodine cell in place. The fits for iodine-free spectral
+  chunks turn out to be consistent what is expected with photon noise
+  for both \het\ and \keck. This eliminates additional noise as a
+  suspect in contributing to the bad fits to \het\ iodine spectra.
+\label{het:fig:checksnr}}
+\end{figure}
+%----------------------------------------------------------------
+
 
 
 The current ``go-to'' IP model for \hrs\ is the very versatile,
