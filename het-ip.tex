@@ -1,27 +1,27 @@
 % HET IP section
 
-One major issue is to model correctly the instrumental profile (IP) of
-\het. IP modeling is a crucial part of the precise RV work with iodine
-calibration, as it affects directly several key procedures in the
-Doppler pipeline, such as the creation of stellar spectrum template
-and the forward-modeling of the observed stellar$+$iodine
-spectrum. The current
-successful IP model for Keck/HIRES (sum of Gaussians) in the CPS
-pipeline is the product of careful studies and numerous trials with IP
-modeling. A better understanding of the IP of HRS should bring visible
-improvements to its RV precision. Finding a good IP for \het\ is also
-an important exercise for modeling future fiber-fed precise RV
-spectrographs, such as MINERVA, WIYN/NEID, and SHREK (on Keck).
+Finding a good customized function for the instrumental profile (IP)
+for a precise RV spectrograph is undoubtedly one of the most important
+and difficult tasks in achieving a $<3$~m/s RV precision. IP modeling
+is a crucial part of the precise RV work with iodine calibration, as
+it affects directly several key procedures in the Doppler pipeline,
+such as the creation of stellar spectrum template and the
+forward-modeling of the observed stellar$+$iodine spectrum. The heroic
+efforts of early \keck\ users pinned down its IP to a 12-parameter
+sum-of-Gaussians profile, with two sets of 11 pre-determined positions
+and width of the satellite Gaussians \citep{1995PASP..107..966V}. It
+is the product of careful studies and numerous trials with IP
+modeling.
 
-How well the IP is being modeled can be tested by fitting an pure
-iodine spectrum taken by the spectrograph
-(Figure~\ref{het:fig:convkernel}). The typical $\chi_\nu^2$ value that
-we obtain for fitting iodine spectra with a generic IP model
-(Gauss-Hermite polynomials) is about 2.5, while for Keck/HIRES, the
-\chisq\ value is typically around 1
-(Figure~\ref{het:fig:iodchunkcomp}). The origin of this difference in
-\chisq\ does not seem to rise from a signal-to-noise difference in the
-spectra (Figure~\ref{het:fig:checksnr}).
+It is very easy to imagine that inprecise and inaccurate IP modeling
+could be the bottleneck for improving \het's RV precision. The ability
+to capture the shape of the IP and {\em its changes} larges determines
+how well the RV spectra are fitted, and thus how precisely the Doppler
+shift is measured. The 3-4~m/s precision on HD 185144 we obtained was
+the results of an ``out of the box'' reduction -- we had only modified
+the CPS Doppler code to the point where it could chew on \het\ data,
+but we had not yet put in any efforts to tune it for \het. The first
+step of such tuning would be to find a better IP.
 
 
 %----------------------------------------------------------------
@@ -38,6 +38,19 @@ spectra (Figure~\ref{het:fig:checksnr}).
 \end{figure}
 %----------------------------------------------------------------
 
+
+How well the IP is being modeled can be tested by fitting an pure
+iodine spectrum taken by the spectrograph
+(Figure~\ref{het:fig:convkernel}), with the continuum source being
+either a lamp or a (mostly) line-free B star. Such spectra are often
+referred to as the iodine spectra (or frames or flats), or the B star
+iodine spectra. The typical $\chi_\nu^2$ value that we obtain for
+fitting \het\ iodine spectra with a generic IP model (Gauss-Hermite
+polynomials) is about 2-5, while for Keck/HIRES, the \chisq\ value is
+typically around 1 (Figure~\ref{het:fig:iodchunkcomp}). The origin of
+this difference in \chisq\ does not seem to rise from a
+signal-to-noise difference in the spectra
+(Figure~\ref{het:fig:checksnr}).
 
 
 %----------------------------------------------------------------
@@ -85,7 +98,7 @@ spectra (Figure~\ref{het:fig:checksnr}).
 The current ``go-to'' IP model for \hrs\ is the very versatile,
 orthogonal, 11-parameter Gauss-Hermite polynomials (GH), which was
 desribed in Chapter~\ref{chap:doppler}. Another customized IP for
-\het\ was tried out by CPS, which was the sum of Gaussians, similar to
+\het\ was tried out by CPS using the sum of Gaussians, the same as
 the one used for \keck\ but having the wings at different locations
 with different default widths. The two IPs basically perform at a
 similar level, with GH being slightly better
@@ -115,19 +128,20 @@ to be ``equally bad''.
 %----------------------------------------------------------------
 
 
-We then looked at the Fourier space to see if that could provide some
-clue. Figure~\ref{het:fig:fftip} plots the Fourier transform power
-spectrum of the \het\ data (for the entire $\sim$1000\AA\ 1-D
-extracted spectrum used for precise-RV purposes; with \keck\ data
-also plotted for comparison). At high frequency in Fourier space, or
-shorter periods in pixel space, i.e.\ on small scales, the power
-spectrum is dominated by the signature of the IP. A ``null'' in the
-power spectrum at 4.3 pixel is clearly visible, which suggests some
-sort of sharp feature, and indeed, it exactly corresponds to the slit
-width of \het\ at a resolution of R $=$ 60,000. This feature is a
-direct result of the fact that HRS has the slit in front of a round
-fiber, creating some what a sharp feature in its IP, unlike the
-slit-fed \keck. 
+We then looked for clues in the Fourier space:
+Figure~\ref{het:fig:fftip} plots the Fourier transform power spectrum
+of the \het\ data (using the {\it fft} procedure in IDL) for the
+entire $\sim$1000\AA\ 1-D extracted spectrum used for precise-RV
+purposes; with \keck\ data also plotted for comparison). At high
+frequency in Fourier space, or shorter periods in pixel space, i.e.\
+on small scales, the power spectrum is dominated by the signature of
+the IP. A ``null'' in the power spectrum at 4.3 pixel is clearly
+visible, which suggests some sort of sharp feature, and indeed, it
+exactly corresponds to the slit width of \het\ projected onto the
+detector at a resolution of R $=$ 60,000. This feature is a direct
+result of the fact that HRS has the slit in front of a round fiber,
+creating some what a sharp feature in its IP, unlike the slit-fed
+\keck.
 
 
 %----------------------------------------------------------------
@@ -137,7 +151,7 @@ slit-fed \keck.
 % original plot is from ~/Exo../HET.../06-line.../powspec.pro and stored in ./plots/
 \begin{figure}
 \centering
-\includegraphics[scale=0.45]{het/fftip.eps}
+\includegraphics[scale=0.35]{het/fftip.eps}
 \caption{Fourier transform or power spectrum of a \het\ iodine-only
   spectrum (black dots) and its smoothed version (blue line). There is
   a clear signature of the \het\ slit at 4.3 pixel (corresponding to
@@ -188,30 +202,47 @@ next section.
 %----------------------------------------------------------------
 
 
+Besides the problem with the iodine atlas, which fundamentally
+prevents us from finding a precise IP, we know for sure that the GH
+function does not work very well. We have two lines of evidence
+supporting this statement. The first one is that the GH IP performs
+terribly on \keck\ data because the L-M least-\chisq\ fitter has
+trouble converging (unless fine-tuned and informed from previous fits
+using sum of Gaussians; \citealt{2013AAS...22114908V}). The second
+piece of evidence is that we tried to fit GH to unsaturated ThAr lines
+in \het\ calibration frames, and it often fails to converge onto a
+good fit the ThAr line. 
 
-To end this section with a positive note, we present a promising lead
-for a better IP function for \hrs, the modified Moffat function:
+To end this section with a somewhat positive note, we present a
+promising lead for a better IP function for \hrs, the modified Moffat
+function:
 \begin{equation}
 [1+(x/\theta)^2]^{-\beta\cdot(x/\delta)^2}
 \end{equation} 
 It is called the ``modified" Moffat function because the original
 Moffat function does not have the $(x/\delta)^2$ term. We added this
-term to add flexibility at the wings to enable change of characteristic
-IP width while preserving wing profile. Figure~\ref{het:fig:moffat}
-illustrates the results using the modified Moffat fitting a ThAr line
-(insert), and also the $\chi^2_\nu$ distribution of all spectral
-chunks for this new IP compared with the GH IP. 
+term to add flexibility at the wings to enable change of
+characteristic IP width while preserving wing
+profile. Figure~\ref{het:fig:moffat} illustrates the results using the
+modified Moffat fitting a ThAr line (insert), and also the
+$\chi^2_\nu$ distribution of all spectral chunks for this new IP
+compared with the GH IP. Unfortunately, the modified Moffat function
+does not always fit a ThAr line (starting with uninformative initial
+guesses), so it faces the same problem as GH. However, it only has
+four parameters and they are mostly ``physically meaningful''. For
+example, one can imagine that the $\theta$ parameter describes some
+characteristic width. This makes this function easier to work with than
+GH.
 
-This modified Moffat function is potentially applicable to other
-fiber-fed instruments, since these instruments tend to have IPs with
-the same characteristic flat top and sharp wings.
-
-One can image getting a better fit by adding small perturbation terms to the
-modified Moffat IP to account for IP asymmetry and subtle wings due to
-scattered light. However, getting a better fit to the iodine lines means
-disentangling the effects of a bad IP model and a ``bad iodine atlas''
-or modeling a changing cell, which could be challenging.
-
+One can image getting a better fit by adding small perturbation terms
+to the modified Moffat IP to account for asymmetries and subtle wings
+due to scattered light. Moreover, the modified Moffat function is
+potentially applicable to other fiber-fed instruments, since such
+instruments are likely to have IPs with the same characteristic flat
+top and sharp wings. We hope to continue this effort after the iodine
+atlas problem is resolved (see next section) and carry on this
+knowledge to other projects such as the new HRS and MINERVA
+(Chapter~\ref{chap:conclusion}).
 
 
 %----------------------------------------------------------------

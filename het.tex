@@ -6,6 +6,8 @@
 
 This is about HET/HRS. This will have introduction to HET and HRS.
 
+make sure to mention set up of slit in front of the fiber.
+
 Motivation behinding using HRS, including its advantages, such as
 queque schedule and fiber feed. However, it never performed on 1-2~m/s
 level in terms of RV precision like \keck.
@@ -14,7 +16,8 @@ Temperature stability in the spectrograph room of \hrs\ was identified
 early on as one of the contributing factors to the RV systematic
 errors, and this issue was resolved since the installation of a fine
 temperature control system in March 2008 (J.~Bean, L.~Ramsey,
-P.~McQueen private communications). We confirmed the improvement in RV
+P.~McQueen private communications). The temperature fluctuation is now
+controlled down to $\ll$1~K from 10~K. We confirmed the improvement in RV
 precision as a result of this upgrade in our analysis with the HD
 37605 data, which is illustrated in the lower panel of
 Figure~\ref{het:fig:tempstable}. The RMS of \hrs\ velocities with
@@ -56,7 +59,7 @@ describes our efforts in validating the iodine cell Fourier Transform
 Spectrometer (FTS) scans for \het\ and our investigation on the
 plausible changes in cell properties.
 
-
+Show a sig Dra RV plot.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adoption of REDUCE and the CPS Doppler Code for HET/HRS}\label{het:sec:pipeline}
@@ -77,6 +80,26 @@ the code to recognize \het\ images, to work with our local file
 structures, and to be able to produce DSST locally using \het\ data
 (instead of using \keck\ DSST like we did initially, which does not
 produce RVs as precise as using \het\ DSSTs).
+
+%----------------------------------------------------------------
+% Comparing Keck and HET IPs in Fourier space
+% plot from screen shot of a slide in
+% ~/ExoPlanet-2010-2011/Professional_Development/20150727-ThesisCommMeet/
+% original plot is from ~/Exo../HET.../06-line.../powspec.pro and stored in ./plots/
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{het/fftip.eps}
+\caption{Fourier transform or power spectrum of a \het\ iodine-only
+  spectrum (black dots) and its smoothed version (blue line). There is
+  a clear signature of the \het\ slit at 4.3 pixel (corresponding to
+  slit width for resolution R $=$ 60k). For comparison, the red curve
+  is for \keck\ data, which shows no clear signiture of a slit,
+  because \keck\ is not fiber-fed and the PSF of the star falls mostly
+  within its slit.
+\label{het:fig:fftip}}
+\end{figure}
+%----------------------------------------------------------------
+
 
 
 
@@ -100,17 +123,23 @@ produce RVs as precise as using \het\ DSSTs).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion and Future Work}\label{het:sec:conclusion}
  
+To summarize, we think that two of the major drivers behind \het's RV
+systematic errors are {\em temperature issues with the iodine
+cell (or inaccurate iodine atlas which fails to capture such changes)
+and inaccurate modeling of the IPs}. 
+
 Overall, the \het\ spectra exhibit more changes than the \keck\
-spectra, which probably makes it harder to model
-(Figure~\ref{het:fig:chunkvary}). These variations may be due to
-temperature changes in the cell or spectrograph changes such as IP
-changes. Great care must be taken to minimize any changes in the
-iodine cell or spectrograph performance. For example, standard CPS
-\keck\ observations are preceded with a series of procedures which
-ensures that (1) the spectrograph is very well focused and (2) the
-wavelength solution for the CCD chip stays roughly the same, i.e., the
-ThAr lines always land on the same pixels. \het\ does not perform
-these procedures, to the best of our knowledge.
+spectra, which probably makes it harder to model and leads to its
+large RV systematic error (Figure~\ref{het:fig:chunkvary}). These
+variations may be due to temperature changes in the cell or
+spectrograph changes such as IP or focus changes. Precise Doppler
+spectroscopy requires great care to minimize any changes in the iodine
+cell and spectrograph performance. For example, standard CPS \keck\
+observations are preceded with a series of procedures which ensures
+that (1) the spectrograph is very well focused and (2) the wavelength
+solution for the CCD chip stays roughly the same, i.e., the ThAr lines
+always land on the same pixels. \het\ does not perform these
+procedures, to the best of our knowledge.
 
 %----------------------------------------------------------------
 % Chunk pixel flux variation comparison between Keck and HET
@@ -138,14 +167,6 @@ variation in both line centers/continuum and line wings than \keck.
 \label{het:fig:chunkvary}}
 \end{figure}
 %----------------------------------------------------------------
-
-To summarize, we think that two of the major drivers behind \het's RV
-systematic errors are {\em temperature issues with the iodine
-cell (or inaccurate iodine atlas which fails to capture such changes)
-and inaccurate modeling of the IPs}. We have laid foundations for
-solving these two problems, and it is promising that future work may
-bring the $>$10-year worth of \het\ archival RV data to a higher RV
-precision, hopefully much similar to \keck's.
 
 Our adventure in improving the RV precision of \het, though incomplete
 and sometimes inconclusive so far, have taught us several important
@@ -194,10 +215,12 @@ controller for the \het\ used in our TS12 observations are the ones
 for the new \het, which is troubling.} is crucial for the upgraded
 \het.
 
-{\bf (2) Finding a better IP function:} This can be first done
-through fitting ThAr frames, and then tested via fitting B star $+$
-iodine frames, which would be a much easier task for observations
-with pre-determined iodine cell temperature.
+{\bf (2) Finding a better IP function:} This can be first done through
+fitting ThAr frames, and then tested via fitting B star $+$ iodine
+frames, which would be a much easier task for observations with
+pre-determined iodine cell temperature. We plan to continue to explore
+possibilities with the modified Moffat function by adding
+perturbations and providing good initial guesses.
 
 {\bf (3) Examining the spectral data for modal noise or raw reduction
 errors:} We have taken day time engineering data before the HET
