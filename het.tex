@@ -59,48 +59,168 @@ describes our efforts in validating the iodine cell Fourier Transform
 Spectrometer (FTS) scans for \het\ and our investigation on the
 plausible changes in cell properties.
 
-Show a sig Dra RV plot.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Adoption of REDUCE and the CPS Doppler Code for HET/HRS}\label{het:sec:pipeline}
+\section{Adoption of REDUCE and the CPS Doppler Code for
+  HET/HRS}\label{het:sec:pipeline} 
 
-What we did to modify REDUCE and the CPS Doppler code to get HET working.
+We built a data reduction pipeline for \het\ that performs automatic
+raw spectral data reduction and RV extraction for any target star or
+HET observing program.
 
-We modified the REDUCE reduction routines built by Dr.\ Sara Gettle
-and Dr.\ Steve Bongiono for raw spectral data reduction. The most
-important modification was to automate the routine for tracing the
-echelle orders on the spectral image, which used to require
-human-intervention (i.e., clicking on the echelle orders to help the
-code recognize the traces). I also wrote wrapper routines to automate
-patch reduction for \het\ observation programs or any single target
-star.
+The first part of our data pipeline is the raw reduction code, which
+reduces the raw spectral images with calibration frames and produces
+FITS files containing the extracted 1-D spectrum for each spectral
+order.  We adopted the REDUCE reduction package by
+\cite{2002A&A...385.1095P}. Sarah Gettel and Steve Bongiorno did the
+initial adoption of the REDUCE package for reducing \het\ data. It
+involved much parameter tuning with the original package to make this
+optimal extraction code, which was designed for slit-fed spectrometer
+like \keck\ and Lick/Hamilton, to work with the fiber-fed HRS data.
+The most important modification we did was to automate the routine for
+tracing the echelle orders on the spectral image, which used to
+require human-intervention (i.e., clicking on the echelle orders to
+help the code recognize the traces). Capitalize on the fact that the
+shape of the order traces do not change significantly across time, we
+use a set of previously fit polynomials that describe the trace
+positions and shift them to match the traces on the raw image via
+cross correlation. We also wrote wrapper routines to automate patch
+reduction for \het\ observation programs or any single target star.
 
-In terms of adapting the CPS Doppler code, it was mostly for training
+The second part of our data pipeline is the code that extracts RVs
+from the 1-D spectral data. We adopted the CPS Doppler code, which is
+documented in Chapter~\ref{chap:doppler}. The adoption process mostly
+involved bookkeeping and code debugging works to make sure it could
+run on Penn State Astronomy network machines, to train
 the code to recognize \het\ images, to work with our local file
 structures, and to be able to produce DSST locally using \het\ data
 (instead of using \keck\ DSST like we did initially, which does not
-produce RVs as precise as using \het\ DSSTs).
+produce RVs as precise as using \het\ DSSTs). 
+
+In the spirit of making it easier for any future CPS code adopters, we
+document the requirements and procedures for making such an adoption
+below. Many of these procedures would not make sense to someone who
+has not handled the CPS Doppler code before, but they are tremendously
+time-saving for anyone who wants to use the CPS code to extract RVs
+from their own spectra.\\
+
+{\bf Required files for Doppler reduction:}
+\begin{itemize}
+\item Reduced, extracted 1-D spectra with both iodine and stellar
+  lines. The 2-D matrix holding the 1-D spectra in each order should
+  have the format {\tt matrix[pixel, order]}.
+\item A log file which lists: observation ID, target of the
+  observation, JD, barycentric velocity correction for the target for
+  the observation, and nature of the observation (iodine cell in light
+  path?). The default log file should be in the {\tt /bary/} folder but
+  it can be customized via keywords of {\tt dop\_driver.pro}.
+\item A {\tt vd} example file (an IDL save file) which contains an
+  example {\tt vd} structure for the spectrograph. The {\tt vd}
+  structure also contains definition for spectral chunks, i.e.\ their
+  orders and starting and ending pixels. It also contains first guesses
+  for the parameters for each chunk (most importantly, a rough
+  wavelength solution which must be good within 20 pixels). This should
+  be in the {\tt /files/} folder.
+\item An IPGUESS file (IDL save file) with the structure {\tt
+    ipguess}, which contains the JD and file names for the {\tt vd} files
+  to be used as first guesses of parameters. The {\tt ipguess} structure
+  must contain at least one {\tt vd} file entry, and very often it has
+  many entries so that the code can pick the most recent one. This
+  should be in the same folder as the Doppler code.
+\item A DSST file (IDL save file) with the {\tt DSST} structure, which
+  contains the DSST spectrum in chunks, and the definition of chunks
+  must be consistent with the example {\tt vd} structure. This should be
+  in the {\tt /files/} folder.
+\end{itemize}
+
+{\bf List of routines to modify:}
+\begin{itemize}
+\item {\tt dop\_driver.pro}
+  \begin{itemize}
+    \item Add a keyword to distinguish runs for your instrument, e.g.,
+      ``het=het'' for \het\ reductions.
+    \item Add codes to define necessary data paths near line 124.
+    \item Add a line near line 406 so that the code recognize the
+      first two characters in your observation name, which will be used as
+      an identifier for your instrument. For example, the \het\ observations
+      are named as ``20160101.00001'', so the identifier for \het\ data is
+      ``20'' (it is ``rj'' for post-detector upgrade \keck\ data).
+    \item If you want the sum of Gaussians IP for your instrument,
+      add this option near line 75.
+  \end{itemize}
+\item {\tt crank.pro} Near line 164, add instrument setups such as
+  data paths.
+\item {\tt rdsi.pro} Add option ({\tt tp eq '20'} for \het) for
+  reading in the spectral data for your instrument.
+\item {\tt chip.pro} Add gain value for your detector, even if your
+  reduced spectra are gain-corrected already (then just have {\tt gain =
+    1}).
+\item {\tt vdcube.pro} Define the {\tt highcts} near line 120 for your
+  detector, which defines the saturation threshold for your CCD and such
+  observations will be disregarded during vanking. Also add your
+  customized {\tt /files/} path in the code near line 168.
+\item {\tt rdhbcvel.pro} At the beginning, make sure this code knows
+  that it is handling data specific to your instrument (using, for
+  example, the name of your log file as identifier). Then near line 80,
+  you want to define a full file name for your reduced 1-D spectra based
+  on the observation ID.
+\item Making your own DSST? {\tt
+    /rv/deconv/deconvolve\_stellar\_template.pro} contains the code to
+  make DSST using \het\ data. A quick walk through {\tt
+    make\_dsst\_keck\_psu.pro} and compare it with {\tt make\_dsst.pro}
+  will also tell you how to modify {\tt make\_dsst.pro} to make it work
+  for your template observations.
+\end{itemize}
+
+There could be other ad hoc places that need to be modified to
+accommodate your customized 1-D spectrum format. For example, around
+line 523 in {\tt stargrind.pro}, the code defines a lower boundary for
+wavelength at 5000\AA, which is completely arbitrary, and the user may
+need to modify this to accommodate any orders bluer than 5000\AA. Or,
+if you are using sum of Gaussians as your IP model, you want to modify
+{\tt getpsf.pro} for customized positions and widths for your
+satellite Gaussians.
+
+A typical call to run the Doppler code looks like this:\\
+{\tt
+  dop\_driver,'target.star.name','your.short.tag',dsstname='file name
+  of your DSST',\\
+dsstobnm='observation name of your DSST',/gh,/vank,/noprint,/het, \\
+tag='your.long.tag'
+} \\ 
+The previous chapter is a general documentation of how the CPS Doppler
+code works. Other useful documentation for the code are in the {\tt /doc/}
+folder.
+
+After we completed our data pipeline, we immediately reduced the data
+on HD 185144, which is a favorite RV standard at both Keck and HET and
+also many other precise RV facilities. The results, plotted in
+Figure~\ref{het:fig:sigdra}, were very encouraging -- a 3-4 m/s
+precision {\em out of the box}, without any tuning of the Doppler
+code. It is also found out later that the RVs produced using the \het\
+DSST are better than the ones with \keck\ DSST, possibly because the
+errors in the deconvolution and the forward modeling (convolution)
+would cancel out if the DSST and star$+$iodine data come from the same
+telescope, which is a folklore among the iodine precise RV artists.
 
 %----------------------------------------------------------------
-% Comparing Keck and HET IPs in Fourier space
-% plot from screen shot of a slide in
-% ~/ExoPlanet-2010-2011/Professional_Development/20150727-ThesisCommMeet/
-% original plot is from ~/Exo../HET.../06-line.../powspec.pro and stored in ./plots/
+% HET sig dra RV data, Keck DSST vs. HET DSST
+% plot made by ~/Ex../Professional.../201305-HET_propo../plots/*.pro
+% and saved therein
 \begin{figure}
 \centering
-\includegraphics[scale=0.35]{het/fftip.eps}
-\caption{Fourier transform or power spectrum of a \het\ iodine-only
-  spectrum (black dots) and its smoothed version (blue line). There is
-  a clear signature of the \het\ slit at 4.3 pixel (corresponding to
-  slit width for resolution R $=$ 60k). For comparison, the red curve
-  is for \keck\ data, which shows no clear signiture of a slit,
-  because \keck\ is not fiber-fed and the PSF of the star falls mostly
-  within its slit.
-\label{het:fig:fftip}}
+\includegraphics[scale=0.3]{het/sigdra.eps}
+\caption{RV time series on HD 185144 as observed by \het\ and reduced
+  by our data pipeline. The left panel shows RVs extracted using the
+  Keck HD 185144 DSST, and the right panel shows RVs with DSST derived
+  using \het\ data and the CPS code we adopted.
+\label{het:fig:sigdra}}
 \end{figure}
 %----------------------------------------------------------------
 
-
+The typical \keck\ RV RMS on HD 185144 is about 2.57~m/s. Our mission
+is to find out if and how we can bring the RV precision of \het\ to
+the level of \keck.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
