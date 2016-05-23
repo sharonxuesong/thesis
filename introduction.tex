@@ -1,26 +1,226 @@
 \chapter{Introduction}
 
+\begin{quote}
+``There are infinite worlds both like and unlike this world of
+ours. For the atoms being infinite in number, as was already proven,
+...there nowhere exists an obstacle to the infinite number of worlds.''
+\end{quote}
+\hfill Epicurus ($\sim$341-270 B.C.)
+
+\begin{comment}
+\begin{quote}
+``This space we declare to be infinite... In it are an infinity of
+worlds of the same kind as our own.''
+\end{quote}
+\hfill Giordano Bruno, {\it On the Inifinite Universe and Worlds} (1584)
+\end{comment}
+
+\begin{quote}
+``How vast those Orbs must be, and how inconsiderable this Earth, the
+Theatre upon which all our mighty Designs, all our Navigations, and
+all our Wars are transacted, is when compared to them.''
+\end{quote}
+\hfill Christiaan Huygens, {\it Cosmotheoros} (1698)
+
+\begin{quote}
+``Of all of the topics of study in astronomy, exoplanets hold a
+special place in the imagination. More than stars, nebulae, or
+galaxies, they are {\it places}, ...''
+\end{quote}
+\hfill \cite{2006PhDT.........8W}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{On Detecting New Worlds}
-The detection of extra-solar planets (exoplanets). What was conjured.
-What was claimed early on and disputed. The first pulsar planets using timing.
 
-The first exoplanets around main-sequence stars were discovered by the
-radial velocity (RV) method, where precise Doppler spectroscopy
-measures the wavelength shift of the host stars induced by the
-gravitational pull of the planets \citep{1988ApJ...331..902C,
-  1989Natur.339...38L, 1993ApJ...413..339H, 1995Natur.378..355M,
-  1996ApJ...464L.153B}. Since then, the RV method has discovered
-hundreds of planetary systems (see exoplanets.org; \citealt{eod2014})
-and contributed to numerous confirmation and characterization of
-exoplanets discovered by the transit method (e.g., for
-\kepler\ follow-up observations; \citealt{Marcy2014}).
+Even before human beings realized that other stars are like our Sun,
+the existence of other worlds have been speculated by ancient greek
+philosophers such as Epicurus and Democritus. In the blooming age of
+astronomy in the 1400s and 1600s, early pioneers such as Giordano
+Bruno and Christiaan Huygens have also pondered upon the existence of
+planets around other stars (extra-solar planets, or
+exoplanets).\footnote{In fact, Huygens conducted the first documented
+search on exoplanets. For more on the history of exoplanet searches,
+see these three websites:\\ The NASA PlanetQuest,
+http://www.nasa.gov/externalflash/PQTimeline/; \\ Search for
+Exoplanets, http://www.hao.ucar.edu/research/stare/search.html; \\
+ESO,
+https://www.eso.org/public/outreach/eduoff/cas/cas2004/casreports-2004/rep-228/. }
+In modern times, 40 years before the discovery of the first exoplanet,
+Otto Struve stated that exoplanets, especially ``super-Jupiters'' on
+short orbits, should be detectable via spectroscopy and photometry
+\citep{1952Obs....72..199S}.
 
-Later on, transit detections and micro-lensing detections. See review
-by Wright and Gaudi for more.
+Unfortunately, the earliest claims of exoplanet detections before
+1980s all turned out to be erroneous \citep{1855MNRAS..15..228J,
+1969AJ.....74..757V}. These and a later retracted claim of a planet
+around a pulsar by \cite{1991Natur.352..311B} made all astronomers
+extremely cautious about exoplanet detection claims. In 1988,
+Campbell, Walker and Yang announced potential planetary signal from
+the star Gamma Cephei, but they were hesitant in calling it a
+detection due to limitations of early instruments. Their detection
+method was to measure the radial velocity (RV) variation of the star
+using precise Doppler spectroscopy, which is described in the next
+section and is also the theme of this thesis.  It was not until 2003
+that the planet around $\gamma$ Cephei A was confirmed
+\citep{2003ApJ...599.1383H}, which made the work of
+\cite{1988ApJ...331..902C} the first exoplanet detection. The
+detection of HD 114762b (``Latham Planet'';
+\citealt{1989Natur.339...38L}) also belongs to the family of first
+exoplanet detections, though the planet was thought to be a brown
+dwarf at the time due to its large mass. A similar story to $\gamma$
+Cephei Ab is the discovery of $\beta$ Gemini b
+\citep{1993ApJ...413..339H}, where the existence of the planet was not
+confirmed until 2006 \citep{2006A&A...457..335H} because of the strong
+activity-induced RV signals of the giant host star.\footnote{See
+  Chapter 4 of \cite{2013pss3.book..489W} for a more detailed history
+  on these early detections.} 
 
-What is the landscape for planet detection today and in the near
-future. How RV fits in. 
+The more commonly recognized first detection of exoplanets belongs to
+\cite{1993ApJ...413..339H}, who reported two planets around the pulsar
+PSR B1257$+$12, detected via the pulsar timing method using radio data
+(later on it turned out this system hosts one more planet). It was a
+surprising detection in many aspects, and these planets remains the
+only known planetary system around a pulsar to date (as of May
+2016). If exoplanets could exist around exotic stars like pulsars,
+then it is only natural to expect them to exist around more
+``regular'' main-sequence stars like our Sun.
+
+Finally, in 1995, a team in Geneva announced the first definitive
+detection of a planet around a main-sequence star, 51 Peg b
+\citep{1995Natur.378..355M}. Their results were quickly confirmed by
+other planet hunters such as Geoffrey W.\ Marcy and R.\ Paul Butler,
+who quickly caught up with the game \citep{1996ApJ...464L.153B} and
+went on to detect more than half of the hundreds of known exoplanets
+up until the launch of NASA's \kepler\ mission
+\cite{2010Sci...327..977B}. The method adopted by
+\cite{1995Natur.378..355M} and \cite{1996ApJ...464L.153B} was again
+precise Doppler spectroscopy. Today, there are over 585 exoplanets
+discovered by precise Doppler spectroscopy. The discoveries by precise
+Doppler spectroscopy that happened beyond this point is briefly
+accounted for in the next section. 
+
+Several years later, \cite{2000ApJ...529L..41H} and
+\cite{2000ApJ...529L..45C} detected the first exoplanet transiting
+event, where the planet moves in between the disk of the star and our
+line of sight periodically, leaving signals in the stellar light
+curves. This transiting planet, HD
+209458b, which was discovered via precise Doppler spectroscopy
+first. Nonetheless, this discovery opened up the age of ground-based
+transit, where projects such as OGLE, TrES, WASP, XO, and HAT etc.\ added
+more than 200 new exoplanet discoveries to date
+\citep{2003Natur.421..507K, 2004ApJ...613L.153A, 2006MNRAS.372.1117C,
+  2006ApJ...648.1228M, 2007ApJ...656..552B}. 
+
+In 2009, the discovery of exoplanets entered a new era with the launch
+of NASA's \kepler\ satellite, which is a dedicated space mission to
+detect transiting exoplanets. This extremely fruitful mission has made
+new exoplanet discoveries in the counts of thousands
+\citep{2014ApJ...784...45R, 2016ApJ...822...86M}, with over 2000 more
+planet candidates (see, e.g., NASA Exoplanet Archive for statistics on
+exoplanet discoveries). The science of exoplanets expanded from the
+philatelic style to including population and statistical studies which
+inform planet formation and evolution in powerful ways more than ever
+(e.g., \citealt{2013ApJ...766...81F} on occurrence rate and
+\citealt{2015arXiv150407557W} on composition distribution). As of May
+23 2016, there are 3268 confirmed exoplanets, to which the transit
+method contributed 2569 (585 discovered by Doppler spectroscopy).
+
+Besides using precise Doppler spectroscopy and transits, other methods
+have also made unique and important discoveries of exoplanets, as they
+probe different stellar population and are subject to different
+observational biases. \cite{2004ApJ...606L.155B} made the first
+micro-lensing detection of exoplanet, where planets acts as additional
+gravitational lenses beside their host star and leave characteristic
+signatures onto the light curves of the background star. There are 37
+exoplanets discovered via micro-lensing so far. Astronomers also
+directly detected light from young exoplanets around young stars via
+direct imaging, the first of which are Fomalhaut b
+\citep{2008Sci...322.1345K} and the four planets around HR 8799
+\citep{2008Sci...322.1348M}. Today, there are 41 directly imaged
+planets.
+
+More exoplanets around more diverse host stars are expected to be
+discovered in the near future, with many new missions and surveys
+being carried out, built, or planned. Post-2013, \kepler\ continued as
+the K2 mission (\kepler\ on two reaction wheels) and kept churning out
+planets (e.g., \citealt{2016ApJS..222...14V}). The Transiting
+Exoplanet Survey Satellite (TESS; \citealt{2014SPIE.9143E..20R};
+expected to launch in Summer 2017) will survey the whole sky,
+targeting nearby and bright stars, including the previously relatively
+unexplored population of M dwarf stars. There is no doubt that, once
+again, exoplanet discoveries will be made in counts of
+thousands. Ongoing surveys with the Gemini Planet Imager on Gemini
+South \citep{2014PNAS..11112661M} and the SPHERE instrument on the
+Very Large Telescope \citep{2008SPIE.7014E..18B} are populating
+exoplanets in a new parameter space (young stellar/planetary age and
+moderate to long orbital distances). The future for micro-lensing
+discoveries also remains bright as thousands of exoplanets are
+expected to be found by NASA's WFIRST-AFTA mission
+\citep{2014arXiv1409.2759Y}.
+
+Among all these exciting discoveries happening or on the horizon,
+precise Doppler spectroscopy continues to play an important role. It
+is the most important method for measuring planetary
+masses,\footnote{Planetary masses can also be measured via studies on
+the transit timing variations (TTVs) due to the dynamic interactions
+of multiple planets (e.g., \citealt{2016ApJ...820...39J}), but TTVs
+are only measurable for a small fraction of all transiting planets
+\citep{mazeh2013}. \cite{2013Sci...342.1473D} have also developed an
+innovative method to estimate planetary mass via transmission
+spectroscopy of the planetary atmosphere, but the method is
+model-dependent and requires a large amount of large-aperture space
+telescope time (e.g., hundreds of orbits of JWST).} and it will remain
+a crucial independent method for discovering new exoplanets (after
+all, only a small fraction of exoplanets happen to pass in between
+their host star and the Earth). The synergy between the \kepler\
+mission and the ground-based Doppler spectroscopy follow-ups has
+demonstrated the power of this new exoplanet discovery and
+characterization ``routine'', where RVs are presented as the
+convincing evidence for the planetary nature of the transit signal,
+and they also provide valuable information on the planetary masses and
+thus their bulk densities (e.g., \citealt{marcy2014}). Such
+measurements are crucial for mapping out the demographics of
+exoplanets. However, only a small fraction of \kepler\ targets have
+been followed up by Doppler spectroscopy, and the future discoveries
+of TESS will put an even higher demand on RV follow up (see, e.g.,
+a summary in \citealt{exopag2015}).
+
+Doppler spectroscopy also remains the most promising avenue for
+detecting Earth-like planet in the Habitable Zone
+\citep{1993Icar..101..108K, 2013ApJ...765..131K} in the near
+future. Figure~\ref{intro:fig:hz} illustrates the Habitable Zones for
+different types of stars and the discovery space that TESS will
+access, which does not include the Habitable Zone around Sun-like to
+early-M stars due to TESS's short lifespan. The next generation
+Doppler spectroscopy, with a RV precision of $<$0.5~m/s, bears great
+hope for detecting rocky or even Earth-like planets in the Habitable
+Zone. Can we fulfill such a great expectation? The next section
+focuses on the art of precise Doppler spectroscopy, on how we achieved
+the current precision of 1~m/s today, and on how the field will move
+on and aim for a RV precision of $\sim 10$~cm/s in the future.
+
+
+%----------------------------------------------------------------
+% stellar T vs. planet period, showing RV amplitude curves
+% plot provided by Paul Robertson, converted online to eps
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{introduction/habitable_zone.eps}
+\caption{Habitable Zone for stars with various effective temperature,
+  highlighted in blue (and red for the extended zone). Some known
+  planets in the Habitable Zone of their host stars are plotted, scaled
+  by their sizes. Solar system planets are also plotted and scaled by
+  size. The yellow and orange dashed vertical lines mark the discovery
+  space in terms of planetary periods that TESS is most sensitive
+  to. The white curves are equal-RV-amplitude lines, showing the
+  semi-amplitude of the RV signals induced by any hypothetical
+  Earth-mass planets on each curve. This plot is made by Chester Harman
+  and Ravi Kopparapu and kindly provided by Paul Robertson.
+\label{intro:fig:hz}}
+\end{figure}
+%----------------------------------------------------------------
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Art of Precise Doppler Spectroscopy}
@@ -44,6 +244,10 @@ contamination, and limitation in data analysis \citep{eprv2015}.
 
 Where is the field heading towards in the near future. Fischer et
 al. review, Plavchan NASA white paper. Future instruments.
+
+Future RV missions: MINERVA \cite{minerva}, HPF
+\cite{2012SPIE.8446E..1SM}, WIYN-NEID, etc.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Precise Doppler Spectroscopy with Iodine Cells as
