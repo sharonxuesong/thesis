@@ -240,29 +240,38 @@ wavelength calibration, where the spectral lines of the calibrator are
 blended with the stellar lines, such as the oxygen lines in the
 atmosphere or absorption lines of a gas cell in the light path. The
 other one is similar to the traditional approach of measuring RVs,
-where a known spectrum (e.g., from ThAr lamp) is taken before and/or
-after or simultaneously with the observed frame (but not interwoven
-with the stellar lines), and to obtain more precise RVs, the
-spectrometer is further stabilized to minimize changes in wavelength
-solution on the image plane.
+where a spectrum with known wavelength solution (e.g., from a ThAr
+lamp) is taken before and/or after or simultaneously with the observed
+frame (but not interwoven with the stellar lines), and to obtain more
+precise RVs, the spectrometer is further stabilized to minimize
+changes in wavelength solution on the image plane.
+
+%----------------------------------------------------------------
+% pictures of iodine and ThAr calibration methods
+% plots from DTM presentation 2015 talk tour, and converted into eps online
+\begin{figure}
+\centering
+\subfloat[ThAr-Calibrated HARPS Spectrum]{\includegraphics[scale=1]{introduction/thar.eps}}\
+\subfloat[Iodine Cell on Lick/Hamilton]{\includegraphics[scale=1]{introduction/iodine.eps}}
+\caption{{\bf (a)} A portion of a HARPS-S spectral image as an
+  example of ThAr calibrated spectrum. {\bf (b)} The Lick/Hamilton
+  iodine cell in front of its slit plate.
+\label{intro:fig:thar-iod}}
+\end{figure}
+%----------------------------------------------------------------
+
 
 The pioneer work by zzz Campbell et al. calibrated their wavelengths
-using an absorption gas cell. Their choice of gas was hydrogen
-fluoride (HF), which provides nice and clean and evenly (though
-sparsely) spaced absorption lines in the red optical band. They were
-able to achieve a stunning precision of 10-15~m/s back in the late
-1980s. Unfortunately, because of their small target sample of 20 giant
-stars, $\gamma$ Cephei Ab was the only planet found and only confirmed
-more than a decade later.
-
-The discovery of HD 114762$b$ by zzz Latham et al. at Harvard/CfA used
-the parallel calibration approach, where they used solar spectrum at
-dusk and down as calibrators. They later stabilized their spectrometer
-by employing strategies such as temperature stabilization and fiber
-feeds, which have now become the standard setup for future precise
-Doppler spectrometers. Their precision was about 100 m/s, but
-sufficient to robustly detect the 13 $\mjup$ hot Jupiter around HD
-114762.
+using an absorption gas cell filled with hydrogen fluoride (HF), which
+provides well-known and clean and evenly (though sparsely) spaced
+absorption lines in the red optical band. They were able to achieve a
+stunning precision of 10-15~m/s back in the late 1980s. The discovery
+of HD 114762$b$ by zzz Latham et al. at Harvard/CfA used the parallel
+calibration approach, where they used solar spectrum at dusk and down
+as calibrators. They later stabilized their spectrometer by employing
+strategies such as mechanical temperature stabilization for the
+spectrometer and fiber feeds and improved the precision to about 100
+m/s.
 
 The spectrometer Mayor and Queloz used to discover 51 Peg $b$ was
 ELODIE \citep{elodie}, which achieved 15 m/s thanks to its excellent
@@ -271,17 +280,18 @@ community continued along the path with parallel calibrators (with
 ThAr lamps in 4000-6900\AA) and stabilized spectrometers. More and
 more exoplanet discoveries are made with two successors of ELODIE:
 first CORALIE (1999), which achieved 2-7 m/s precision using
-simultaneous ThAr calibration in the spectral image, and later on
-HARPS-S (2004; \citealt{harps-s}), with its stunning stability of 1
-m/s enabled by its ultra-stabilized cryogenic enclosure. The European
-team later went on to build HARPS-N (2012; essentially a copy of
-HARPS-S, with a RV precision of 1 m/s) in collaboration with the
-Harvard/CfA group including David Latham.
+simultaneous ThAr calibration in the spectral image
+(Figure~\ref{intro:fig:thar-iod}), and later on HARPS-S (2004;
+\citealt{harps-s}), with its stunning stability of 1 m/s enabled by
+its ultra-stabilized cryogenic enclosure. The European team later went
+on to build HARPS-N (2012; essentially a copy of HARPS-S, with a RV
+precision of 1 m/s) in collaboration with the Harvard/CfA group
+including David Latham.
 
 Meanwhile across the ocean, in the early 1990s, Geoffrey Marcy and
 Paul Butler adopted the absorption gas cell approach and began their
 survey on nearby solar type stars. Their choice of gas cell was the
-iodine cell, which had dense and sharp absorption lines across the
+iodine cell (Figure~\ref{intro:fig:thar-iod}), which had dense and sharp absorption lines across the
 green part of the optical spectrum (5000-6200\AA), where it is also
 rich of stellar lines for solar type stars. They first began with the
 Hamilton spectrograph at Lick Observatory, which achieved 3-7 m/s zzz
@@ -385,20 +395,21 @@ existence of stellar activity induced signals zzz cite alpha cen.
 
 Here I have only briefly discussed each item, with the goal to present
 a broad picture of how precise Doppler spectroscopy works and provide
-a general background for the works in this thesis. For a more detailed
-description and summary of the status and the community's plans on
-breaching the 10 cm/s barrier, see \cite{exopag2015} and
-\cite{eprv2015}. A list of future precise Doppler spectrometers is
-presented in Table~1.2 zzz, and most of them have a target RV
-precision of below 50 m/s or even 10 cm/s.
+a general background for this thesis. For a more detailed description
+and summary of the status and the community's plans on breaching the
+10 cm/s barrier, see \cite{exopag2015} and \cite{eprv2015}. A list of
+future precise Doppler spectrometers is presented in Table~1.2 zzz,
+and most of them have a target RV precision of below 50 m/s or even 10
+cm/s.
 
 
 %----------------------------------------------------------------
-% stellar T vs. planet period, showing RV amplitude curves
-% plot provided by Paul Robertson, converted online to eps
+% RV K vs. year
+% plot generated on exoplanets.org and hand edited for 2015 postdoc proposals
+% copied over from ~/Jobs/plots/
 \begin{figure}
 \centering
-\includegraphics[scale=0.55]{introduction/family-big-carmenes.eps}
+\includegraphics[scale=0.32]{introduction/family-big-carmenes.eps}
 \caption{The RV semiamplitude $K$ of all RV-detected exoplanets
   vs. date of discovery. The planets are color- and size-coded according
   to their host star brightness. The RV precision has essentially
@@ -417,29 +428,74 @@ precision of below 50 m/s or even 10 cm/s.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Precise Doppler Spectroscopy with Iodine Cells as
-  Calibrators, and Outline for This Thesis} 
+  Calibrators, and an Outline for This Thesis} 
 
+Precise Doppler spectroscopy with iodine cells as calibrators has had
+a glorious past full of exciting discoveries, such as the first stars
+with multiple planets \citep{butler1999}, the first Earth-size
+Earth-mass planet \cite{howard2013, pepe2013}, and also the
+characterization of first sample of sub-Neptune and super-Earth
+planets (\citealt{marcy2014}) which enabled the first studies on the
+demographics of small exoplanets zzz. However, all future precise
+Doppler spectrometers are going to be ultra-stabilized and calibrated
+by laser combs with $<$1 m/s precision. How would
+iodine-calibrated Doppler spectrometers such as \het\ and \keck\ fit
+into the current and future pictures of precise RV?
 
+First, the iodine-calibrated method is a relatively cheap way of
+measuring RVs precisely at the 1-2 m/s level, because it does not
+require pairing with a ultra-stabilized spectrometer like HARPS. Even
+with the existence of Doppler spectrometers with $\sim$10 cm/s
+precision, instruments with 1 m/s precision will still have plenty of
+science to do such as RV follow up of transiting planets and
+asteroseismic studies (e.g., the SONG telescopes, zzz). 
 
+Second, iodine-calibrated instruments will stay competitive in the next
+3-5 years, especially during TESS era, because almost all 10-meter
+class telescopes will only have iodine-calibrated precise Doppler
+spectrometer (exceptions are HPF on HET and ESPRESSO on VLT in
+2017). There are several next-generation spectrometers being built or
+planned for large telescopes such as iLocator, MAROON-X, and SHREK
+(Table 1.2 zzz), but it is unlikely that they would be scientifically
+competitive during most of the TESS mission era. Large apertures are
+highly desirable for \kepler\ and TESS follow up. For example, HARPS-N
+can only target stars brighter than the 10$^{th}$ \kepler\ magnitude,
+while \keck\ can follow up an order of magnitude more (median
+brightness for \kepler\ stars is about 13-14 mag). As a result,
+majority of the \kepler\ RV follow up is done by \keck. Even for TESS,
+which primarily target ``bright'' stars, the median $V$ magnitude for
+Sun-like stars is actually below 11. It is of no doubt that
+\het\ and \keck\ will play an important role in TESS follow up.
 
-Much history in Paul Butler's personal account.
+Improving the precision of \het\ and \keck\ will enable more efficient
+follow up on TESS targets and also benefit the independent long-term
+RV surveys being carried out at HET and Keck. This is the goal of this
+thesis. Improving the precision of the fiber-fed \het\ also helps us
+to gain a better understanding on modeling fiber-fed instruments and
+to prepare for future ones such as MINERVA \citep{minerva}. The work
+in this thesis will also improve the RV precision on archival \het\
+and \keck\ data, which span over a decade -- the longest baseline in
+the history of precise Doppler spectroscopy. 
 
-Our work mostly deals with \het\ and \keck, who happen to only have
-iodine-calibrated precise RV instruments so far. Unfortunately this
-will remain true for a while in the near future too for all large
-telescopes. Getting the most out of the iodine calibration method is
-therefore meaningful. 
-
-Iodine method will remain relevant in the future too,
-because iodine is a relatively cheap way for getting precise RVs,
-which will be on high demand in the near future once TESS is
-launched. Study why and why not HET works will inform us about other
-iodine-calibrated instruments and current and future fiber-fed
-instruments. Study how we can improve Keck and generalize its methodology
-to other telescopes is important.
-
-The scope of this work mostly deals with data analysis, with the hope
-to diagnose problems and inform hardware builders, and also to improve
-the data analysis technique in order to measure RVs more precisely.
-
-introduction on \het\ and \keck\ will be in their chapters.
+The scope of this thesis is mostly on RV data analysis, including
+improving the data analysis tools and diagnosing hardware problems
+through data. Chapter~\ref{chap:doppler} contains the documentation on
+the software package I used for getting RVs out of \het\ and \keck\
+data, and it also serves as an introduction on extracting RVs from
+iodine-calibrated stellar spectra. Chapter~\ref{chap:het} and
+\ref{chap:keck} document my efforts in improving the RV precision of
+\het\ and \keck, respectively. The introduction sections in these two
+chapters contain more information on these two instruments and a
+general background on my work. Chapter~\ref{chap:boottran} and
+\ref{chap:planets} are from peer-reviewed, published
+papers. Chapter~\ref{chap:boottran} documents my work in
+characterizing exoplanet orbits using RV data, and
+Chapter~\ref{chap:planets} reports the discovery of HD 37605$c$, which
+is the first exoplanet discovered by the Wright
+group. Chapter~\ref{chap:conclusion} contains a brief summary of the
+findings in this thesis and a description of future directions beyond
+the ones mentioned in its preceding chapters, where the readers will
+see that the toolset built for this thesis and the lessons learned on
+how to model the stellar spectra precisely are valuable not only for
+iodine-calibrated data, but also for general future works on detecting
+new worlds using precise Doppler spectroscopy.
