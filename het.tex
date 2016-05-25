@@ -5,34 +5,56 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction and Background}
 
-{\bf Do not read this introduction section if you see this
-  sentence... Still under construction.}
+The Hobby-Eberly Telescope (HET) is the world's fourth largest
+telescope (as of 2016) with a diameter of 9.2 meter (11 meter by 9.8
+meter). Its primary mirror is tilted at a fixed angle of 55$\degree$,
+which made the telescope extremely cost efficient. The telescope is
+located at Mount Fowlkes in West Texas and operated by the McDonald
+Observatory. It is a joint project of the University of Texas at Austin, the
+Pennsylvania State University, Stanford University, Ludwig Maximilians
+Universit\"at M\"unchen, and Georg August Universit\"at G\"ottingen.
 
-This is about HET/HRS. This will have introduction to HET and HRS.
+Penn State has about a quarter share for the time on HET. The
+telescope is queque scheduled \citep{hetque2007}, which makes it
+highly efficient in pursuing observations in time series such as RV
+observation on exoplanet systems. Its precise Doppler capability is
+delivered by the High Resolution Spectrograph (HRS;
+\citealt{1998SPIE.3355..387T}), which is an echelle spectrograph with
+an iodine cell as the wavelength calibrator. The typical set up for
+precise RV purposes has a resolution of $R=60,000$ (sometimes
+120,000). The spectral image is captured by 2 CCDs, covering a spectral
+range of 4200-11000\AA. It is a fiber fed spectrograph, with choices
+of science and calibration fibers and slits with various widths
+placed at the fiber exit to provide higher resolutions.
 
-make sure to mention set up of slit in front of the fiber.
-
-Motivation behinding using HRS, including its advantages, such as
-queque schedule and fiber feed. However, it never performed on 1-2~m/s
-level in terms of RV precision like \keck.
-
-Should mention see 37605 in last chapter.
+The first planet discovered by \het\ is HD 37605$b$
+\citep{cochran2004}, and since then it has contributed to several
+detections of exoplanet systems (e.g.,
+\citealt{2007ApJ...665.1407C,2008IAUS..249...43N,2009ApJS..182...97W})
+and performed \kepler\ follow ups (e.g.,
+\citealt{2014ApJ...795..151E}). It has a RV precision of 3-5 m/s
+\citep{2009MNRAS.393..969B}, although in principle, it should have
+performed at the same level of \keck\ at 1-2 m/s and perhaps even
+better because of the additional stability provided by the fiber
+feed in comparison to the slit-fed \keck. What is behind the high RV
+systematic errors of \het? 
 
 Temperature stability in the spectrograph room of \hrs\ was identified
 early on as one of the contributing factors to the RV systematic
 errors, and this issue was resolved since the installation of a fine
 temperature control system in March 2008 (J.~Bean, L.~Ramsey,
 P.~McQueen private communications). The temperature fluctuation is now
-controlled down to $\ll$1~K from 10~K. We confirmed the improvement in RV
-precision as a result of this upgrade in our analysis with the HD
+controlled down to $\ll$1~K from 10~K. We confirmed the improvement in
+RV precision as a result of this upgrade in our analysis with the HD
 37605 data, which is illustrated in the lower panel of
 Figure~\ref{het:fig:tempstable}. The RMS of \hrs\ velocities with
 respect to the best Keplerian fit of the HD 37605 system is 9 m/s for
-data before March 2008, and it is reduced to 6 m/s for data
-afterwards. Such improvement is encouraging, and a closer look at the
-data and the intermediate products of the Doppler pipeline reveals
-even more potential contributors to the RV instability of \hrs, which
-is the theme of this chapter.
+data before March 2008, and it is reduced to 6 m/s for data afterwards
+(see Chapter~\ref{chap:planets} for more on the HD 37605 system). Such
+improvement is encouraging, and a closer look at the data and the
+intermediate products of the Doppler pipeline reveals even more
+potential contributors to the RV instability of \hrs, which is the
+theme of this chapter.
 
 
 %----------------------------------------------------------------
@@ -56,14 +78,13 @@ is the theme of this chapter.
 
 
 We set out to first construct a data reduction and RV extraction
-pipeline for \het, which is described in
-Section~\ref{het:sec:pipeline}. Then we tried to improve the precision
-by seeking out for a better instrumental profile (IP) model, i.e., a
-functional form that can bring good fit to \het\ data, which is
-documented in Section~\ref{het:sec:ip}. Section~\ref{het:sec:fts}
-describes our efforts in validating the iodine cell Fourier Transform
+pipeline for \het\ (Section~\ref{het:sec:pipeline}). Then we tried to
+improve the precision by seeking out for a better instrumental profile
+(IP) model, i.e., a functional form that can bring good fit to \het\
+data (Section~\ref{het:sec:ip}). Section~\ref{het:sec:fts} describes
+our efforts in validating the iodine cell Fourier Transform
 Spectrometer (FTS) scans for \het\ and our investigation on the
-plausible changes in cell properties.
+temperature change of the iodine cell.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
