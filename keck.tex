@@ -4,7 +4,85 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction and Background}
 
-This is about Keck/HIRES.
+The Keck telescopes are two 10-m telescopes on the mountain of Mauna
+Kea in Hawaii at the Keck Observatory, which is operated by the
+University of California and financially supported by the W.\ M.\ Keck
+Foundation. Precise Doppler observations are made through the HIRES
+spectrometer \citep{1994SPIE.2198..362V} on the Keck I telescope,
+which has a long and glorious history in exoplanet discoveries (see
+Chapter~\ref{chap:introduction}). Just like \het, the precise RV
+observations are calibrated by an iodine cell. The typical resolution
+for RV frames is chosen to be $R=55,000$ with the B5 decker on the
+slit plate, which is also tall enough to provide good sky subtraction
+(for more details, see \citealt{2009ApJ...696...75H} and
+\citealt{2009ApJ...702..989V}). \keck\ is known as the most precise RV
+instrument on a 10-meter class telescope, with a stunning long-term RV
+precision of 1-2 m/s.
+
+Penn State does not have any private share of \keck\ time, but we are
+part of the California Planet Survey group which regularly conducts RV
+surveys using \keck\ for about 30 nights a year or more (especially
+for \kepler\ follow-up programs). As a result, we have made joint
+discoveries using \keck\ and \het\ RVs (e.g.,
+Chapter~\ref{chap:planets}) and have access to all the data and
+extracted RVs on the standard stars such as HD 185144 and HD 10700.
+
+My work on \keck\ started by accident. As we were investigating the
+causes behind \het's RV systematics, we regularly compared \keck\
+performance on HD 185144 or iodine frames with \het. When we were
+looking into the quality of \het's iodine atlas and studying the
+potential effects of its ``wrong'' wavelength solution, I spotted a
+strong correlation between the RVs reported by a spectral chunk and
+its wavelength in the \keck\ data. The chunk RVs and their wavelengths
+seem to have a linear correlation whose slopes varied from observation
+to observation but with a zero point all anchored at around 5200\AA,
+with the redder region near 6000\AA\ exhibiting the largest
+scatter. My thesis advisor, Jason Wright, quickly suggested that this
+could be due to telluric lines in the spectrum, because there are more
+telluric lines in the red and the 5200\AA\ region is relatively free
+of tellurics. Indeed, we saw strong correlations between RVs and the
+barycentric velocity correction (BCs) -- a smoking gun signature for
+RV systematics -- for telluric contaminated chunks. Perhaps this is
+the culprit behind the long-known RV-BC correlation in the data of HD
+185144 (Figure~\ref{keck:fig:sigdra})? Hoping that eliminating this
+(more or less) long ignored spectral contamination source would bring
+visible improvements to \keck\ RV precision, we began our
+investigation on the effects of telluric contamination in \keck\ data,
+which subsequently lead to the other works in this
+Chapter.\footnote{As it later turned out, the correlation between the
+chunk RVs and wavelengths are neither due to telluric contamination
+nor the wavelength errors in the iodine atlas (though it could have
+such an effect, but hard to imagine at the magnitude we saw). It is
+purely because that I had chosen to perform a weighted least-$\chi^2$
+fit for the linear correlation between RVs and wavelengths, but I had
+used the wrong weights. Instead of using the weights empirically
+derived by vanking, I was using the analytical weights calulated
+following \ciute{butler1996}. Because there is no such real
+correlation between RVs and wavelengths, the ``correlation'' I saw or
+fitted for was merely reflecting the facts that there are more stellar
+lines in some region of the spectrum than others, and the region near
+5200\AA\ receives the highest weight.}
+ 
+%----------------------------------------------------------------
+% sig Dra RV BC
+% plot made by ~/Exo.../Keck/plots_general/basic_rv.pro and saved in basic_rv/
+\begin{figure}
+\centering
+\includegraphics[scale=0.32]{keck/185144_RV_BC.eps}
+\caption{\keck\ RV vs. BC for HD 185144, an RV standard star. The
+strong correlation between velocities and the barycentric velocity of
+the star indicates RV systematic errors that are not intrinsic to the
+star. This is because the barycentric motion of the Earth is the
+dominant source of redshifts of stellar lines as Earth moves at a
+large speed of up to 30 km/s relative to the star. As the stellar
+lines move back and forth annually through the iodine lines, any
+systematic errors will manifest as correlations between RV and BC.
+\label{keck:fig:sigdra}}
+\end{figure}
+%----------------------------------------------------------------
+
+The data we used for this Chapter are kindly provided by the CPS
+group, in particular, Andrew Howard and Howard Isaacson. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
