@@ -62,14 +62,13 @@ on the valuable successful parts of the CPS code over, and more
 importantly, built to be highly modular and thus easy to adopt for
 other instruments or to plug in modern numerical and statistical
 tools. It employs advanced statistical and numerical tools such as a
-MCMC algorithm for Bayesian statistics and Gaussian processes
-(Figure~\ref{fig:newrv2}), which will model the correlated noise
-originated from a complex blaze function, normalization issues, CCD
-effects, telluric line modeling residuals, imperfect deconvolved
-stellar spectrum, and so on (see, e.g., \citealt{starfish} and Daniel
-Foreman-Mackey's {\it george} package). The preliminary result from
-this code (fitting for a spectral chunk) is shown in
-Figure~\ref{conclusion:fig:mcmc}.
+MCMC algorithm for Bayesian statistics and Gaussian processes, which
+will model the correlated noise originated from a complex blaze
+function, normalization issues, CCD effects, telluric line modeling
+residuals, imperfect deconvolved stellar spectrum, and so on (see,
+e.g., \citealt{starfish} and Daniel Foreman-Mackey's {\it george}
+package). The preliminary result from this code (fitting for a
+spectral chunk) is shown in Figure~\ref{conclusion:fig:mcmc}.
 
 
 %----------------------------------------------------------------
@@ -80,9 +79,9 @@ Figure~\ref{conclusion:fig:mcmc}.
 \centering
 \includegraphics[scale=0.25]{conclusion/mcmcplot-labeled.eps}
 \caption{Initial result from the new Doppler pipeline: 1-D and 2-D
-  marginalized posterior distribution for 5 parameters (out of 17)
-  in a fit for a 2\AA\ spectral chunk. 
-\label{conclusion:fig:mcmc}}
+  marginalized posterior distribution for 5 parameters (out of 17,
+  including two for Gaussian processes) in a fit for a 2\AA\ spectral
+  chunk.\label{conclusion:fig:mcmc}}
 \end{figure}
 %----------------------------------------------------------------
 
