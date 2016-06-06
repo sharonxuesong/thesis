@@ -1,0 +1,23 @@
+General Thesis Comments
+
+
+-----------------------------
+Larry
+2016/6/6
+
+Talk to Paul about HRS.
+- a lot of things will affect the IPs.
+- they change a lot of things: the position of the iodine cell might have changed, which could affect the stability and precision.
+- partial mirror illumination might have worked to their advantage because they didn't have a scrambler before.
+
+
+-----------------------------
+Paul Robertson
+2016/6/6
+
+hypothesis for the partial mirror 1 m/s:
+telescope pupil change -> spot in fiber changes -> pupil fill more at center -> dodging edge of the pupil and thus camera defects at the edge -> better precision.
+
+
+-----------------------------
+Suvrath
