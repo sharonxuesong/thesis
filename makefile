@@ -4,9 +4,9 @@ TEX = latex
 BIBTEX = bibtex
 DVIPDF = dvipdf
 
-.PHONY: all clean public
+.PHONY: all clean public pdf ps
 
-all: $(FILE).dvi $(FILE).pdf
+all: $(FILE).dvi 
 
 $(FILE).dvi : $(FILE).tex makefile $(REF).bib psuthesis.cls *.tex
 	$(TEX) $(FILE)
@@ -14,9 +14,15 @@ $(FILE).dvi : $(FILE).tex makefile $(REF).bib psuthesis.cls *.tex
 	$(TEX) $(FILE)
 	$(TEX) $(FILE)
 
-$(FILE).pdf : $(FILE).dvi
+pdf: $(FILE).pdf
+$(FILE).pdf: $(FILE).dvi
 	$(DVIPDF) $(FILE).dvi
 	open $(FILE).pdf &
+
+ps: $(FILE).ps
+$(FILE).ps: $(FILE).dvi
+	dvips $(FILE).dvi
+	gv $(FILE).ps &
 
 clean :
 #	\rm *Notes.bib
@@ -28,6 +34,7 @@ clean :
 	\rm *.toc
 	\rm *.bbl
 	\rm *.blg
+	\rm $(FILE).ps
 #	\rm *.out
 
 public:

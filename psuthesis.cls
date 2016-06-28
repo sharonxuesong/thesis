@@ -980,9 +980,11 @@ The following page is the Signature Page. The Signature Page needs to be given t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength{\textheight}{8.5in}
 \mainmatter
-\pagestyle{empty}
-\renewcommand{\@oddhead}{\mbox{}\hfill\arabic{page}}
-\let\ps@plain = \ps@empty
+%\pagestyle{empty}
+\pagestyle{plain}
+%\renewcommand{\@oddhead}{\mbox{}\hfill\arabic{page}}
+%\renewcommand{\@oddhead}{\mbox{}}
+%\let\ps@plain = \ps@empty
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -993,8 +995,8 @@ The following page is the Signature Page. The Signature Page needs to be given t
     \textbf{{\large Vita} \\[0.1in] \psu@author}
 \end{center}
 \input{#1}
-\markboth{}{} % hacks to remove final chapter heading on last page of vita
-\thispagestyle{myheadings} % same as above, by SXW Feb 2016
+%\markboth{}{} % hacks to remove final chapter heading on last page of vita
+%\thispagestyle{myheadings} % same as above, by SXW Feb 2016
 \end{singlespace}
 }
 
