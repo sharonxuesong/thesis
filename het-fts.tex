@@ -2,14 +2,8 @@
 
 As discussed in the previous section, successful modeling of the
 iodine observations (B star spectra taken through the iodine cell) is
-a good indication of a working radial velocity (RV) pipeline. At
-Keck/HIRES, which has demonstrated 1 m/s RV precision over the years,
-the modeling of the iodine observations yields a reduced chi-square
-(\chisq) value of typically 1.05. However, for HET/HRS iodine
-observations, with the same RV pipeline used at Keck, the typical
-\chisq\ value is $>2$ or even $>5$ for some observations. 
-
-We have explored one of the two model components for modeling iodine
+a good indication of a working radial velocity (RV) pipeline. We have
+explored one of the two model components for modeling iodine
 observations, the choice of IP. In this section, we examine the other
 model component, the iodine atlas, that is, the ``ground truth''
 spectrum for the iodine absorption lines unique to the \het\ iodine
@@ -22,18 +16,16 @@ wavelengths and the spectrograph response function.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Why did we suspect the iodine atlas?}
 
-As we were investigating the reasons behind the apparent bad fit of
-\het\ iodine observations, we decided to check the quality of the
-existing iodine atlas. An iodine atlas is normally obtained using a
-Fourier Transform Spectrometer (FTS; whose mechanism is just like a
-Michelson interferometer). The scan and its subsequent data reduction
-provides very high resolution spectrum (translated from Fourier space
-into real space) with typically $R > 200,000$-500,000.\footnote{It is worth
+An iodine atlas is normally obtained using a Fourier Transform
+Spectrometer (FTS; whose mechanism is just like a Michelson
+interferometer). The scan and its subsequent data reduction provides
+very high resolution spectrum (translated from Fourier space into real
+space) with typically $R > 200,000$-500,000.\footnote{It is worth
 noting here that although FTS normally provides wavelength solutions
 (from the registered arm lengths), but because of the inaccuracy of
 the default reported wavelengths, the final wavelength solution for
-the iodine atlas is usually derived from a theoretically computed iodine
-line list (e.g., \citealt{iodinespec5}).}
+the iodine atlas is usually derived from a theoretically computed
+iodine line list (e.g., \citealt{iodinespec5}).}
 
 The existing iodine atlas for the \het\ cell is from an FTS scan taken
 at the National Solar Observatory at KPNO using the Babar FTS
@@ -46,12 +38,13 @@ stable). This would mean that the FTS scan is out of date and
 inaccurate, and it could explain the bad fits to the iodine
 observation.
 
-Therefore, we took the HET/HRS cell to the National Institute of
-Standards and Technology (NIST) and obtained a new FTS scan in 2011
-(an effort carried out by Jason Wright, Ming Zhao, Stephen Redman and
-others at NIST; data reduction done by Stephen Redman). A close
-comparison between this new scan from NIST and the old scan at KPNO
-reveals that they have many differences:
+\rev{Therefore, we arranged the HET/HRS cell to be sent to the National
+Institute of Standards and Technology (NIST) facility in Gaithersburg,
+MD and obtained a new FTS scan in 2011. The work was done by Drs.\
+Gillian Nave and Stephen Redman, in coordination with Drs.\ William
+Cochran, Jason Wright, and Jeff Valenti.} A close comparison between
+this new scan from NIST and the old scan at KPNO reveals that they
+have many differences:
 \begin{itemize}
   \item The overall line depths are very different --- the NIST scan
     has deeper lines.

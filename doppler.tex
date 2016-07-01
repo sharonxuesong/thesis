@@ -6,26 +6,28 @@
 
 For all of the work in this thesis, we used the California Planet
 Survey (CPS) Doppler code to extract precise RVs from the
-iodine-calibrated \het\ and \keck\ spectra. This chapter contains a
+iodine-calibrated \het\ and \keck\ spectra. The main authors for this
+code are Paul Butler, Geoffrey Marcy, and John Johnson, with
+contributions from Jeff Valenti and so on. This chapter contains a
 brief documentation describing the algorithm and structure of the CPS
-Doppler code. As of March 2016, no documentation in published or
-unpublished form existed for this widely used code, although
-\cite{butler1996} describes the basics for the technique of
-iodine-calibrated precise RV, and some CPS publications contain
-description for certain elements of the code
-\citep[e.g.,][]{2006ApJ...647..600J, 2009ApJ...696...75H,
+Doppler code, which is used extensively for all the work in this
+thesis. As of March 2016, no documentation in published or unpublished
+form existed for this widely used code, although \cite{butler1996}
+describes the basics for the technique of iodine-calibrated precise
+RV, and some CPS publications contain description for certain elements
+of the code \citep[e.g.,][]{2006ApJ...647..600J, 2009ApJ...696...75H,
 2011ApJ...726...73H, 2011ApJS..197...26J}.
 
 % history of the code
 The earliest date mark in the code is 1991, which is roughly when Paul
 Butler and Geoffrey Marcy started drafting the code. The code was
 heavily modified by John Johnson around 2002-2008. Later on, two
-versions of the code are maintained by two separate groups: the
-California Planet Survey (LCPS) team (John Johnson) and the
-Lick-Carnegie Planet Survey team (Paul Butler). Post 2014, the CPS
-version of the code was maintained mostly by Howard Isaacson at UC
-Berkeley. This code is widely used by many iodine-calibrated
-precise RV instruments, such as Lick/Hamilton, HET/HRS (this thesis;
+versions of the code were maintained by two separate groups: the
+California Planet Survey (CPS) team (John Johnson) and the
+Lick-Carnegie Planet Survey (LCPS) team (Paul Butler). Post 2014, the
+CPS version of the code was maintained mostly by Howard Isaacson at UC
+Berkeley. This code is widely used by many iodine-calibrated precise
+RV instruments, such as Lick/Hamilton, HET/HRS (this thesis;
 Chapter~\ref{chap:het}), AAT/UCLES, Magellan/PFS, and the Automated
 Planet Finder (APF) at Lick (both LCPS and CPS have their own version
 of this code for APF). Our copy of the code was kindly provided by
@@ -61,13 +63,13 @@ F_{\rm obs}(x) = \left[ F_{\rm I_2}(\lambda(x)) \times
 F_{\star}'(\lambda(x)) \right] \ast \curlyp(x),
 \eeq
 where $\lambda(x)$ is the wavelength solution for the 1-D spectrum,
-and $F_{\star}'$ is the red-shifted stellar spectrum defined by
+and $F_{\star}'$ is the redshifted stellar spectrum defined by
 $F_{\star}'(\lambda) = F_{\star}(\lambda\cdot(1+z))$. The Doppler shift $z$
 contains two components: the stellar RV $v_{\star}$ and the
 barycentric (BC) velocity of the telescope with respect to the star
 $v_{\rm BC}$. The BC component is corrected by $v_{\star} = v_{\rm
 measured} + v_{\rm BC} + z \cdot v_{\rm BC}$ (the last term being
-relativistic correction).
+relativistic correction; \citealt{2014PASP..126..838W}).
 
 % relative RV measurement to DSST
 The stellar reference spectrum is empirically derived from iodine-free
@@ -91,7 +93,7 @@ origins of the stellar (and also the iodine) reference spectra.
   \colhead{Parameter} & \colhead{Unit and Meaning}
 }
 \startdata
-$z$ & no unit, the stellar red shift \\
+$z$ & no unit, the stellar redshift \\
 $w_0$ & \AA, wavelength of the first pixel of a spectral chunk \\
 $w_d$ & \AA$/$pixel, wavelength dispersion scale for a spectral chunk \\
 $A_n,\ n=1,...,12$ & no unit, amplitudes of side gaussians for IP\tablenotemark{a}
@@ -118,14 +120,14 @@ that is usually on the order of km/s and dominates the Doppler shift signal.
 
 % re-sampling
 To sample the reference spectra into the observed pixel grid, the code
-first re-samples (using spline) each of them onto a grid finer than the
-observation pixel grid by a factor of four (i.e., using a wavelength
-dispersion of $w_d/4$). The wavelengths of this fine grid are provided
-by the proposed wavelength solution parameters $w_0$ and $w_d$. Next,
-it shifts the stellar reference spectrum according to the proposed
-Doppler shift parameter $z$. Then it multiplies the shifted stellar
-reference spectrum with the iodine reference spectrum, and then
-convolves the product spectrum by the IP. Then it re-bins the
+first re-samples (using cubic spline interpolation) each of them onto a grid
+finer than the observation pixel grid by a factor of four (i.e., using
+a wavelength dispersion of $w_d/4$). The wavelengths of this fine grid
+are provided by the proposed wavelength solution parameters $w_0$ and
+$w_d$. Next, it shifts the stellar reference spectrum according to the
+proposed Doppler shift parameter $z$. Then it multiplies the shifted
+stellar reference spectrum with the iodine reference spectrum, and
+then convolves the product spectrum by the IP. Then it re-bins the
 finely sampled model spectrum onto the observed pixel grid, which
 yields the final normalized model spectrum $F_{\rm model, norm}(x)$.
 
@@ -180,7 +182,7 @@ signal-to-noise ratio (SNR) with high resolution (normally $\sim
 500,000$ or larger). Therefore, it is generally regarded as basically
 the ``ground truth" for the cell, especially for the purpose of
 forward modeling lower-resolution ($\sim 60,000$) spectra. However,
-there can be problems with the iodine atlas, for various reason. See
+there can be problems with the iodine atlas, for various reasons. See
 Chapter~\ref{chap:het} Section~\ref{het:sec:fts} for more on this
 topic. The current FTS iodine atlas being used for \keck\ RV work is
 from a scan in 1993, using the Babar FTS at NSO/KPNO, and so is the
@@ -333,13 +335,13 @@ sequence.
 % dop_driver.pro and output files
 The most top-level routine for running Doppler reduction is the IDL
 procedure {\tt dop\_driver.pro}, which takes in the name of the star
-and then automatically locate input files such as the extracted 1-D
+and then automatically locates input files such as the extracted 1-D
 spectra, the proper DSST file, the iodine atlas, and the files storing
 initial guesses for parameters (which are called the {\tt vdiod}
 files). The code is also very flexible with inputs and the user can
 specify things like a specific DSST file, choice for a
 specific IP model, explicit initial guesses for parameters, and so
-on. It drives the Doppler analysis and output a {\tt vd} file for each
+on. It drives the Doppler analysis and outputs a {\tt vd} file for each
 observed spectrum, which is an IDL save file that contains best-fit parameters and other
 information for all the spectral chunks. At the end, {\tt
   dop\_driver.pro} calls {\tt jjvank.pro}, which combines the RVs from
@@ -363,7 +365,7 @@ re-evaluates the chunk and observation weights and outputs a new {\tt
 While {\tt dop\_driver.pro} is the
 routine to call for Doppler analysis, most of its actual codes simply
 deal with logistical work such as locating the right files. The real
-driver behind the scene is {\tt crank.pro}, which contains the loop
+driver behind the scenes is {\tt crank.pro}, which contains the loop
 through all observations and ``fills out" the {\tt vd} files. In a
 standard CPS reduction routine, {\tt crank.pro} is called three
 times. In the case of \keck\ standard RV reduction, for example, the
@@ -430,7 +432,7 @@ mentioned in the previous section, the measured RV for each chunk at a
 certain epoch $T_{\rm obs}$ is a relative RV against the DSST taken at
 epoch $T_0$, $v_{\star, T_{\rm obs}} - v_{\star, T_0}$. This is
 because the stellar lines and their Doppler shift in each chunk are
-modeled by red-shifting the DSST: $F_{\star}'(\lambda) =
+modeled by redshifting the DSST: $F_{\star}'(\lambda) =
 F_{\star}(\lambda\cdot(1+z))$. The wavelength solution for the DSST
 implies its absolute RV $v_{\star, T_0}$ at $T_0$. If the wavelength
 solution for all DSST chunks corresponds to the exact same value of

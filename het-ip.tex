@@ -141,8 +141,8 @@ visible, which suggests some sort of sharp feature, and indeed, it
 exactly corresponds to the slit width of \het\ projected onto the
 detector at a resolution of R $=$ 60,000. This feature is a direct
 result of the fact that HRS has the slit in front of a round fiber,
-creating somewhat of a sharp feature in its IP, unlike the slit-fed
-\keck.
+creating somewhat of a sharp feature in its IP, unlike \keck, \rev{whose
+slit projects onto the (usually) smaller image of the star on the sky.}
 
 
 %----------------------------------------------------------------
@@ -171,13 +171,14 @@ pixel and a height of 1), whose Fourier transform has a null at 4.3
 pixel, and it produced the best fit among all IP models we have
 ventured. Figure~\ref{het:fig:iodipcomp} illustrates this new fit in
 comparison with the GH IP fit, although it was perhaps
-still equally bad. At this point, we have already suspected that
-the ``ground truth'' for the iodine lines, the iodine atlas, which was
-created from an FTS scan, may be problematic. It would not be possible
-to derive a correct form for the IP using a wrong iodine atlas, and
-thus we shift our priority towards validating the iodine cell FTS and
-investigating possible changes in the cell, which is described in the
-next section.
+still equally bad. 
+
+\rev{The little difference between different IPs made us suspect }that
+the ``ground truth'' for the iodine lines, the iodine atlas, may be
+problematic. It would not be possible to derive a correct form for the
+IP using a wrong iodine atlas, and thus we shift our priority towards
+validating the iodine atlas and investigating possible changes in the
+cell, which is described in the next section.
 
 
 %----------------------------------------------------------------
@@ -220,8 +221,12 @@ To end this section with a somewhat positive note, we present a
 promising lead for a better IP function for \hrs, the modified Moffat
 function:
 \begin{equation}
-[1+(x/\theta)^2]^{-\beta\cdot(x/\delta)^2}
+[1+(x/\theta)^2]^{-\beta\cdot(x/\delta)^2},
 \end{equation} 
+\rev{where $x$ is the pixel coordinate, $\theta$ determines the
+characteristic width of the profile (typically $\sim$0.6), and $\beta$
+(typically $\sim$6) and $\delta$ (typically $\sim$8.6) detemines the
+shape of the wings.}
 It is called the ``modified" Moffat function because the original
 Moffat function does not have the $(x/\delta)^2$ term. We added this
 term to add flexibility at the wings to enable change of
@@ -237,7 +242,7 @@ example, one can imagine that the $\theta$ parameter describes some
 characteristic width. This makes this function easier to work with than
 GH.
 
-One can image getting a better fit by adding small perturbation terms
+One can imagine getting a better fit by adding small perturbation terms
 to the modified Moffat IP to account for asymmetries and subtle wings
 due to scattered light. Moreover, the modified Moffat function is
 potentially applicable to other fiber-fed instruments, since such

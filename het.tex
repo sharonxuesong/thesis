@@ -99,7 +99,7 @@ The first part of our data pipeline is the raw reduction code, which
 reduces the raw spectral images with calibration frames and produces
 FITS files containing the extracted 1-D spectrum for each spectral
 order.  We adopted the REDUCE reduction package by
-\cite{2002A&A...385.1095P}. Sarah Gettel and Steve Bongiorno did the
+\cite{2002A&A...385.1095P}. Sarah Gettel and Stephen Bongiorno did the
 initial adoption of the REDUCE package for reducing \het\ data. It
 involved much parameter tuning with the original package to make
 this package, which was designed for slit-fed spectrometers
@@ -228,7 +228,7 @@ code. It is also found out later that the RVs produced using the \het\
 DSST are better than the ones with \keck\ DSST, possibly because the
 errors in the deconvolution and the forward modeling (convolution)
 would cancel out if the DSST and star$+$iodine data come from the same
-telescope, which is commenly agreed among the iodine precise RV artists.
+telescope, which is commonly agreed among the iodine precise RV artists.
 
 %----------------------------------------------------------------
 % HET sig dra RV data, Keck DSST vs. HET DSST
@@ -270,7 +270,7 @@ the level of \keck.
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion and Future Work}\label{het:sec:conclusion}
+\section{Conclusions and Future Work}\label{het:sec:conclusion}
  
 To summarize, we think that two of the major drivers behind \het's RV
 systematic errors are {\em temperature issues with the iodine
@@ -330,8 +330,8 @@ fitter. Initial guesses on IP parameters could play an important role.
   \item The iodine atlas provided by FTS scans should not be taken for
 granted as the ``ground truth''. There are challenges with FTS
 measurements and data reduction for measuring absorption spectrum with
-such a big spectral span. The cell can also change over time, nulling
-any old FTS scans. Echelle spectrograph with hyper resolution like the
+such a big spectral span. The cell may also change over time, making
+older FTS scans obsolete. Echelle spectrograph with hyper resolution like the
 TS12 arm on the Tull Spectrograph is very helpful for validating
 iodine atlas or checking cell quality.
   \item It is vital to stabilize the cell to a desired temperature
@@ -341,7 +341,7 @@ IodineSpec5 is helpful for diagnosing problems with iodine cells. One
 can imagine that this can also be helpful in identifying permanent
 cell change like the one experienced by the Lick/Hamilton cell, which
 compromised the usefulness of the spectrograph for precise RV work
-fatally.
+fatally\citep{2014ApJS..210....5F}.
 \end{itemize}
 
 Looking forward, there are several things which can help solving the
@@ -377,7 +377,7 @@ shutdown/upgrade to test if modal noise is significant in \het\ data
 in very high SNR regime. Although we have calculated that the number
 of modes in the \het\ fiber is large enough that modal noise should
 not be a concern, it would still be valuable to reduce and analyze
-these data to prove this hypothesis.
+these data to validate this calculation.
 
 More importantly, the upgraded \het\ has great promise in RV
 precision, and carrying on these lessons is crucial for ensuring good
