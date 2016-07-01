@@ -213,7 +213,35 @@ the paths forward in Chapter~\ref{chap:conclusion}.
 
 In this chapter, we described our work on discovering and
 characterizing three RV systematic error sources for \keck: telluric
-contamination, errors in the DSST, and algorithmic errors. 
+contamination, errors in the DSST, and algorithmic errors. \rev{A summary
+of RV errors is presented in Table~\ref{keck:tab:budget}.}
+
+%----------------------------------------------------------------
+% Table: Keck error budget
+\renewcommand{\arraystretch}{1.2} % more row spacing for the table
+\begin{deluxetable}{rl}
+\tabletypesize{\scriptsize}
+\tablecaption{\rev{Summary of \keck\ RV Errors Found in This Work}\label{keck:tab:budget}}
+\tablewidth{380pt}
+\tablehead{
+  \colhead{Term} & \colhead{RV RMS or Amplitude}
+}
+\startdata
+precision on an RV standard star & \textbf{2 m/s} \\
+error added by errors in the DSST & 1 m/s \\
+error added by telluric contamination & 0.6 m/s \\
+projected precision after telluric and DSST correction & \textbf{1.6 m/s} \\
+\\
+\hline
+\hline
+\multicolumn{2}{c}{spurious signal at period of 1 year and harmonics} \\
+\hline
+added by errors in the DSST & $K = 1$ m/s \\
+added by telluric contamination & $K = 0.2$ m/s 
+\enddata
+\end{deluxetable}
+%----------------------------------------------------------------
+
 
 Telluric contamination, and in particular, micro-telluric lines, has a
 small but non-negligible effects on the RV precision and accuracy. For
