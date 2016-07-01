@@ -56,7 +56,7 @@ such an effect, but hard to imagine at the magnitude we saw). It is
 purely because that I had chosen to perform a weighted least-$\chi^2$
 fit for the linear correlation between RVs and wavelengths, but I had
 used the wrong weights. Instead of using the weights empirically
-derived by vanking, I was using the analytical weights calulated
+derived by vanking, I was using the analytical weights calculated
 following \cite{butler1996}. Because there is no such real
 correlation between RVs and wavelengths, the ``correlation'' I saw or
 fitted for was merely reflecting the facts that there are more stellar
@@ -95,7 +95,7 @@ group, in particular, Andrew Howard and Howard Isaacson.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Erros Induced by Imperfect Stellar Reference Spectra}\label{keck:sec:dsst}
+\section{Errors Induced by Imperfect Stellar Reference Spectra}\label{keck:sec:dsst}
 
 \input{keck-dsst.tex}
 
@@ -106,7 +106,7 @@ group, in particular, Andrew Howard and Howard Isaacson.
 Solving the least-$\chi^2$ problem in a multi-dimensional, multi-modal
 setting is not easy. Efficient as it might be in terms of
 computational time, the least-$\chi^2$ algorithm employed by the CPS
-Doppler code could give biased solution and comprise the RV precision
+Doppler code could give a biased solution and comprise the RV precision
 and accuracy. We performed simulations to probe the magnitude of such
 errors.
 
@@ -120,7 +120,7 @@ have run three sets of simulations at three different spectral
 resolution (i.e., using different Gaussian IP widths). The amplitude
 of the RV scatter decreases as the resolution increases, which is as
 expected because shallower spectral lines probably translate to
-shallower $\chi^2$ surfaces. However, the signature ``period'' or
+shallower $\chi^2$ surfaces. However, the signature period or
 length scale (in BC space) of the RV-BC trend does not change, which
 is about 8~km/s or 6 pixels on the CCD. We are still investigating the
 origin of this signature length scale (perhaps its in the blaze
@@ -157,7 +157,7 @@ Figure~\ref{telluric:fig:chunkalgorithm} shows an example chunk with
 visible algorithmic errors. Again the top panel is showing real data,
 and the bottom one is the simulated data (with photon noise and
 complex IPs). This is a severe case, because its a chunk near 5900\AA\
-which does not contain a large amount of stellar or iodine lines, and
+which does not contain a large number of stellar or iodine lines, and
 therefore it is particularly challenging for the algorithm to find a
 good $\chi^2$ minimum.
 
@@ -256,7 +256,7 @@ cleaning process by incorporating forward modeling of telluric lines
 in the ``piston Gaussians deconvolver'' that is currently used for
 making DSST, instead of dividing them out. We hope to implement our
 telluric correction package into the official CPS pipeline eventually,
-which will be busily chewing \keck\ follow-up data on TESS targets
+which will be busily processing \keck\ follow-up data on TESS targets
 (many M dwarfs, undoubtedly) in the near future.
 
 {\bf (2) Searching for a better DSST fabrication method: } We will

@@ -1,10 +1,10 @@
-\chapter{The Carlifornia Planet Survey Doppler
+\chapter{The California Planet Survey Doppler
   Code}\label{chap:doppler} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction and Background}
 
-For all of the works in this thesis, we used the California Planet
+For all of the work in this thesis, we used the California Planet
 Survey (CPS) Doppler code to extract precise RVs from the
 iodine-calibrated \het\ and \keck\ spectra. This chapter contains a
 brief documentation describing the algorithm and structure of the CPS
@@ -107,8 +107,8 @@ and about 2\AA\ in wavelength. One model is created and fitted for
 each spectral chunk, with the model parameters listed in
 Table~\ref{doppler:tab:rvpar}. Model parameter optimization is done
 through least-$\chi^2$ fitting using the Levenberg-Marquardt (LM)
-algorithm. Errors on the extracted 1-D spectrum is assumed to be
-Poisson noise plus a 2\% additional representing potential errors in
+algorithm. Errors on the extracted 1-D spectrum are assumed to be
+Poisson noise plus a 2\% addition representing potential errors in
 the raw reduction. Initial guesses of the parameters come from the
 solution for nearest B star $+$ iodine observation, with the exception
 of the initial guess for $z$, which is set to be $v_{\rm BC}$ because
@@ -116,9 +116,9 @@ that is usually on the order of km/s and dominates the Doppler shift signal.
 
 % re-sampling
 To sample the reference spectra into the observed pixel grid, the code
-first re-sample (using spline) each of them onto a grid finer than the
+first re-samples (using spline) each of them onto a grid finer than the
 observation pixel grid by a factor of four (i.e., using a wavelength
-dispersion of $w_d/4$). The wavelengths of this fine grid is provided
+dispersion of $w_d/4$). The wavelengths of this fine grid are provided
 by the proposed wavelength solution parameters $w_0$ and $w_d$. Next,
 it shifts the stellar reference spectrum according to the proposed
 Doppler shift parameter $z$. Then it multiplies the shifted stellar

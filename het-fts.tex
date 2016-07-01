@@ -1,9 +1,9 @@
 % HET FTS
 
 As discussed in the previous section, successful modeling of the
-iodine observations (B star spectra taken through the Iodien cell) is
+iodine observations (B star spectra taken through the iodine cell) is
 a good indication of a working radial velocity (RV) pipeline. At
-Keck/HIRES, which has demosntrated 1 m/s RV precision over the years,
+Keck/HIRES, which has demonstrated 1 m/s RV precision over the years,
 the modeling of the iodine observations yields a reduced chi-square
 (\chisq) value of typically 1.05. However, for HET/HRS iodine
 observations, with the same RV pipeline used at Keck, the typical
@@ -22,7 +22,7 @@ wavelengths and the spectrograph response function.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Why did we suspect the iodine atlas?}
 
-As we were investigating the reasons behind the apparent `bad fit' of
+As we were investigating the reasons behind the apparent bad fit of
 \het\ iodine observations, we decided to check the quality of the
 existing iodine atlas. An iodine atlas is normally obtained using a
 Fourier Transform Spectrometer (FTS; whose mechanism is just like a
@@ -38,12 +38,13 @@ line list (e.g., \citealt{iodinespec5}).}
 The existing iodine atlas for the \het\ cell is from an FTS scan taken
 at the National Solar Observatory at KPNO using the Babar FTS
 (nicknamed for its large size; this machine has been decommissioned)
-in 1993. The main reason is that the FTS scan was taken almost two
-decades ago, and during this time the cell may have gone through
-changes (such as temperature, leaking or condensation, etc., though
-unlikely, since the cell was designed to be stable). This would mean
-that the FTS scan is out of date and inaccurate, and it could explain
-the `bad fits' to the iodine observation.
+in 1993. The main reason why we took a new scan is that the FTS scan
+was taken almost two decades ago, and during this time the cell may
+have gone through changes (such as temperature, leaking or
+condensation, etc., though unlikely, since the cell was designed to be
+stable). This would mean that the FTS scan is out of date and
+inaccurate, and it could explain the bad fits to the iodine
+observation.
 
 We therefore took the HET/HRS cell to the National Institute of
 Standards and Technology (NIST) and obtained a new FTS scan in 2011
@@ -57,7 +58,7 @@ reveals that they have many differences:
   \item The absolute wavelength solutions are different, and the
     drifting of wavelength solution or the dispersion scales at
     different wavelength are also different.
-  \item Even after we adjust the `normalization' level of the NIST
+  \item Even after we adjust the normalization level of the NIST
     scan (assuming the FTS data has normalization issues or low
     frequency noise/offset), the line ratios of the two scans still
     exhibits differences.
@@ -69,7 +70,7 @@ resolution (the NIST scan has a higher resolution), the middle panel
 is a more direct comparison: the NIST scan has been convolved down to
 the same resolution with the KPNO scan; it is also shifted in
 wavelength space so that the two scans match in absolute wavelength
-solution; and it is adjusted to a different ``normalization'' level to
+solution; and it is adjusted to a different normalization level to
 match with the KPNO scan as much as possible in order to compare their
 relative line ratios.
 
@@ -127,13 +128,13 @@ that the NIST scan provides worse fits.
 %----------------------------------------------------------------
 
 
-Since the direct comparision between the KPNO scan and the NIST scan
-has hinted that the `normalization' of the NIST scan might be
+Since the direct comparison between the KPNO scan and the NIST scan
+has hinted that the normalization of the NIST scan might be
 problematic, we decide to add a free parameter to account for this
-`normalization error' when fitting the iodine observation. The right
+normalization error when fitting the iodine observation. The right
 panel of Figure~\ref{fig:chisq_old_new} shows the \chisq\ histograms
 for the same iodine observation using the two scans, but adding a free
-parameter as the `normalization' when fitting each chunk (note: the
+parameter as the normalization when fitting each chunk (note: the
 normalization parameter is a free parameter for each chunk, not a
 global single parameter). The two scans now perform at essentially the
 same level.
@@ -144,21 +145,21 @@ NIST scan, and also have a solution for it. It is very worrisome
 because this reveals that:
 \begin{itemize}
   \item Even the KPNO cell performs visibly better when we float the
-    normalization paramter. This may suggest that there are
-    ``normalization'' issues or low frequency errors/noise in the KPNO
+    normalization parameter. This may suggest that there are
+    normalization issues or low frequency errors/noise in the KPNO
     scan as well.
   \item Obtaining high-quality, reliable FTS scans of iodine cell is
     very difficult, and the FTS scans cannot be naively trusted as the
     ``ground truth'' super accurate templates of the complicated iodine
     spectrum.
-  \item The reason why adding a ``floating normalization'' fits the
+  \item The reason why adding a floating normalization fits the
     data better might be because it accounts for optical depths difference
     between the atlas and the actual observations, which may be a result
     of changes in cell temperature or iodine column density in the cell.
   \item The pipeline (when floating normalization as a free parameter)
-    cannot distinguish which scan is the ``correct'' one (by \chisq)
+    cannot distinguish which scan is more accurate (by \chisq)
     even when two scans differ as much as $\sim$5--10\% at places and
-    also have obvious line ratio differneces (see comparison in bottom
+    also have obvious line ratio differences (see comparison in bottom
     panel of Figure~\ref{fig:fts_old_new}). However, this level of
     difference in FTS may affect the RV precision, and not knowing
     which atlas is the correct one definitely affects our ability to
@@ -204,7 +205,7 @@ independent way to perform quality checks for any FTS scan --- not
 just comparing their relative qualities or performances. One
 natural choice is to obtain spectra taken with high-resolution echelle
 spectrographs, which are measurements of the iodine spectrum directly
-in the ``real wavelength space'' instead of in the ``Fourier space'', and
+in the real wavelength space instead of in the Fourier space, and
 thus they serve as good reference spectra as they suffer from
 different types of error compared to FTS. Since FTS scans are usually
 at a very high spectral resolution ($200,000$--$500,000$), this limits
@@ -231,14 +232,14 @@ Observatory, which provided a resolution of 500,000 (based on ThAr
 line measurements done by David Doss at McDonald). 
 
 We had two rounds of TS12 runs, both during day time and when the
-telescope was scheduled to on Cassegrain instrument and the Tull
+telescope was scheduled for Cassegrain instrument and the Tull
 Spectrograph room was free for use. For the first run (from September
 7 to September 9, 2013; done by Ming Zhao and the author) we measured
 the iodine absorption spectrum for the iodine cell at the Sandiford
 (2.1m) Telescope, because the HET/HRS cell was still under active use
 when we did this test. The main purpose of the first run was to
 validate the quality of the TS12 spectrum and whether we can use it to
-across-validate the FTS scans. The Sandiford cell also has an KPNO FTS
+cross-validate the FTS scans. The Sandiford cell also has a KPNO FTS
 scan which was taken together with the KPNO scan of the HET cell in
 1993, so it also serves the purpose of testing the overall quality of
 the KPNO scans.
@@ -343,7 +344,7 @@ normalized by dividing the estimated continuum (top 5\% counts). Due
 to lower quality of scattered light removal near the edge of the chip,
 we discarded the top 80 and bottom 80 rows of pixels. Thus the
 extracted spectrum from each frame is about 1.6\AA\ across (instead of
-1.9\AA). The reduced frames are then `stitched' together by finding
+1.9\AA). The reduced frames are then stitched together by finding
 the overlapping region through cross correlation for each pair of
 neighboring frames and taking into account the changes and differences
 of dispersion scales across frames.
@@ -434,7 +435,7 @@ $60,000$, but for the entire $\sim$30\AA\ TS12 spectrum available.
 %----------------------------------------------------------------
 
 
-After demonstrated that we can use TS12 spectrum to validate FTS
+After demonstrating that we can use TS12 spectrum to validate FTS
 scans, we performed our second TS12 run with the \het\ cell (and the
 2.7m cell and the MINERVA cell). For
 the 2.7m cell, its TS12 spectrum matches very well to its FTS atlas,
@@ -535,7 +536,7 @@ transmission spectrum (at any specified temperature) based on both
 physics and empirical calibrations (IodineSpec5;
 \citealt{iodinespec5}). We emailed the authors and obtained the code,
 which only runs on Windows machines. The direct output of the code
-contains arrays of wave numbers and ``opacity'' ($\alpha$) for user-specified
+contains arrays of wave numbers and effectively, opacity ($\alpha$) for user-specified
 iodine isotope mix (for our purposes we only add $^{127}I_2$),
 temperature, wave number range, and line broadening kernel parameter
 (we chose thermal/Gaussian). To use the output of IodineSpec5 to fit
@@ -554,7 +555,7 @@ with $\sigma=0.0078$ (roughly at $R=$ 200,000 to try to match the
 \keck\ cell KPNO scan for comparison and illustration
 purposes). Except for the \keck\ scan, we did the same to lower the
 resolution of other FTS scans or TS12 spectra when using IodineSpec5
-to find out their temperatures. There are three four parameters in our
+to find out their temperatures. There are four parameters in our
 fit: temperature, column density, resolution ($\sigma$ for the single
 Gaussian kernel to convolve the synthetic spectrum with), and a
 wavelength shift. We first optimized the column density, $\sigma$, and
@@ -591,7 +592,7 @@ depth and cell temperature.
 
 We first fitted the \keck\ cell KPNO FTS scan, whose temperature is
 known (50$\degree$C) and reliable. We also know that this FTS scan is
-probably very trust-worthy since \keck\ iodine atlas fits the data
+probably very trustworthy since \keck\ iodine atlas fits the data
 very well, as described in the previous subsection. Choosing a region
 where it contains temperature-sensitive lines, we found the best-fit
 temperature for the \keck\ KPNO scan is 55$\degree$C, although

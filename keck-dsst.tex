@@ -1,11 +1,12 @@
 % Keck DSST section
 
-For a while, we believed that telluric contamination was the major culprit
-behind the \keck\ RV-BC anomaly. However, the simulations in previous
-section have revealed that tellurics probably only contribute a small
-amount, mostly buried underneath photon noise and algorithmic
-errors. We quickly focused our suspicion to DSST, because we saw the
-differences in DSSTs before and after telluric cleaning (described in
+For a while, we believed that telluric contamination was the major
+culprit behind the \keck\ RV-BC anomaly. However, the simulations in
+previous section have revealed that tellurics probably only contribute
+a small amount, mostly buried underneath photon noise and errors
+induced by the data analysis code (algorithmic errors). We quickly
+focused our suspicion to DSST, because we saw the differences in DSSTs
+before and after telluric cleaning (described in
 Section~\ref{keck:telluric:real}), which are often larger than the
 micro-telluric lines and could easily manifest as trends in the RV-BC
 plane.
@@ -77,7 +78,7 @@ Johnson, which forward models the underlying stellar spectrum by
 adding nodes of Gaussians at places of stellar lines, convolving that
 with the derived IP from B star frames, and minimizing the $\chi^2$ to
 find depths and positions of the Gaussian nodes. CPS has used other
-deconvolution algorithms such as the Jansson constrained non-linear
+deconvolution algorithms such as the Jansson constrained nonlinear
 method, which did not out-perform the current recipe using ``piston
 Gaussians''.
 
@@ -119,12 +120,12 @@ differences, as illustrated in the left panels of
 Figure~\ref{keck:fig:dsstchunk}. The effects on RVs rising from these
 differences are also illustrated in Figure~\ref{keck:fig:dsstchunk},
 in the right panels. These are cherry-picked chunks which show the
-same RV-BC patterns in simulation and real observations. Why some
-chunks are as such but others show different patterns between
-simulation and reality? The answer to this question will shine some
-light on the original of the DSST errors and hopefully even a remedy,
-which will be one of the focuses of future works. We summarize our
-conclusion and lay out future works in the final section of this chapter.
+same RV-BC patterns in simulation and real observations. Why is it
+that not all chunks show the same RV-BC patterns in simulation and real
+observations? The answer to this question will shine some light on the
+original of the DSST errors and hopefully even a remedy, which will be
+one of the focuses of future works. We summarize our conclusion and
+lay out future works in the final section of this chapter.
 
 
 %----------------------------------------------------------------

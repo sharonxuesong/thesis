@@ -13,14 +13,14 @@ and width of the satellite Gaussians \citep{1995PASP..107..966V}. It
 is the product of careful studies and numerous trials with IP
 modeling.
 
-It is very easy to imagine that inprecise and inaccurate IP modeling
+It is very easy to imagine that imprecise and inaccurate IP modeling
 could be the bottleneck for improving \het's RV precision. The ability
-to capture the shape of the IP and {\em its changes} larges determines
+to capture the shape of the IP and {\em its changes} largely determines
 how well the RV spectra are fitted, and thus how precisely the Doppler
 shift is measured. The 3-4~m/s precision on HD 185144 we obtained
 (Figure~\ref{het:fig:sigdra}) was the results of an ``out of the box''
 reduction -- we had only modified the CPS Doppler code to the point
-where it could chew on \het\ data, but we had not yet put in any
+where it could process \het\ data, but we had not yet put in any
 efforts to tune it for \het. The first step of such tuning would be to
 find a better IP.
 
@@ -40,7 +40,7 @@ find a better IP.
 %----------------------------------------------------------------
 
 
-How well the IP is being modeled can be tested by fitting an pure
+How well the IP is being modeled can be tested by fitting a pure
 iodine spectrum taken by the spectrograph
 (Figure~\ref{het:fig:convkernel}), with the continuum source being
 either a lamp or a (mostly) line-free B star. Such spectra are often
@@ -97,8 +97,8 @@ signal-to-noise difference in the spectra
 
 
 The current ``go-to'' IP model for \hrs\ is the very versatile,
-orthogonal, 11-parameter Gauss-Hermite polynomials (GH), which was
-desribed in Chapter~\ref{chap:doppler}. Another customized IP for
+orthogonal, 11-parameter Gauss-Hermite polynomial (GH), which was
+described in Chapter~\ref{chap:doppler}. Another customized IP for
 \het\ was tried out by CPS using the sum of Gaussians, the same as
 the one used for \keck\ but having the wings at different locations
 with different default widths. The two IPs basically perform at a
@@ -141,7 +141,7 @@ visible, which suggests some sort of sharp feature, and indeed, it
 exactly corresponds to the slit width of \het\ projected onto the
 detector at a resolution of R $=$ 60,000. This feature is a direct
 result of the fact that HRS has the slit in front of a round fiber,
-creating some what a sharp feature in its IP, unlike the slit-fed
+creating somewhat of a sharp feature in its IP, unlike the slit-fed
 \keck.
 
 
@@ -157,7 +157,7 @@ creating some what a sharp feature in its IP, unlike the slit-fed
   spectrum (black dots) and its smoothed version (blue line). There is
   a clear signature of the \het\ slit at 4.3 pixel (corresponding to
   slit width for resolution R $=$ 60k). For comparison, the red curve
-  is for \keck\ data, which shows no clear signiture of a slit,
+  is for \keck\ data, which shows no clear signature of a slit,
   because \keck\ is not fiber-fed and the PSF of the star falls mostly
   within its slit.
 \label{het:fig:fftip}}
@@ -169,10 +169,11 @@ Upon seeing the Fourier transform of the \het\ data, we tried out
 another IP using GH multiplying a triangle (with a half width of 2.4
 pixel and a height of 1), whose Fourier transform has a null at 4.3
 pixel, and it produced the best fit among all IP models we have
-ventured. Figure~\ref{het:fig:iodipcomp}, although it was perhaps
-still ``equally bad''. At this point, we have already suspected that
+ventured. Figure~\ref{het:fig:iodipcomp} illustrates this new fit in
+comparison with the GH IP fit, although it was perhaps
+still equally bad. At this point, we have already suspected that
 the ``ground truth'' for the iodine lines, the iodine atlas, which was
-created from a FTS scan, may be problematic. It would not be possible
+created from an FTS scan, may be problematic. It would not be possible
 to derive a correct form for the IP using a wrong iodine atlas, and
 thus we shift our priority towards validating the iodine cell FTS and
 investigating possible changes in the cell, which is described in the
@@ -193,8 +194,8 @@ next section.
   the least $\chi^2_\nu$ among all of our IP models. However, as shown
   by the right panel, the two fits barely have any visible difference
   (red curve for GH$+$triangle IP and black for GH; bottom panel plots
-  the residuals). Such a sharp feature in the IP is unphysical, and we
-  interpretate this results as a hint for an unreliable iodine atlas
+  the residuals). Such a sharp feature in the IP is nonphysical, and we
+  interpret this results as a hint for an unreliable iodine atlas
   (the sharp peak at the center is perhaps the IP model trying to
   ``stretch" the iodine lines deeper; see Section~\ref{het:sec:fts}
   for more details).
@@ -212,7 +213,7 @@ trouble converging (unless fine-tuned and informed from previous fits
 using sum of Gaussians; \citealt{2013AAS...22114908V}). The second
 piece of evidence is that we tried to fit GH to unsaturated ThAr lines
 in \het\ calibration frames, and it often fails to converge onto a
-good fit the ThAr line. 
+good fit to the ThAr line. 
 
 To end this section with a somewhat positive note, we present a
 promising lead for a better IP function for \hrs, the modified Moffat
@@ -228,9 +229,9 @@ profile. Figure~\ref{het:fig:moffat} illustrates the results using the
 modified Moffat fitting a ThAr line (insert), and also the
 $\chi^2_\nu$ distribution of all spectral chunks for this new IP
 compared with the GH IP. Unfortunately, the modified Moffat function
-does not always fit a ThAr line (starting with uninformative initial
+does not always fit a ThAr line (starting with uninformed initial
 guesses), so it faces the same problem as GH. However, it only has
-four parameters and they are mostly ``physically meaningful''. For
+four parameters and they are mostly physically meaningful. For
 example, one can imagine that the $\theta$ parameter describes some
 characteristic width. This makes this function easier to work with than
 GH.

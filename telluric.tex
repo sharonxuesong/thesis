@@ -4,7 +4,7 @@
 \subsection{Introduction}\label{keck:telluric:intro}
 
 Traditionally, telluric contamination is not considered as problematic
-for precise RV in the optical. It is certainly a sever source of
+for precise RV in the optical. It is certainly a severe source of
 spectral contamination and a bottleneck for achieving higher RV
 precision in the near infra-red (NIR) region (e.g.,
 \citealt{2010ApJ...713..410B}), where a large number of deep water and
@@ -35,14 +35,14 @@ micro-telluric removal) of $\sim$10-20 cm/s for G stars observed with
 low to moderate air masses, but the impact can be substantial in some
 cases to up to $\sim$0.5-1 m/s.
 
-\cite{artigau2014} uses principal component analysis (PCA) to
+\cite{artigau2014} use principal component analysis (PCA) to
 empirically correct for telluric lines in HARPS-S data (both
 micro-tellurics and the deep lines in the $\sim$630~nm region), and
 combined PCA with rejection masking, they reduced the RV RMS by
 $\sim$20~cm/s (and more significantly for the $\sim$630~nm
 region). More recently, \cite{2016AAS...22713719S} characterized the
 effects of telluric contamination and effectiveness of some typical
-remedies (masking and modeling) for emission line-calibarated spectra
+remedies (masking and modeling) for emission line-calibrated spectra
 for the optical, broad optical (300-900~nm), and NIR. Their conclusion
 for the optical region is similar to the results in \cite{artigau2014}
 and \cite{cunha2014}.
@@ -85,7 +85,7 @@ data and analysis process on RV standard stars in order to isolate
 error sources. We use \keck\ data to for our study because Keck has
 the highest RV precision among all iodine-calibrated spectrometers,
 and it also has long observing baselines on a number of RV standard
-stars. RV standard stars are bright and quite stars which do not host
+stars. RV standard stars are bright and quiet stars which do not host
 known planets, and thus exhibit the smallest RV variation in both
 short term and long term. Their data are often good diagnostic tools
 for identifying RV systematics. For our study, we used and simulated
@@ -304,7 +304,7 @@ statistical weighting or ``vanking'' procedure in the Doppler code.
 Interestingly, when we added in photon noise (middle panels of
 Figure~\ref{telluric:fig:sim}), the effects of telluric contamination
 are washed out significantly. This is probably because for individual
-chunks, the RV scatter caused by photon noise washes out the scatters
+chunks, the RV scatter caused by photon noise washes out the scatter
 and biases induced by tellurics, and chunks with tellurics will have a
 larger RV RMS compared with telluric-free chunks. Vanking then is able
 to identify telluric-contaminated chunks and assigns them smaller
@@ -389,8 +389,8 @@ deconvolved stellar reference spectrum -- because the stellar
 reference spectrum was taken at a different BC, the telluric lines
 therein are shifted with respect to the ones in the epoch observation
 as we try to match up the stellar lines in observed and reference
-spectra. This ``double masking'' procedure is illustrated in
-Figure~\ref{telluric:fig:dsstmask}. This is done ``dynamically'' in
+spectra. This double masking procedure is illustrated in
+Figure~\ref{telluric:fig:dsstmask}. This is done dynamically in
 the fitting process, in the sense that, for each iteration in the
 least-$\chi^2$ minimization process, the contaminated pixels are
 located according to the current wavelength solution parameters in
@@ -422,7 +422,7 @@ injected and with or without masking (all with Poisson noise and
 complex IP to mimic real observations as much as possible). For
 stellar reference spectrum, we used the synthetic spectrum with
 telluric lines. The results are already listed in
-Table~\ref{telluric:tab:simulation}, but is listed again in
+Table~\ref{telluric:tab:simulation}, but are listed again in
 Table~\ref{telluric:tab:rmsmasking} for clear comparisons. In terms of
 improving RV precision or reducing RV RMS, masking is very
 ineffective. The additional errors it introduces diminish its
@@ -437,21 +437,21 @@ errors (and other types of errors too in real observations).
 
 % why simple masking would not work for high precision/accuracy
 So why masking does not work? First of all, it complicates the
-$\chi^2$ surface and ``breaks'' the L-M fitter. Due to the ``dynamic''
+$\chi^2$ surface and ``breaks'' the L-M fitter. Due to the dynamic
 nature of the mask mentioned above, the degrees of freedom for fitting
 could change, because some telluric lines may shift in and out of this
 spectral chunk as the wavelength solution changes. This would make the
-fitter harder to converge or may create more loci for the fitter to
-get stuck in, causing additional errors. Furthermore, masking is
+fitter harder to converge or may create more loci in which the fitter
+can get stuck, causing additional errors. Furthermore, masking is
 throwing away iodine and stellar content embedded in these pixels
-too. Finally, to ``mask'' the telluric lines out, one needs to pick a
+too. Finally, to mask the telluric lines out, one needs to pick a
 flux threshold for the masks. This threshold must maintain a balance
 between masking too much (throwing away too much iodine and stellar
 information) and too little (leaving shallow telluric lines and line
 wings untreated). In our study, we have chosen a flux threshold of
 0.3\%, which means any pixel with telluric absorption deeper than
 0.3\% will be masked (reference telluric spectrum is generated by
-TERRASPEC at an altitude of 70$^{\degree}$, meaning deep oxygen lines,
+TERRASPEC at an zenith angel of 70$^{\degree}$, meaning deep oxygen lines,
 and with pwv $=$ 0.8~mm, a little more than
 typical \keck\ humidity). This masks 11\% of the spectral domain,
 which is quite substantial and is very damaging to the RV precision,
@@ -523,7 +523,7 @@ lack of knowledge of the atmospheric conditions, such as wind, high
 line-of-sight variations (e.g., water vapor), and mixing
 uncertainties. For a summary of the state of the problem and paths
 forward recommended by the RV community, see Section~4.6 in
-\cite{eprv2015}. However, the goal here is not to model or ``remove''
+\cite{eprv2015}. However, the goal here is not to model or remove
 the telluric lines perfectly, but to mitigate their impact on RV
 precision and accuracy as much as possible. A central question is: how
 well do we need to model telluric lines to reach a certain RV
@@ -554,12 +554,12 @@ reality.
 % well actually vanking did a lot of heavy lifting
 One important point to notice is that the reason why the damage of
 10\% telluric modeling residual is controlled down to $\leq$10~cm/s is
-the additional ``masking'' and weighting process in the Doppler code,
+the additional masking and weighting process in the Doppler code,
 i.e., ``vanking'' (Chapter~\ref{chap:doppler}). In another word, a
 combination of modeling (even only to 90\% precision) and statistical
 weighting can effectively control the RV RMS introduced by tellurics
 to $\leq$10~cm/s. Weighting plays a role in telluric contamination
-remedy because it is essentially performing some ``masking'' on the
+remedy because it is essentially performing some masking on the
 chunks that are badly contaminated by tellurics and/or have large
 modeling residuals, such as the ones near 6300\AA\ with deep oxygen
 lines and little stellar or iodine content.  Chunks with deep and
@@ -598,10 +598,10 @@ other noise sources enter the picture, some uncontrollable and/or
 unknown. It turns out that telluric contamination is {\em not} the
 dominant sources of RV systematic errors in \keck\ data. We later
 found out that the major culprit behind the RV-BC correlation patterns
-is probably errors in the DSSTs, which is discussed in
+is probably errors in the DSSTs, which are discussed in
 Section~\ref{keck:sec:dsst}. This fact makes it somewhat difficult to
 assess the effectiveness of telluric treatment on real data, but the
-simulations have demonstrated that the the best and effective strategy
+simulations have demonstrated that the the best and most effective strategy
 is to have a clean DSST and to forward model the telluric lines (and
 also to mask out deep lines and de-weight chunks with hard-to-clean
 tellurics, which are already taken care of by vanking).
@@ -666,8 +666,8 @@ caused by the telluric contamination, we formulated a recipe to
     the wavelength solution of the DSST, could differ from rest-frame
     telluric line wavelengths because of errors in DSST or changing
     atmospheric conditions such as wind. 
-  \item Fitting these two parameters is not a straight forward
-    least-$\chi^2$ problem, because stellar lines also present in the
+  \item Fitting these two parameters is not a straightforward
+    least-$\chi^2$ problem, because stellar lines are also present in the
     spectrum and we do not have an input model for them. Thus, instead
     of minimizing residuals between model (broadened and shifted
     telluric lines) and data (deconvolved telluric lines plus stellar
