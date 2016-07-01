@@ -3,8 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Introduction}\label{keck:telluric:intro}
 
-Traditionally, telluric contamination is not considered as problematic
-for precise RV in the optical. It is certainly a severe source of
+Traditionally, telluric contamination is not considered as damaging to
+the RV precision in the optical. It is certainly a severe source of
 spectral contamination and a bottleneck for achieving higher RV
 precision in the near infra-red (NIR) region (e.g.,
 \citealt{2010ApJ...713..410B}), where a large number of deep water and
@@ -185,21 +185,24 @@ Below is our recipe for simulating \keck\ spectra and DSSTs:
   photon-noise choice).
 \end{enumerate}
 
-% different sets of simulations
-To isolate the problem of tellurics, we first simulated spectra free
-of photon noise and with a simple single Gaussian IP for the
-spectrograph ($\sigma = 1.7$ pixels to match the \keck\
-resolution). When extracting RVs for such sets of simulated spectra,
-we fixed the IPs to the same as input and only fitted for three free
-parameters. This removes the errors induced by photon noise and
-uncertainties in IP fitting (which, after all, involves 12 additional
-free parameters). We then added the Poisson noise to the spectra, but
-still using simple and fixed IPs, to see how the effects will change
-in cases with limited-SNR (as opposed to infinite SNR). Next, we used
-complex IPs, the same ones as the best-fit sum-of-Gaussian IPs found
-for real spectra, and float the IP parameters when extracting RVs. The
-conditions and results of these three pairs of simulations are listed
-in Table~\ref{telluric:tab:simulation}, and also illustrated in
+% different sets of simulations To isolate the problem of tellurics,
+we first simulated spectra free of photon noise and with a simple
+single Gaussian IP for the spectrograph ($\sigma = 1.7$ pixels to
+match the \keck\ resolution). When extracting RVs for such sets of
+simulated spectra, we fixed the IPs to the same as input and only
+fitted for three free parameters. This removes the errors induced by
+photon noise and uncertainties in IP fitting (which, after all,
+involves 12 additional free parameters). We then added the Poisson
+noise to the spectra, but still using simple and fixed IPs, to see how
+the effects will change in cases with limited-SNR (as opposed to
+infinite SNR). Next, we used complex IPs, the same ones as the
+best-fit sum-of-Gaussian IPs found for real spectra, and float the IP
+parameters when extracting RVs. \rev{For the simulated spectra with complex
+IPs, we extracted their RVs following exactly the same procedure for
+real observations, e.g., using IP initial guesses from solutions for
+real neighboring B star $+$ iodine observations.} The conditions and
+results of these three pairs of simulations are listed in
+Table~\ref{telluric:tab:simulation}, and also illustrated in
 Figure~\ref{telluric:fig:sim}. These results show the impacts of
 telluric contamination on \keck\ data, which is discussed in the
 following subsection.
@@ -297,25 +300,25 @@ perfectly known IPs, which might somewhat represent the capability of
 future precise RV instruments. These two plots highlight the net
 effects of telluric contamination: they cause large biases in RV
 estimates, which manifest as strong RV-BC correlations or
-trends. These biases clearly can not be fully corrected by the
-statistical weighting or ``vanking'' procedure in the Doppler code.
+trends. \rev{Clearly, the current statistical weighting or ``vanking''
+procedure in the Doppler code is unable to fully correct these biases.}
 
 % adds photon noise?
 Interestingly, when we added in photon noise (middle panels of
 Figure~\ref{telluric:fig:sim}), the effects of telluric contamination
-are washed out significantly. This is probably because for individual
-chunks, the RV scatter caused by photon noise washes out the scatter
-and biases induced by tellurics, and chunks with tellurics will have a
-larger RV RMS compared with telluric-free chunks. Vanking then is able
-to identify telluric-contaminated chunks and assigns them smaller
-weights, thus reducing the impacts of telluric contamination.
+are washed out significantly. \rev{This is probably because photon noise
+induces a much bigger RV scatter than the micro-telluric lines. This
+is not surprising, given that the depths of these micro-telluric lines
+are often comparable to noise level. We are still investigating the
+exact reason of this ``wash out''.}
 
-% adds complex IP
+% adds complex IP 
 When using complex IPs and fitting for IPs in RV extraction (bottom
 panels of Figure~\ref{telluric:fig:sim}), the effects of telluric
-contamination are further washed out, as we are adding in more
-errors. We can barely see any RV-BC correlation in the case of HD
-185144 and only some in HD 10700.
+contamination are further washed out, as we are adding in more errors
+\rev{that are perhaps larger than telluric-induced ones}. We can
+barely see any RV-BC correlation in the case of HD 185144 and only
+some in HD 10700.
 
 % tellurics add RV RMS
 The RV-BC correlations shown in Figure~\ref{telluric:fig:sim} will
@@ -435,28 +438,29 @@ the effects of telluric contamination overall, especially since the RV
 errors and RV-BC trends are dominated by photon noise and algorithmic
 errors (and other types of errors too in real observations).
 
-% why simple masking would not work for high precision/accuracy
-So why masking does not work? First of all, it complicates the
-$\chi^2$ surface and ``breaks'' the L-M fitter. Due to the dynamic
-nature of the mask mentioned above, the degrees of freedom for fitting
-could change, because some telluric lines may shift in and out of this
+% why simple masking would not work for high precision/accuracy So why
+masking does not work? First of all, it complicates the $\chi^2$
+surface and ``breaks'' the L-M fitter. Due to the dynamic nature of
+the mask mentioned above, the degrees of freedom for fitting could
+change, because some telluric lines may shift in and out of this
 spectral chunk as the wavelength solution changes. This would make the
 fitter harder to converge or may create more loci in which the fitter
-can get stuck, causing additional errors. Furthermore, masking is
-throwing away iodine and stellar content embedded in these pixels
-too. Finally, to mask the telluric lines out, one needs to pick a
-flux threshold for the masks. This threshold must maintain a balance
+can get stuck, causing additional errors. \rev{A better fitter might
+solve the convergence problem, but it is hard to justify throwing away
+useful iodine and stellar content embedded in the masked pixels.}
+Finally, to mask the telluric lines out, one needs to pick a flux
+threshold for the masks. This threshold must maintain a balance
 between masking too much (throwing away too much iodine and stellar
 information) and too little (leaving shallow telluric lines and line
 wings untreated). In our study, we have chosen a flux threshold of
 0.3\%, which means any pixel with telluric absorption deeper than
 0.3\% will be masked (reference telluric spectrum is generated by
-TERRASPEC at an zenith angel of 70$^{\degree}$, meaning deep oxygen lines,
-and with pwv $=$ 0.8~mm, a little more than
-typical \keck\ humidity). This masks 11\% of the spectral domain,
-which is quite substantial and is very damaging to the RV precision,
-but is almost the minimal amount of masking required to achieve some
-RV accuracy improvement.
+TERRASPEC at an zenith angel of 70$^{\degree}$, meaning deep oxygen
+lines, and with pwv $=$ 0.8~mm, a little more than typical \keck\
+humidity). This masks 11\% of the spectral domain, which is quite
+substantial and is very damaging to the RV precision, but is almost
+the minimal amount of masking required to achieve some RV accuracy
+improvement \rev{as we found out by testing various masking depths}.
 
 % how about masking in real observations?  
 We also applied telluric masking in RV reduction for real
@@ -484,11 +488,11 @@ telluric lines, which we discuss in the next subsection.
 % NEID Plot showing how much you need to model tellurics
 \begin{figure}
 \includegraphics[scale=0.5]{telluric/neid.eps} 
-\caption{Improvements in RV RMS for different ``level" of telluric
-  modeling/removal. For example, the mid point labeled with ``50\%, 33 cm/s"
+\caption{\rev{Improvements in RV RMS for different ``level" of telluric
+  modeling/removal.} For example, the mid point labeled with ``50\%, 40 cm/s"
   means that if you model your telluric absorption lines to 50\% of
   their original depths, the effects of the residual telluric
-  absorption will add 33 cm/s in quadrature to your final RV RMS. The
+  absorption will add 40 cm/s in quadrature to your final RV RMS. The
   blue point marks the RV RMS for simulations with Poisson noise and
   complex IP on HD 185144, which represents the photon-limited RV
   precision (subject to additional numeric or algorithmic errors; see
@@ -506,12 +510,13 @@ from a priori knowledge or an additional free parameter. In principle,
 the oxygen column density can also be a free parameter, not because
 the amount of oxygen varies on a noticeable level, but just to allow
 some compensation for errors in atmospheric temperature and pressure
-profile and so on. We do not fit for oxygen in our simulation or
-treatment for real observations in this work for simplicity, and also
-because the chunks contaminated with oxygen lines are in the reddest
-part near 6300\AA, where the amount of iodine and stellar contents are
-minimal anyway, and these chunks tend to be thrown away or heavily
-de-weighted in the final RV weighting process.
+profile and so on, \rev{in order to model the oxygen lines more
+precisely}. We do not fit for oxygen in our simulation or treatment
+for real observations in this work for simplicity, and also because
+the chunks contaminated with oxygen lines are in the reddest part near
+6300\AA, where the amount of iodine and stellar contents are minimal
+anyway, and these chunks tend to be thrown away or heavily de-weighted
+in the final RV weighting process.
 
 % the goal of modeling
 Modeling telluric absorption lines to high precision (below 1--2\% RMS
@@ -529,7 +534,7 @@ precision and accuracy as much as possible. A central question is: how
 well do we need to model telluric lines to reach a certain RV
 precision \citep{eprv2015}?
 
-% how well should we model?
+% how well should we model?  
 To answer this question under the context of iodine-calibrated RV, we
 performed RV extractions on the simulated HD 185144 data with telluric
 absorption (all with pwv $=$ 1.0~mm, as described in
@@ -540,35 +545,38 @@ Figure~\ref{telluric:fig:neid}. All three simulations were run with
 simulated spectra of HD 185144 with pwv 1.0~mm, but the one labeled
 ``0\%'' has no telluric modeling in the RV extraction, while the one
 labeled with ``50\%'' has synthetic telluric lines with pwv 0.5~mm in
-the forward modeling process, and ``100\%'' meaning using telluric
-model with pwv 1.0~mm, the same as the injected telluric lines. In
-addition, we also used telluric model with pwv 1.1~mm in the forward
-modeling, which basically produced the same RV RMS as the ``100\%''
-simulation with no visible RV-BC trends or correlations. Extrapolating
-between the results, a $\geq$90\% modeling accuracy for the water
-lines would control the RV RMS contribution from tellurics to below
-10~cm/s, which is near or beyond target precision for the next
-generation RV spectrographs. This modeling is very easy to achieve in
-reality.
+the forward modeling process, \rev{and ``90\%'' meaning using telluric
+model with pwv 0.9~mm. In addition, we also used telluric model with
+pwv 1.0~mm and 1.1~mm in the forward modeling, which produced similar
+RV RMS as the ``90\%'' simulation with no visible RV-BC trends or
+correlations. A $\sim$90\% modeling accuracy for the water lines would
+control the RV RMS contribution from tellurics to below 20~cm/s, which
+is near the target precision for the next generation RV
+spectrographs. This level of modeling precision is very easy to
+achieve in reality. However, it is worrisome that even 100\% modeling
+with pwv 1.0~mm cannot eliminate the increase in RV RMS completely. To
+improve beyond 20 cm/s, we think that a next-generation Doppler code
+is needed.}
 
 % well actually vanking did a lot of heavy lifting
 One important point to notice is that the reason why the damage of
-10\% telluric modeling residual is controlled down to $\leq$10~cm/s is
+10\% telluric modeling residual is controlled down to $\leq$20~cm/s is
 the additional masking and weighting process in the Doppler code,
 i.e., ``vanking'' (Chapter~\ref{chap:doppler}). In another word, a
 combination of modeling (even only to 90\% precision) and statistical
 weighting can effectively control the RV RMS introduced by tellurics
-to $\leq$10~cm/s. Weighting plays a role in telluric contamination
+to $\leq$20~cm/s. Weighting plays a role in telluric contamination
 remedy because it is essentially performing some masking on the
 chunks that are badly contaminated by tellurics and/or have large
 modeling residuals, such as the ones near 6300\AA\ with deep oxygen
-lines and little stellar or iodine content.  Chunks with deep and
+lines and little stellar or iodine content. Chunks with deep and
 numerous oxygen lines are normally thrown out completely, and other
 contaminated chunks which suffer from low precision will receive lower
 weights and thus cast a lower impact on the final precision and
 accuracy. In reality, we are using a combination of modeling and
 masking or weighting to tackle problem of telluric contamination,
 which we believe is the optimal solution for iodine-calibrated RVs.
+
 
 \subsubsection{How about real observations?}\label{keck:telluric:real}
 
@@ -668,11 +676,13 @@ caused by the telluric contamination, we formulated a recipe to
     atmospheric conditions such as wind. 
   \item Fitting these two parameters is not a straightforward
     least-$\chi^2$ problem, because stellar lines are also present in the
-    spectrum and we do not have an input model for them. Thus, instead
-    of minimizing residuals between model (broadened and shifted
-    telluric lines) and data (deconvolved telluric lines plus stellar
-    lines), we minimize the flux above the continuum level to find
-    best-fit parameters and the best-fit telluric model.
+    spectrum and we do not have an input model for them. Thus, instead of
+    minimizing residuals between model (broadened and shifted telluric
+    lines) and data (deconvolved telluric lines plus stellar lines), we
+    minimize the flux above the continuum level to \rev{optimize the parameters
+    and the telluric model. In the future, we hope to incorporate this
+    into the code for making DSSTs (see Chapter~\ref{chap:doppler}), i.e.,
+    fitting for telluric lines and stellar lines at the same time.}
   \item We divide out the best-fit telluric model from the DSST to
     obtain a cleaned DSST.
   \end{enumerate}

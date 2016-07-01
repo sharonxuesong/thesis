@@ -101,8 +101,8 @@ FITS files containing the extracted 1-D spectrum for each spectral
 order.  We adopted the REDUCE reduction package by
 \cite{2002A&A...385.1095P}. Sarah Gettel and Steve Bongiorno did the
 initial adoption of the REDUCE package for reducing \het\ data. It
-involved much parameter tuning with the original package to make this
-optimal extraction code, which was designed for slit-fed spectrometer
+involved much parameter tuning with the original package to make
+this package, which was designed for slit-fed spectrometers
 like \keck\ and Lick/Hamilton, to work with the fiber-fed HRS data.
 The most important modification we did was to automate the routine for
 tracing the echelle orders on the spectral image, which used to
@@ -111,7 +111,7 @@ help the code recognize the traces). Capitalize on the fact that the
 shape of the order traces do not change significantly across time, we
 use a set of previously fit polynomials that describe the trace
 positions and shift them to match the traces on the raw image via
-cross correlation. We also wrote wrapper routines to automate patch
+cross correlation. We also wrote wrapper routines to automate bulk
 reduction for \het\ observation programs or any single target star.
 
 The second part of our data pipeline is the code that extracts RVs
@@ -142,12 +142,13 @@ from their own spectra.\\
   path?). The default log file should be in the {\tt /bary/} folder but
   it can be customized via keywords of {\tt dop\_driver.pro}.
 \item A {\tt vd} example file (an IDL save file) which contains an
-  example {\tt vd} structure for the spectrograph. The {\tt vd}
-  structure also contains definition for spectral chunks, i.e.\ their
-  orders and starting and ending pixels. It also contains first guesses
-  for the parameters for each chunk (most importantly, a rough
-  wavelength solution which must be good within 20 pixels). This should
-  be in the {\tt /files/} folder.
+  example {\tt vd} structure for the spectrograph (see
+  Chapter~\ref{chap:doppler} for more details). The {\tt vd} structure
+  also contains definition for spectral chunks, i.e.\ their orders and
+  starting and ending pixels. It also contains first guesses for the
+  parameters for each chunk (most importantly, a rough wavelength
+  solution which must be good within 20 pixels). This should be in the
+  {\tt /files/} folder.
 \item An IPGUESS file (IDL save file) with the structure {\tt
     ipguess}, which contains the JD and file names for the {\tt vd} files
   to be used as first guesses of parameters. The {\tt ipguess} structure
@@ -164,7 +165,7 @@ from their own spectra.\\
 \begin{itemize}
 \item {\tt dop\_driver.pro}
   \begin{itemize}
-    \item Add a keyword to distinguish runs for your instrument, e.g.,
+    \item Add a keyword to distinguish jobs for your instrument, e.g.,
       ``het=het'' for \het\ reductions.
     \item Add codes to define necessary data paths near line 124.
     \item Add a line near line 406 so that the code recognize the
@@ -191,7 +192,7 @@ from their own spectra.\\
   example, the name of your log file as identifier). Then near line 80,
   you want to define a full file name for your reduced 1-D spectra based
   on the observation ID.
-\item Making your own DSST? {\tt
+\item Making your own DSST: {\tt
     /rv/deconv/deconvolve\_stellar\_template.pro} contains the code to
   make DSST using \het\ data. A quick walk through {\tt
     make\_dsst\_keck\_psu.pro} and compare it with {\tt make\_dsst.pro}
@@ -227,7 +228,7 @@ code. It is also found out later that the RVs produced using the \het\
 DSST are better than the ones with \keck\ DSST, possibly because the
 errors in the deconvolution and the forward modeling (convolution)
 would cancel out if the DSST and star$+$iodine data come from the same
-telescope, which is a folklore among the iodine precise RV artists.
+telescope, which is commenly agreed among the iodine precise RV artists.
 
 %----------------------------------------------------------------
 % HET sig dra RV data, Keck DSST vs. HET DSST
@@ -324,7 +325,7 @@ lessons for iodine-calibrated precise RV work:
   \item The IP functional forms for fiber-fed spectrographs probably
 differ quite significantly from slit-fed ones, and it is important to
 find a good IP function which not only describes the IP well but also
-has good convergence properties for the forward modeling.
+has good convergence properties for the forward modeling
 fitter. Initial guesses on IP parameters could play an important role.
   \item The iodine atlas provided by FTS scans should not be taken for
 granted as the ``ground truth''. There are challenges with FTS

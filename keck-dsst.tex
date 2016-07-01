@@ -75,12 +75,13 @@ mostly from the deconvolution algorithm and random errors from the
 photon noise and the CPS Doppler code/algorithm. The current CPS code
 uses an unconventional ``deconvolution'' algorithm written by John
 Johnson, which forward models the underlying stellar spectrum by
-adding nodes of Gaussians at places of stellar lines, convolving that
+adding Gaussians at places of stellar lines, convolving that
 with the derived IP from B star frames, and minimizing the $\chi^2$ to
 find depths and positions of the Gaussian nodes. CPS has used other
 deconvolution algorithms such as the Jansson constrained nonlinear
 method, which did not out-perform the current recipe using ``piston
-Gaussians''.
+Gaussians'' (Ming Zhao, Jason Wright, and John Johnson, private
+communications). 
 
 The RV-BC patterns in the middle panels of Figure~\ref{keck:fig:dsst}
 are different from the real observed RV-BC trends, which we

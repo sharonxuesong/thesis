@@ -63,9 +63,11 @@ F_{\star}'(\lambda(x)) \right] \ast \curlyp(x),
 where $\lambda(x)$ is the wavelength solution for the 1-D spectrum,
 and $F_{\star}'$ is the red-shifted stellar spectrum defined by
 $F_{\star}'(\lambda) = F_{\star}(\lambda\cdot(1+z))$. The Doppler shift $z$
-contains two components: the stellar RV $v_{\star}$ and the barycentric (BC)
-velocity of the Earth $v_{\rm BC}$. The BC component is corrected by
-$v_{\star} = v_{\rm measured} + v_{\rm BC} + z \cdot v_{\rm BC}$.
+contains two components: the stellar RV $v_{\star}$ and the
+barycentric (BC) velocity of the telescope with respect to the star
+$v_{\rm BC}$. The BC component is corrected by $v_{\star} = v_{\rm
+measured} + v_{\rm BC} + z \cdot v_{\rm BC}$ (the last term being
+relativistic correction).
 
 % relative RV measurement to DSST
 The stellar reference spectrum is empirically derived from iodine-free
@@ -123,7 +125,7 @@ by the proposed wavelength solution parameters $w_0$ and $w_d$. Next,
 it shifts the stellar reference spectrum according to the proposed
 Doppler shift parameter $z$. Then it multiplies the shifted stellar
 reference spectrum with the iodine reference spectrum, and then
-convolves the product spectrum by the IP. Finally, it re-bins the
+convolves the product spectrum by the IP. Then it re-bins the
 finely sampled model spectrum onto the observed pixel grid, which
 yields the final normalized model spectrum $F_{\rm model, norm}(x)$.
 
@@ -185,21 +187,23 @@ from a scan in 1993, using the Babar FTS at NSO/KPNO, and so is the
 atlas for \het. See Section~\ref{het:sec:fts} for more on iodine
 reference spectra.
 
-% how DSST is made
-The stellar reference spectrum for any star, or internally to CPS
-referred to as the Deconvolved Stellar Spectral Template (DSST), is
-empirically derived from observed spectra of the target star. For most
-of the CPS targets (bright stars), a few (4-5) observations of the
-star with a narrower slit ($R \geq 80,000$) are taken without the
-iodine cell in the light path. Then they are stacked together to boost
-the SNR ($>500$), and then deconvolved with proper IPs derived from
-bracketing B star $+$ iodine observations. The wavelength solution for
-the DSST also comes from the bracketing B star $+$ iodine
-observations. For faint stars where obtaining stellar
-template is expensive or unfeasible, \cite{2006ApJ...647..600J}
-developed a technique where they ``morph" a synthetic stellar spectrum
-or an existing DSST of another star with similar stellar properties to
-fit the stellar iodine observation, and then they use this new morphed
+% how DSST is made 
+The stellar reference spectrum for any star, or
+internally to CPS referred to as the Deconvolved Stellar Spectral
+Template (DSST), is empirically derived from observed spectra of the
+target star. For most of the CPS targets (bright stars), a few (4-5)
+observations of the star with a narrower slit ($R \geq 80,000$) are
+taken without the iodine cell in the light path consecutively. \rev{Then
+the extracted 1-D stellar spectra are shifted and stacked together to
+boost the SNR ($>500$), and then deconvolved with proper IPs derived
+from two groups of B star $+$ iodine observations taken immediately
+before and after the iodine-free stellar observations.} The wavelength
+solution for the DSST also comes from the bracketing B star $+$ iodine
+observations. For faint stars where obtaining stellar template is
+expensive or unfeasible, \cite{2006ApJ...647..600J} developed a
+technique where they ``morph" a synthetic stellar spectrum or an
+existing DSST of another star with similar stellar properties to fit
+the stellar iodine observation, and then they use this new morphed
 DSST for RV extraction.
 
 
@@ -307,8 +311,11 @@ Chapter~\ref{chap:het} Section~\ref{het:sec:ip} for more.
 
 This section documents the structure of the CPS Doppler code, with the
 main goal to help any reader who wishes to adopt this code for their
-own work. Figure~\ref{doppler:fig:flowchart} illustrates the code's
-calling sequence. 
+own work.\footnote{\rev{Although the code is not publicly available, the
+readers can requests a copy of the code to one of the main authors/maintainers
+(e.g., John Johson, Andrew Howard, Paul Butler, and so on.}}
+Figure~\ref{doppler:fig:flowchart} illustrates the code's calling
+sequence.
 
 
 %----------------------------------------------------------------
@@ -330,20 +337,21 @@ and then automatically locate input files such as the extracted 1-D
 spectra, the proper DSST file, the iodine atlas, and the files storing
 initial guesses for parameters (which are called the {\tt vdiod}
 files). The code is also very flexible with inputs and the user can
-specify almost anything, e.g., a specific DSST file, choice for a
+specify things like a specific DSST file, choice for a
 specific IP model, explicit initial guesses for parameters, and so
 on. It drives the Doppler analysis and output a {\tt vd} file for each
-observed spectrum, which contains best-fit parameters and other
+observed spectrum, which is an IDL save file that contains best-fit parameters and other
 information for all the spectral chunks. At the end, {\tt
   dop\_driver.pro} calls {\tt jjvank.pro}, which combines the RVs from
 all the chunks in all the observations for this star, and evaluates
-numerical weights for each chunk and each observation. Finally, {\tt
+numerical weights for each chunk and each observation (see
+Section~\ref{doppler:sec:vanking} for more details on weighting). Finally, {\tt
   jjvank.pro} computes the weighted RV for each observation and its RV
 uncertainty and outputs the information in {\tt vst} files. The most
 useful variable is the {\tt cf3} structure in the {\tt vst} file,
 which contains, for example, the Julian Date (JD) of the observation
 {\tt cf3.jd}, the BC {\tt cf3.bc}, the weighted RV {\tt cf3.mnvel},
-and its uncertainty {tt cf3.errvel}. The algorithm for {\tt
+and its uncertainty {\tt cf3.errvel}. The algorithm for {\tt
   jjvank.pro}, or ``vanking", is described in the next
 section. In the end, {\tt dop\_driver.pro} will produce $N_{\rm obs}$
 {\tt vd} files and one {\tt vst} file for each star. If a new
@@ -351,46 +359,53 @@ observation is taken, a new {\tt vd} file is created, and vanking
 re-evaluates the chunk and observation weights and outputs a new {\tt
   vst} file.
 
-% crank.pro and the three passes
-While {\tt dop\_driver.pro} is the routine to call for Doppler
-analysis, most of its actual codes simply deal with logistical work
-such as locating the right files. The real driver behind the scene is
-{\tt crank.pro}, which contains the loop through all observations and
-``fills out" the {\tt vd} files. In a standard CPS reduction routine,
-{\tt crank.pro} is called three times. In the case of \keck\ standard
-RV reduction, for example, the first time {\tt crank.pro} is called,
-it fits for all 15 free parameters ($z$, $w_0$, $w_d$ and 12 IP
-parameters; see Table~\ref{doppler:tab:rvpar}) for each chunk in each
-observation. The LM fitter takes in the initial guesses for parameters
-from B star $+$ iodine solutions and tries its best to optimize the 15-parameter
-model. Due to the complexity of this multi-modal and multi-dimensional
-problem, very often the best fit for this ``first pass" does not yield
-a good global minimum on the $\chi^2$ surface. Therefore a second
-pass of {\tt crank.pro} is called, with fixed IP parameters and thus
-only three free parameters. The IP parameters are not simply fixed to last
-round's best-fit values, but instead, they were fixed to describe an
-``averaged" IP over a region on the CCD chip (for example, over a
-neighbor of nine chunks across three spectral orders for the central
-chunk). After the second pass, a third pass of {\tt crank.pro} is
-called with fixed wavelength dispersion $w_d$ and only floating $z$
-and $w_0$, in search for a deeper minimum or lower $\chi^2$.
+% crank.pro and the three passes 
+While {\tt dop\_driver.pro} is the
+routine to call for Doppler analysis, most of its actual codes simply
+deal with logistical work such as locating the right files. The real
+driver behind the scene is {\tt crank.pro}, which contains the loop
+through all observations and ``fills out" the {\tt vd} files. In a
+standard CPS reduction routine, {\tt crank.pro} is called three
+times. In the case of \keck\ standard RV reduction, for example, the
+first time {\tt crank.pro} is called, it fits for all 15 free
+parameters ($z$, $w_0$, $w_d$ and 12 IP parameters; see
+Table~\ref{doppler:tab:rvpar}) for each chunk in each observation. The
+LM fitter takes in the initial guesses for \rev{IP and wavelength
+solution parameters from the nearest B star $+$ iodine solutions and
+optimizes} the 15-parameter model. Due to the complexity of this
+multi-modal and multi-dimensional problem, very often the best fit for
+this ``first pass" does not yield the global minimum on the $\chi^2$
+surface. Therefore a second pass of {\tt crank.pro} is called, with
+fixed IP parameters and thus only three free parameters. The IP
+parameters are not simply fixed to last round's best-fit values, but
+instead, \rev{they were fixed to averaged IP parameters over a region
+on the CCD chip (for example, using the mean values of IP parameters
+in fits for the closest eight neighboring chunks and also the central
+chunk itself)}. After the second pass, a third pass of {\tt crank.pro}
+is called with fixed wavelength dispersion $w_d$ and only floating $z$
+and $w_0$, in search for a deeper minimum or lower
+$\chi^2$. \rev{There is no evidence that this procedure finds the
+global minimum, but it certainly suffice for delivering RVs at a
+precision of 2 m/s (or $\sim$ 20-50 m/s for a single spectral chunk).}
 
-% other layers inside crank.pro
-Within {\tt crank.pro}, the code calls for {\tt stargrind.pro} in a
-loop of all observations. {\tt stargrind.pro} does the model fitting
-for a single observation, and it loops through all spectral chunks,
-calling {\tt starsolve.pro}, which contains the LM fitter, for each
-chunk. Inside {\tt starsolve.pro}, the spectral model is computed
+% other layers inside crank.pro 
+Within {\tt crank.pro}, the code calls
+{\tt stargrind.pro} in a loop of all observations. {\tt stargrind.pro}
+drives the model fitting for a single observation, where it loops
+through all spectral chunks, calling {\tt starsolve.pro}, which
+contains the LM fitter, for each chunk. Inside {\tt starsolve.pro},
+the spectral model \rev{for each LM fitter iteration} is computed
 using {\tt starham.pro}, which is really just a wrapper around {\tt
-  starsyn.pro}. The core algorithm for model construction is all in
-{\tt starsyn.pro}, which takes in the observed 1-D spectral chunk, the
+starsyn.pro}. The core algorithm for model construction is all in {\tt
+starsyn.pro}, which takes in the observed 1-D spectral chunk, the
 DSST, the iodine atlas, and the model parameters, and outputs a model
-spectrum for this chunk. 
+spectrum for this chunk, using formulae described in the previous
+section.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Adjusting Offsets and Computing Weights for Chunk RVs}
+\section{Adjusting Offsets and Computing Weights for Chunk RVs}\label{doppler:sec:vanking}
 
 Now all observations and all chunks have their best-fit model parameters
 computed by {\tt crank.pro}, and all RVs are barycentric
@@ -402,25 +417,26 @@ can have an RV time series in hand, and they are accomplished by {\tt
   vdclean.pro} (see Figure~\ref{doppler:fig:flowchart} for the calling
 sequence).
 
-% need to adjust chunk zero point
-First, the chunk RVs need to be adjusted so that they have the same
-``zero point". Ideally, measured RVs from all chunks in one
-observation are good estimates for the true RV of this epoch, so the
-mean of all chunk RVs provides an unbiased estimate for the true RV
-and their scatter provides a sense for the RV uncertainty. However, in
-reality, some effects may cause the chunk RV to be biased and have a
-constant offset from the true RV. One of the leading culprits is the
-error in the wavelength solution of a DSST. As mentioned in the
-previous section, the measured RV for each chunk at a certain epoch
-$T_{\rm obs}$ is a relative RV against the DSST taken at epoch $T_0$,
-$v_{\star, T_{\rm obs}} - v_{\star, T_0}$. This is because the stellar lines
-and their Doppler shift in each chunk are modeled by red-shifting the
-DSST: $F_{\star}'(\lambda) = F_{\star}(\lambda\cdot(1+z))$. The wavelength
-solution for the DSST implies its absolute RV $v_{\star, T_0}$ at
-$T_0$. If the wavelength solution for all DSST chunks corresponds to
-the exact same value of $v_{\star, T_0}$, then measured RVs for all
-chunks in the observed stellar iodine observation would have the same
-``zero point". Consequently, any biases or relative errors in the DSST
+% need to adjust chunk zero point 
+First, the chunk RVs need to be
+adjusted so that they have the same ``zero point". Ideally, measured
+RVs from all chunks in one observation are good estimates for the true
+RV of this epoch, so the mean of all chunk RVs provides an unbiased
+estimate for the true RV and their scatter provides a sense for the RV
+uncertainty. However, in reality, some effects may cause the chunk RV
+to be biased and have a constant offset from the true RV. One of the
+leading culprits is the error in the wavelength solution of a DSST. As
+mentioned in the previous section, the measured RV for each chunk at a
+certain epoch $T_{\rm obs}$ is a relative RV against the DSST taken at
+epoch $T_0$, $v_{\star, T_{\rm obs}} - v_{\star, T_0}$. This is
+because the stellar lines and their Doppler shift in each chunk are
+modeled by red-shifting the DSST: $F_{\star}'(\lambda) =
+F_{\star}(\lambda\cdot(1+z))$. The wavelength solution for the DSST
+implies its absolute RV $v_{\star, T_0}$ at $T_0$. If the wavelength
+solution for all DSST chunks corresponds to the exact same value of
+$v_{\star, T_0}$, then measured RVs for all chunks in the observed
+stellar iodine observation would have the same ``zero
+point". Consequently, any biases or relative errors in the DSST
 wavelength solution would result in a shifted zero point for that
 chunk with respect to other chunks. For example, one source of error
 comes from the fact that the wavelength solution for DSST is derived
@@ -429,14 +445,15 @@ the wavelength solution for the orders and pixels remain the same
 between the B star and the DSST observations. Or, the wavelength
 solution derived from B star observations may be imperfect. There are
 also other reasons why the RV zero point of a chunk deviates from the
-other chunks. Things like persisting CCD effect and certain errors in
-iodine atlas or DSST can cause biases in RV estimates that contain a
-constant shift component. In the end, the inconsistent RV zero points
-will translate into RV scatter as we take the average of all chunk RVs
-to estimate the RV for one observation. Thus, it is very important to
-determine and correct for the chunk RV zero point offsets.
+other chunks. Things like persisting CCD effect \rev{(such as CCD
+stitching)} and certain errors in iodine atlas or DSST can cause biases
+in RV estimates that contain a constant shift component. In the end,
+the inconsistent RV zero points will translate into RV scatter as we
+take the average of all chunk RVs to estimate the RV for one
+observation. Thus, it is very important to determine and correct for
+the chunk RV zero point offsets.
 
-% need to compute weights for each chunk and observation
+% need to compute weights for each chunk and observation 
 Second, not all spectral chunks are equal in terms of the quality of
 their reported RVs, meaning that we need to take a weighted
 average. There are several reasons why one chunk would consistently
@@ -444,16 +461,16 @@ have a larger RV scatter than the other. The most obvious one is
 difference in the amount of Doppler information contained in the
 chunks. Some chunks have more and/or deeper stellar/iodine lines,
 which make them more powerful in accessing the RV information of the
-star. Some chunks land on the peak of the blaze, which constantly give
-them more SNR over the chunks down near the bottom. Some chunks may
-contain stellar lines that have more sensitive response to stellar
-activity, which would manifest as RV scatter or ``jitter". This is not
-an exhaustive list, but the important thing is that there could be
-many reasons which we know or do not know, and even for some of the
-things we do know, we could have no way of estimate how much extra RV
-scatter it would introduce to the chunk. Therefore, it is most
-sensible to derive the chunk weights empirically, rather than using
-any a priori ones.
+star. Some chunks land on the peak of the echelle blaze function,
+which constantly give them more SNR over the chunks down near the
+bottom. Some chunks may contain stellar lines that have more sensitive
+response to stellar activity, which would manifest as RV scatter or
+``jitter". This is not an exhaustive list, but the important thing is
+that there could be many reasons which we know or do not know, and
+even for some of the things we do know, we could have no way of
+estimate how much extra RV scatter it would introduce to the
+chunk. Therefore, it is most sensible to derive the chunk weights
+empirically, rather than using any a priori ones.
 
 % the algorithm
 Overall, the algorithm for vanking works like this:
@@ -470,24 +487,26 @@ Overall, the algorithm for vanking works like this:
   one observation with the other observations.
 \end{itemize} 
 
-% the specifics
+% the specifics 
 To be specific, most of the heavy lifting is done in {\tt vel.pro} and
 {\tt vdclean.pro}. First {\tt vel.pro} calls {\tt vdcube.pro}, which
-combines all {\tt vd} structures stored in the {\tt vd} files for all the
-good observations. A good observation is defined by: (1) median photon
-counts for all chunks is within a user-defined range; and (2) median
-$\chi_\nu^2$ values of all chunks is lower than the user-defined
-threshold. Otherwise {\tt vdcube.pro} will throw out the bad
-observation and print out warning messages. Second, the {\tt vd} cube
-put together by {\tt vdcube.pro} gets passed on to {\tt vdclean.pro},
-and {\tt vdclean.pro} performs a series tasks including quality checks, outlier
-rejections, RV zero point offset adjustment, and finally the
-computation of chunk weights, i.e., it
+combines all {\tt vd} structures stored in the {\tt vd} files for all
+the good observations. A good observation is defined by: (1) median
+photon counts for all chunks is within a user-defined range
+\rev{(e.g., above SNR 50 and well below CCD saturation)}; and (2)
+median $\chi_\nu^2$ values of all chunks is lower than the
+user-defined threshold \rev{(e.g., 10 for \keck\ default)}. Otherwise
+{\tt vdcube.pro} will throw out the bad observation and print out
+warning messages. Second, the {\tt vd} cube put together by {\tt
+vdcube.pro} gets passed on to {\tt vdclean.pro}, and {\tt vdclean.pro}
+performs a series tasks including quality checks, outlier rejections,
+RV zero point offset adjustment, and finally the computation of chunk
+weights, i.e., it
 \begin{enumerate}
 \item Throws out chunks with bad DSST or containing no Doppler
   information (meaning it has a weight of 0 as calculated following
   the method described in \citealt{butler1996}).
-\item Rejects the chunks where the fitter constantly fails to converge
+\item Rejects the chunks where the fitter always fails to converge
   (indicated by setting $\chi_\nu^2$ to 0 or 100 in the code).  
 \item Rejects the bottom 1\% (or other user-defined threshold) of the
   chunks which have the highest photon-limited RV errors (calculated
@@ -550,7 +569,9 @@ RV uncertainty,
 \sigma_{v_j} = \left(\sqrt{\sum_{i=1}^Mw_{i,j}}.\right)^{-1}.
 \eeq
 $v_j$ nad $\sigma_{v_j}$ are then passed back to {\tt jjvank.pro} and
-stored in the {\tt cf3} structure in the {\tt vst} file for the star.
+stored in the {\tt cf3} structure in the {\tt vst} file for the
+star. \rev{This formula assumes Gaussian errors for the RVs, which is
+probably false and thus it probably underestimates the uncertainty.}
 
 % Closing remarks
 The algorithm of vanking does not have the most rigorous statistical

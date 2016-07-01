@@ -21,3 +21,11 @@ telescope pupil change -> spot in fiber changes -> pupil fill more at center -> 
 
 -----------------------------
 Suvrath
+
+Add text on alternative explanation for iodine cell temperature rise:
+
+- calculate heating of the glass;
+- calculate gas thermalization (between gas molecules and gas and glass);
+- more on connecting hardware to software.
+
+Add HD 185144 Vogt et al. tentative planet claim plots to Chapter 4.
