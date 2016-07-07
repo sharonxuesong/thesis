@@ -29,3 +29,75 @@ Add text on alternative explanation for iodine cell temperature rise:
 - more on connecting hardware to software.
 
 Add HD 185144 Vogt et al. tentative planet claim plots to Chapter 4.
+
+
+-----------------------------
+Misc information to address Suvrath's comments:
+
+Law of heat conduction, or Fourier's law:
+https://en.wikipedia.org/wiki/Thermal_conduction
+See the 1-D differential form.
+
+Emission spectrum of halogen lamp:
+http://www.azom.com/images/Article_Images/ImageForArticle_10813(2).jpg
+According to Sam Halverson, the one they used at their NEID lab peaks at around 1um and has a power of 20W.
+
+Absorption spectrum of Pyrex:
+http://www.me.mtu.edu/~microweb/chap4/ch4-0.htm
+actually:
+http://www.me.mtu.edu/~microweb/GRAPH/Laser/GLASS.JPG
+
+Heat conductivity of Pyrex:
+http://www.azom.com/article.aspx?ArticleID=4765
+
+Scripts for numerically estimating black body absorption in certain bands:
+function bbfunc,x
+return x^3/(exp(x)-1)
+end
+norm = qsimp('bbfunc',0.01,30,/double) ; smaller or larger bonds are unnecessary anyway
+kb = 1.38d-23 ; boltzman const
+h = 6.5d-34 ; planck const
+T = T=2.9d-3/1d-6 ; temperature of BB, assuming peak at 1um
+print,3d8/2.5d-6*h/kb/T ; 2.5um converted to integration variable x = h*f/(kb*T), f = frequency in Hz
+The rest is easy.
+
+Mean free path of ideal gas:
+http://hyperphysics.phy-astr.gsu.edu/hbase/kinetic/menfre.html
+
+Size of iodine molecule:
+http://www.sciencedirect.com/science/article/pii/0008622375900160
+http://www.nature.com/nature/journal/v118/n2979/abs/118802a0.html
+
+Specific heat of iodine gas:
+http://hyperphysics.phy-astr.gsu.edu/hbase/kinetic/shegas.html#c4
+https://en.wikipedia.org/wiki/Heat_capacity
+
+Specific heat of pyrex:
+http://www.engineeringtoolbox.com/specific-heat-solids-d_154.html
+
+Thermal conductivity of air:
+http://www.engineersedge.com/heat_transfer/thermal-conductivity-gases.htm
+
+Thermal conductivity of iodine gas:
+https://books.google.com/books?id=DFo1sZBwdNgC&pg=PA36&lpg=PA36&dq=thermal+conductivity+of+iodine+vapor&source=bl&ots=YNLqnyEchC&sig=kjquHVMLvyXjBB_ssNapBw_lcY4&hl=en&sa=X&ved=0ahUKEwiK6OXD7NzNAhUINT4KHaWZAHoQ6AEIKjAC#v=onepage&q=thermal%20conductivity%20of%20iodine%20vapor&f=false
+and
+http://hyperphysics.phy-astr.gsu.edu/hbase/thermo/thercond.html
+with help from:
+http://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html
+
+Emission bands of iodine:
+http://www.nature.com/nature/journal/v160/n4071/abs/160643b0.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
