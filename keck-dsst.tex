@@ -153,15 +153,15 @@ of stellar and iodine lines and a lack of telluric lines.
 %----------------------------------------------------------------
 
 \rev{The RV-BC pattern induced by the errors in the DSST can be very
-detrimental to planet search, because it has a large amplitude (m/s in
-HD 185144 \keck\ data) and it manifests as spurious signals at a
-period of one sidereal year and its harmonics. For example,
-\cite{apfpaper} tentatively claims a planet candidate around HD
-185144, with period of $\sim$308 days and a mass of 12 $\mearth$. They
-show, in their Figure 16, a power spectrum/periodogram of the HD
-185144 \keck\ RVs, with the dominant peak around 300 days. However,
-the errors in the DSST can produce a spurious periodic signal just
-like this, as shown by the red dashed lines in
+detrimental to planet search, because it manifests as spurious signals
+at a period of one sidereal year and its harmonics with a large
+amplitude (m/s in HD 185144 \keck\ data). For example, \cite{apfpaper}
+tentatively claims a planet candidate around HD 185144, with a period
+of $\sim$308 days and a mass of 12 $\mearth$. They show, in their
+Figure 16, a power spectrum/periodogram of the HD 185144 \keck\ RVs,
+with the dominant peak around 300 days (and a harmonic around 180
+days). However, the errors in the DSST can produce a spurious periodic
+signal just like this, as shown by the red dashed lines in
 Figure~\ref{keck:fig:scargle}. Before these errors are eliminated, it
 would be very hard to argue for the existence of any planet with such
 orbital periods, which, unfortunately, coincides with the Habitable
@@ -171,12 +171,13 @@ Zones around Sun-like stars.}
 % Chunk illustration of effect of imperfect DSST
 % plot made by ~/Exo.../Keck.../simulate.../msplot.pro, plot_name='makefakedsst','chunkcomp'
 \begin{figure}
-\includegraphics[scale=0.3]{keck/scargle_185144_new.eps}
+\centering
+\includegraphics[scale=0.5]{keck/scargle_185144_new.eps}
 \caption{\rev{Lomb-Scargle periodograms for HD 185144 RVs using real (black
 line) or simulated (red dashed line) \keck\ data. The spurious peaks
-near 180 and 360 days are caused by systematics which correlates with
+near 180 and 360 days are caused by systematic errors which correlates with
 BCs. In the case of the simulated data, we know that this systematic
-rises from the errors in the DSST because all other conditions are
+arises from the errors in the DSST because all other conditions are
 kept ``perfect''. For the real data, it is a combination of DSST
 errors and other systematics (such as, potentially, telluric
 contamination). }

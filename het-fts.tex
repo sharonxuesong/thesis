@@ -691,44 +691,59 @@ temperature in the following subsection.}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\rev{Cause for A Higher Iodine Gas Temperature}}
+\subsection{\rev{Cause for a Higher Iodine Gas Temperature}}
 
-Throughout the FTS scans at NIST and the TS12 experiment, the
-temperature probe on the \het\ iodine cell stayed at
+Throughout the FTS scans at NIST and the TS12 experiment, the readings
+of the temperature probe on the \het\ iodine cell stayed at
 70$\degree$C. However, as we demonstrated above, the temperature of
 the iodine gas in the cell appears to be higher: 110$\degree$C for the
-NIST FTS scan and 90$\degree$C for the TS12 spectrum.
+NIST FTS scan and 100$\degree$C for the TS12 spectrum with the
+$70\degree$C setting.
 
-The first potential explanation is that the temperature probe was
-malfunctioning. It does not report a true temperature, but is rather
-biased towards a lower reading than the true temperature. This has to
-be true for both the old and the new temperature probes to explain
-temperature anomalies in both the NIST scans (using the old probe) and
-the TS12 spectra (using the new probe).
+One potential explanation is that the temperature probe was
+malfunctioning. It does not report a true temperature but is biased
+towards a lower reading than the actual temperature. This has to be
+true for both the old and the new temperature probes to explain the
+estimated gas temperatures in both the NIST scans (measured using the old
+probe) and the TS12 spectra (using the new probe).
 
-The second one is that the temperature probe was working, but there
-was a temperature gradient in the cell, which would not be detectable
-by the single temperature probe on the glass (the \keck\ cell has two
-probes: one in the middle and one at the end of the cell). This sounds
-plausible, especially as an explanation for high temperature exhibited
-by the NIST scan. As recalled by Jason Wright, the halogen lamp used
-for the NIST scan, which provided the continuum emission shining
-through the iodine cell, was exceptionally bright. It was a lamp with
-a power of $1\ kW$ and the room was considerably warmed up by this
-lamp. For our calculation below, we are going to use the iodine glass
-cell specifics for the \keck\ cell from \cite{butler1996}, because we
-do not have the data for the \het\ cell. The \keck\ cell is 10 cm
-long, and 5 cm in diameter on the windows, with a gas pressure of 0.01
-atm at 50$\degree$C. We do know that the \keck\ and \het\ cells are
-very similar in size and gas density, so it should suffice for our
-order-of-magnitude calculations.
+An alternative explanation is that the temperature probe was working,
+but either there was a temperature gradient in the cell, or the gas
+was at a higher temperature while the glass cell stayed cool. These
+two alternative scenarios seem plausible, especially as an explanation
+for the high temperature of the gas for the NIST scans. As recalled by
+Jason Wright, the halogen lamp used for the NIST scan, which provided
+the continuum emission shining through the iodine cell, was
+exceptionally bright. It was a lamp with a power of $1\ kW$ and the
+room was considerably warmed up by this lamp. We discuss the
+possibility of these two scenarios below through order-of-magnitude
+estimates. We use the iodine cell properties for the \keck\ cell from
+\cite{butler1996} for these estimates, because we do not have the data
+for the \het\ cell. The \keck\ cell is a Pyrex glass cylinder that is
+10 cm long, and 5 cm in diameter on the windows, with a gas pressure
+of 0.01 atm at 50$\degree$C. We do know that the \keck\ and \het\
+cells are very similar in size and gas column density, so it should suffice
+for our order-of-magnitude calculations.
+
+
+%------------------------------------------------------------------
+\subsubsection{Temperature Gradient in the Glass}
 
 We first see if shining such a bright light at the cell would induce a
-large enough temperature gradient {\it in the cell glass} (made of
+large enough temperature gradient in the cell glass (made of
 Pyrex) to explain the difference between the gas temperature
 (110$\degree$C) and the temperature probe reading (70$\degree$C,
-assuming correct). According to the law of heat conduction, or
-Fourier's law (in its 1-D differential form):
+assuming correct). The \het\ cell only has one temperature probe, and
+this is true for the old enclosure used at NIST and the new one at
+TS12 (the \keck\ cell has two probes: one in the middle and one at the
+end of the cell). A temperature gradient in the glass cell could mean
+that the heated glass on one side can bring the gas inside to a higher
+temperature, while the glass on the other side with the temperature
+probe stays at $70\degree$C. To sustain a temperature gradient, there
+needs to be a continuous heat input, which would be the halogen lamp
+shining on the cell. According to the law of heat conduction, or
+Fourier's law (in its 1-D differential form), the temperature gradient
+can be estimated via: 
 \beq
 q = -k \frac{dT}{dx},
 \eeq
@@ -737,64 +752,84 @@ conductivity of the material in $W/m \cdot K$, and $dT/dx$ is the
 temperature gradient in $K/m$.
 
 The heat flux density coming from the halogen lamp can be derived by
-\beq
-q = P_{\rm lamp} \cdot f_{\rm beaming} \cdot f_{\rm absorption} /4\pi D^2,
-\eeq
-where $P_{\rm lamp}=1\ kW$ is the power of the lamp, $f_{\rm beaming}$
-is the beaming factor of the lamp (as it is not isotropically
-radiating towards all directions), $f_{\rm absorption}$ is the
-fraction of heat that the glass absorbs, and $D$ is the distance from
-the lamp to the cell. For a rough estimate, we assume $f_{\rm
-beaming}=3$ (meaning the light from the lamp is filling a solid angle
-of $4\pi/3$) and $D=1$ meter. To estimate $f_{\rm absorption}$, we
-need the emission spectrum of the halogen lamp and the absorption
-spectrum of Pyrex. We can assume the former to be a typical halogen
-lamp spectrum, which is a black-body spectrum with peak around
-$1 \mu$m. The latter is in found in this website: \\ {\tt
+\beq q = P_{\rm lamp} \cdot f_{\rm beaming} \cdot f_{\rm absorption}
+/4\pi D^2, \eeq where $P_{\rm lamp}=1\ kW$ is the power of the lamp,
+$f_{\rm beaming}$ is the beaming factor of the lamp (as it is not
+isotropically radiating towards all directions), $f_{\rm absorption}$
+is the fraction of radiation absorbed by the glass, and $D$ is the
+distance from the lamp to the cell. For a rough estimate, we assume
+$f_{\rm beaming}=3$ (meaning the light from the lamp is filling a
+solid angle of $4\pi/3$) and $D=1$ m. To estimate $f_{\rm
+absorption}$, we need the emission spectrum of the halogen lamp and
+the absorption spectrum of Pyrex. We assume the halogen lamp spectrum
+is a black-body spectrum with peak around $1 \mu$m, which is typical
+for this type of lamps. The transmission spectrum of Pyrex can be in
+found in this website: \\ {\tt
 http://www.me.mtu.edu/~microweb/GRAPH/Laser/GLASS.JPG} (or can be
-found at several other places documenting the properties of
+easily found at several other places documenting the properties of
 Pyrex). Pyrex is largely transparent in the optical, but it has an
-absorption feature near 2.7 $\mu$m and it absorbs UV light short of
-300 nm and IR light longer than 5 $\mu$m. Considering that there was
-an UV filter between the lamp and the iodine cell at the NIST scan,
-$f_{\rm absorption}$ comes from mostly IR. This fraction can be
-estimated by numerically integrate the Planck function for the
+absorption feature near 2.7 $\mu$m and it heavily absorbs UV light
+short of 300 nm and IR light longer than 5 $\mu$m. Considering that
+there was an UV filter between the lamp and the iodine cell at the
+NIST scan, $f_{\rm absorption}$ mostly comes from IR. This fraction
+can be estimated by numerically integrate the Planck function for the
 intervals $[2.5,3.0]\ \mu$m and $[5.0, \inf]\ \mu$m, and $f_{\rm
 absorption}$ turns out to be about 6\% of the total lamp
-emission. From these numbers, $q$ is estimated to be 14.3 $W/m^2$. The
-thermal conductivity ($k$) of Pyrex is a well known number, about
-$k=1.1\ W/m\cdot K$,\footnote{From {\tt
-http://www.azom.com/article.aspx?ArticleID=4765}} since it is a widely
-used and manufactured material.
+emission. From these numbers, $q$ is estimated to be 14.3 $W/m^2$.
+
+The thermal conductivity ($k$) of Pyrex is a well known number, as
+it is a widely used and manufactured material, and it is about
+$k=1.1\ W/m\cdot K$.\footnote{From {\tt
+http://www.azom.com/article.aspx?ArticleID=4765, for example.}}
 
 Plugging in $q$, $k$, and using $dx=10$ cm or 0.1~m (the length of the
-iodine cell; \citealt{butler1996}), $dT$ turns out to be about
+iodine cell), $dT$ turns out to be about
 1.4~$K$. Considering the fact that the light is shining on the window
 of the glass cell and then being conducted down the thin cylinder
 shell, $q$ may be boosted by a factor of a few
 (assuming the thickness of the glass is a couple mm). This
 means that the temperature gradient is unlikely to be as large
-as $40\degree$C, though plausible given our crude method of
-estimation. Using the specific heat of Pyrex, $C_P = 0.75\ J/g\cdot
-K$,\footnote{From
-http://www.engineeringtoolbox.com/specific-heat-solids-d\_154.html} and
-an input power of $q \times \pi r^2$, where $r=0.025$~m is the radius
-of the iodine cell window, the temperature rise in Pyrex from heating
-of the lamp is small:
+as $40\degree$C, though not completely ruled out given our crude method of
+estimation. However, this amount of heat may not be large enough to
+heat the glass from $70\degree$C to $110\degree$C, or even sustain the
+high temperature of the glass because of its cooling rate. 
+
+First, this amount of energy from the lamp is probably too small to
+cause a significant temperature rise in the glass. Using the specific
+heat of Pyrex, $C_P = 0.75\ J/g\cdot K$,\footnote{From
+http://www.engineeringtoolbox.com/specific-heat-solids-d\_154.html}
+assuming the weight of the glass cell to be $M_{\rm glass} = 100\ g$,
+and using an input power of $q \times \pi r^2$, where $r=0.025$~m is
+the radius of the iodine cell window, the rate of the temperature rise
+in Pyrex from heating of the lamp is:
 \beq
-dT/dt = q\cdot \pi r^2 / C_P M_{\rm glass} = 3.8 \times 10^{-4} K/s,
+dT/dt = q\cdot \pi r^2 / C_P M_{\rm glass} = 3.8 \times 10^{-4}\ K/s.
 \eeq
-assuming the weight of the cell is $M_{\rm glass} = 100\ g$. Assuming
-the glass does not cool, this means the temperature would only rise
-for about 4 $K$ in an hour. Therefore, if the temperature probe is
-working, it is likely that the glass stayed at its reported
-temperature during the NIST FTS scans.
+Even assuming the glass does not cool, this means the temperature would only rise
+for about 4 $K$ in an hour. 
+
+Second, the thermal radiation from the glass alone would cool the
+glass off fast enough. At $T=100\degree$C $= 375.15 K$, the thermal
+radiation has a power of $\sigma T^4 = 1123\ W/m^2$ -- much larger than
+the input energy from the halogen lamp. Even considering that the
+glass is wrapped in thermal insulators and only two windows are
+exposed to the air, this should still be enough to cool the glass down
+fast enough and prevent continuous heating (which would be too slow
+anyway, as argued above).
+
+Therefore, if the temperature probe is working, it is likely that the
+entire glass stayed at its reported temperature instead of having a
+temperature gradient as large as $40\degree$C during the NIST FTS
+scans.
+
+%------------------------------------------------------------------
+\subsubsection{Heated Gas within a Cooler Glass}
 
 Next, we look at the temperature of the iodine gas in the cell. If the
 gas is heated up to a higher temperature without considerably heating
 up the glass, then perhaps the temperature probe was working but it
-was not able to report the temperature of the gas but only the
-glass. First, the small mean free path of the iodine molecule in the
+was only reporting the temperature of the glass but not the
+gas. First, the small mean free path of the iodine molecule in the
 cell suggests that they primarily thermalizes with themselves and then
 with the glass. The mean free path of iodine molecules is estimated by
 using ideal gas assumption:
@@ -806,64 +841,113 @@ is the number density of molecules, $k_B$ is the Boltzmann constant,
 $d$ is the effective diameter of the molecule, and $P$ is the pressure
 of the gas. The iodine gas in the cell has a pressure of about 0.01
 atm or 1 kPa \citep{butler1996}, at a temperature of $110\degree$C or
-475~$K$, with an effective diameter of about
-5\AA\ \citep{JUHOLA1975437,topley1926size}. Using these numbers, the
-mean free path is estimated to be 4.7 $\mu$m, much smaller than the
-size of the glass cell (5 cm in diameter and 10 cm in
-length; \citealt{butler1996}). This means that the gas is not tenuous
-enough so that their thermalization is completely dominated by the
-glass enclosure. If there is additional heating source warming up the
-gas other than the heated glass, the gas could stay at a high
-temperature, while slowly conducting that heat to the glass on a long
-time scale (more than the $\sim$hours time scale of the FTS scan, for
-example).
+385~$K$, with an effective diameter of about 5\AA\
+\citep{JUHOLA1975437,topley1926size}. Using these numbers, the mean
+free path is estimated to be 4.8 $\mu$m, much smaller than the size of
+the glass cell. This means that the gas is not tenuous enough so that
+their thermalization is completely dominated by the glass
+enclosure. The small mean free paths of the iodine molecules does not
+rule out the possibility that the gas stays at a higher temperature
+while the glass stays cooler, since the gas molecules primarily
+thermalize within themselves. But more evidence is needed to support
+this hypothesis.
 
-What is the dominating heat source for the iodine gas? There are three
-heat sources for the gas during the NIST scan: the heated glass cell
+First, what is the dominating heating source for the iodine gas? There are three
+heating sources for the gas during the NIST scan: the heat from the
+temperature controller heater conducted via the glass, the heat from
+the halogen lamp absorbed by the glass then conducted to the gas,
 and the direct radiation from the halogen lamp. According to the
 calculation above, the glass cell probably stays at $70\degree$C, so
 it is not heating up the gas to a higher temperature. 
 
-\begin{comment}
-For the additional heat received by the glass from the lamp, we have
-worked out that the amount is 14.3 $W/m^2$. There are four outlets for
-this received energy: radiative cooling of the glass,
-thermal conduction to the rest of the glass cell, thermal conduction
-to the air, and thermal conduction to the iodine gas within. The
-thermal conductivity of the Pyrex glass is 1.14 $W/m\cdot K$, as
-mentioned before, and the thermal conductivity of the air is about
-$2 \times 10 ^{-2}\ W/m\cdot K$. Both are much larger than the thermal
-conductivity of the iodine gas, which is on the order of
-$10^{-4}$-$10^{-3}\ W/m\cdot K$.\footnote{The estimates for the
-thermal conductivity of iodine gas comes from Page 36
-of \cite{vargaftik1993handbook}, which gives the value of $\sim
-4\times10^{-3}\ W/m\cdot K$ for a gas pressure of about 0.2-0.5
-atm. The estimate of $10^{-4}\ W/m\cdot K$ comes from theoretical
-values assuming ideal gas, $k=n<v>\lambda C_V/3N_A=k_B\sqrt{8RT/\pi
-M}/\pi d^2 \simeq 10^{-4}\ W/m\cdot K$, where $M$ is the molar mass of
-iodine molecule.} This means that the glass will primarily conduct
-along the glass cell itself, and then a smaller fraction to the air,
-and then an even smaller fraction to the iodine gas. Considering the
-factor of $100-1000$ difference in thermal conductivity between
-glass/air and iodine gas, probably only a $< 1$\% of the heat input
-$q=14.3\ W/m^2$ is being conducted to the iodine gas, i.e., $< 0.14\
-W/m^2$.
-\end{comment}
+Second, for the additional heat received by the glass from the lamp,
+we have worked out that the amount is 14.3 $W/m^2$. This is too small
+to heat up the glass, but could this small amount of heat be conducted
+to the iodine gas inside and heat it up? There are four outlets for
+this received energy: radiative cooling of the glass, thermal
+conduction to the rest of the glass cell, thermal conduction to the
+air, and thermal conduction to the iodine gas within. The thermal
+conductivity of the Pyrex glass is 1.14 $W/m\cdot K$, as mentioned
+before, and the thermal conductivity of the air is about $2 \times 10
+^{-2}\ W/m\cdot K$. Both are much larger than the thermal conductivity
+of the iodine gas, which is on the order of $10^{-4}$-$10^{-3}\
+W/m\cdot K$.\footnote{The estimates for the thermal conductivity of
+iodine gas comes from Page 36 of \cite{vargaftik1993handbook}, which
+gives the value of $\sim 4\times10^{-3}\ W/m\cdot K$ for a gas
+pressure of about 0.2-0.5 atm. The estimate of $10^{-4}\ W/m\cdot K$
+comes from theoretical values assuming ideal gas, $k=n<v>\lambda
+C_V/3N_A=k_B\sqrt{8RT/\pi M}/\pi d^2 \simeq 10^{-4}\ W/m\cdot K$,
+where $M$ is the molar mass of iodine molecule.} This means that the
+glass will primarily conduct along the glass cell itself, and then a
+smaller fraction to the air, and then an even smaller fraction to the
+iodine gas. Considering the factor of $100-1000$ difference in thermal
+conductivity between glass/air and iodine gas, probably only a $< 1$\%
+of the heat input $q=14.3\ W/m^2$ is being conducted to the iodine
+gas, i.e., $< 0.14\ W/m^2$. This number would be even smaller if
+thermal radiation of the glass is considered.
 
-The other heating source for the gas is the halogen lamp, which is
-contributing a power of $q \sim 1.7 W/m^2$ (or $3.3 \times 10^{-3}\
-W$, given the radius of the cell window is 2.5 cm) to the iodine gas
--- much larger than the heat conducted from the glass. This number is
-estimated by using the same equation above, but substituting $f_{\rm
-absorption}$ with $0.3 \times 0.024$, 0.3 being the approximate
-fraction of light iodine molecules absorbs in the optical window
-$[500,650]$~nm (estimated from normalized iodine spectrum) and 0.024
-is the fraction of energy emitted the halogen lamp in this wavelength
-range. This is a very small amount of power, but it seems to be
+Third, another heating source for the gas is the halogen lamp, which
+is contributing a power of $q \sim 1.7\ W/m^2$ (or $3.3 \times
+10^{-3}\ W$, given the radius of the cell window is 2.5 cm) to the
+iodine gas. This number is estimated by using the same equation for
+$q$ as above, but substituting $f_{\rm absorption}$ with $0.3 \times
+0.024$, 0.3 being the approximate fraction of light iodine molecules
+absorbs in the optical window $[500,650]$~nm (estimated from
+normalized iodine spectrum) and 0.024 is the fraction of energy
+emitted the halogen lamp in this wavelength range. If the gas was
+heated to beyond $70\degree$C, this would be the primary source of
+heating. However, this amount of power is probably too small. Again,
+the thermal radiation of a $100\degree$C material is $1123\ W/m^2$, as
+calculated above, much larger than the $1.7 W/m^2$ input power. Plus
+the iodine gas also cools via band emission
+\citep{waser1947emission}. Therefore, it is very unlikely that the
+iodine gas was actually heated up to $110\degree$C because of the
+halogen lamp.
+
+Additionally, although the thermalization between the glass and the
+gas might be slow, it would not be at a longer time scale than
+the FTS scan (about a few hours). The specific heat of Pyrex is
+$C_P = 0.75\ J/g\cdot K$, and assuming the iodine gas is at
+$T=100\degree$C and the glass is at $T=70\degree$C:
+\beq
+dT/dt = \frac{(\sigma T_{\rm gas}^4 - \sigma T_{\rm glass}^4)\cdot
+  A}{C_P M_{\rm glass}} = 0.05\ K/s,
+\eeq 
+where $A$ is the surface area of the iodine cell, on the order of
+$10^{-2}\ m^2$. This is probably a lower limit, because the iodine gas
+would also emit band emission which will be absorbed by the glass (in
+UV) and the glass would not cool very efficiently as it was wrapped in
+thermal insulators. Therefore, if the gas was heated up to
+$100\degree$C, then the glass would be heated up by the gas fast
+enough to change the reading on the temperature probe.
+
+To summarize the findings above, it is highly unlikely that the glass
+underneath the temperature probe was at $70\degree$C while the iodine
+gas inside was at $110\degree$C. This means that a biased temperature
+probe or a malfunctioning temperature controller is the most likely
+explanation for the NIST FTS scans and the TS12 spectra. One possible
+scenarios is that, if the heater
+of the temperature controller was turned on the entire time, the
+temperature of the cell and the gas would have kept rising until they
+had reached an equilibrium, for example, with its thermal
+radiation. This means the power of the temperature controller heater
+was $1123 \times 10^{-2}\ W = 11\ W$, which sounds plausible. This
+would explain why all three NIST scans, supposedly taken at 65, 70,
+and 75$\degree$C, all look like they were at $110\degree$C.
+
+We believe that the difference between the iodine atlas
+and reality as a result of gas temperature changes or differences is the
+most likely reason behind \het's under-performance in RV precision
+compared with \keck. We outline potential solutions to improve the RV
+precision of \het\ archival data and our recommendations for the new
+HRS in the conclusion section of this Chapter.
+
+\begin{comment}
+This is a very small amount of power, but it seems to be
 significant for the small amount of iodine gas in the cell. The
 specific heat of iodine gas is around $C_v \simeq$ 2.5-3.5 $R \simeq$
 20-30 $J/mol\cdot K$, of typical values for diatomic gas, and we can
-derive the amount of iodine from the temperature, pressure, and volumn
+derive the amount of iodine from the temperature, pressure, and volume
 of the cell, which gives
 \beq
 \frac{dT}{dt} = \frac{P_{\rm lamp}}{C_V\cdot N} = \frac{P_{\rm lamp}RT}{C_V\cdot PV},
@@ -881,9 +965,10 @@ means that the heat received by the gas basically all goes back to the
 glass. But this amount of heat ($3.3 \times 10^{-3}\ W$) is too small
 to heat up the Pyrex glass: assuming the glass weighs 100 $g$, using
 its specific heat $C_P = 0.75\ J/g\cdot K$, $dT/dt$ would be $4 \times
-10^{-5}\ K/s$. There is simply too little iodine gas inside to do the work.
+10^{-5}\ K/s$. There is simply too little iodine gas inside to do the
+work.
 
-To summarize the findings above, it is plausible that during the NIST
+It is plausible that during the NIST
 scan, the iodine gas in the cell was heated up to a higher temperature
 by the radiation from the halogen lamp while the glass stayed at
 $70\degree$C. The amount of iodine inside is too little to heat up the
@@ -919,10 +1004,5 @@ temperature for \het\ observations, but some preliminary fits on the
 iodine flats and the fact that the \keck\ scan gives a better fit
 for \het\ data suggest that the iodine gas temperature was higher than
 $70\degree$C.
+\end{comment}
 
-In summary, we believe that the difference between the iodine atlas
-and reality as a result of temperature changes or differences is the
-most likely reason behind \het's under-performance in RV precision
-compared with \keck. We outline potential solutions to improve the RV
-precision of \het\ archival data and our recommendations for the new
-HRS in the conclusion section of this Chapter.
